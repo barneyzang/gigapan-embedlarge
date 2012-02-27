@@ -1,0 +1,27 @@
+gigapan-embedlarge
+Joseph Saracino
+
+This repository has a few files that show how create to webpages that display a gigapan image and a few thumbnails.  In particular, this pages show how to embed a gigpan image that takes a much greater advantage of the browser window and provides a few extra features that aren't in the standard embedding wizards or, AFAIK, documented anywhere else.
+
+- Doesn't the gigapan website already have a wizard that does this?
+Yes.  However, the code it produces is relativelty limited (doesn't have a full-screen button, is kind of small, no snapshots, etc)
+
+- Why not just view gigapans on the regular gigapan website?
+IMHO, the default gigapan.org pages are bit cluttered and don't take advantage of the maximum size of these typically very large images.  This code is intended to remove the clutter and focus on the image.
+
+- Why is there so much cut and paste necessary to make this work?
+The gigapan website doesn't have a dynamic API to query details about images (eg a list of snapshots, etc).  Without this, it's necessary to take a look at the generated page code and copy it into another page.  I've tried to make the html as easy as possible to swap in your own info.
+
+- Where did you get most of the code to do this?
+I started from a forum post on the gigapan.org website (http://gigapan.org/forums/15/topics/64) and, inspired by some work done by one of the contributors ('tip of the hat to Ronnie Miranda), started hacking around with the different pieces to make my own pages.
+
+- Could this all break if the Gigapan folks change their code?
+Yep.
+
+- Why did you do XXX this way?  Are you some kind html/css/js idiot?
+Yes -- I'm very much a novice with web coding (I probably have just enough knowledge to be dangerous).  So, forgive my slash and hack efforts to get this all to work.  I'm posting this so that others with more refined web-coding skills will have the opportunity to clean it up (or throw it all-away) as appropriate.
+
+
+
+
+

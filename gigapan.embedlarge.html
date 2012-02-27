@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+<head>
+	<title>Test of code to embed Gigapans in webpages</title>
+	
+	<link rel="stylesheet" type="text/css" href="gigapan.embedlarge.css">
+
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript"> var $j = jQuery.noConflict();</script>
+<script type="text/javascript" src="swfobject.js"></script>
+<script type="text/javascript" src="gigapan.embedlarge.js"></script>
+<script type="text/javascript" src="gigapan.snapshots.embedlarge.js"></script>
+</head>
+
+<div class="header">
+	<div class="title">Mandarin Oriental - <a href="http://gigapan.org/gigapans/98703">view on gigapan.org</a></div>
+	<div class="info">taken 01/03/2012, 1.09 gigapixels</div>
+</div>
+
+<div class="gigapan-view">
+	<div id="flashholder">
+		<noscript>
+			<div class="user-warning">
+				<h1>This content requires JavaScript and Adobe Flash.</h1>
+				<p>Please enable JavaScript in your web browser.</p>
+			</div>
+		</noscript>
+	</div>
+</div>
+<div class="snapshots">snapshots
+	<ol id="snapshots">
+	</ol>
+</div>
+
+
+<script type="text/javascript">
+//<![CDATA[
+
+// copy this line from the page served by gigapan.org (typically around line 787)
+var gigapan = {"gigapan":{"is_game":false,"id":98703,"tile_server_path":"http://tile98.gigapan.org/gigapans0/98703/tiles/","height":25808,"levels":9,"width":42228}};
+
+// Snapshots
+// copy these lines from the page served by gigapan.org (typically starting around line 826)
+var snapshots = {
+	current_page: 1,
+	per_page: 40,
+	total_entries: 11,
+	total_pages: 1,
+	items: [{"snapshot":{"comment_count":0,"ymax":19854.7,"name":"Photoshoot","conversation_views":0,"xmax":41502.2,"created_at":"2012-02-15T20:18:51-05:00","truncated_name":"Photoshoot...","ymin":19559.1,"updated_at":"2012-02-22T20:27:57-05:00","is_question":false,"thumbnail_uri":"http://static.gigapan.org/snapshots0/98703/images/262183-90x60.jpg","xmin":41058.8,"views":3,"id":262183,"gigapan_id":98703,"user_id":36972,"description":"Photoshoot at Embarcadero center.","options":{"comment_count":0}}},
+			{"snapshot":{"comment_count":0,"ymax":9216.0,"name":"Ferry","conversation_views":0,"xmax":12695.6,"created_at":"2012-02-14T21:15:22-05:00","truncated_name":"Ferry","ymin":9035.75,"updated_at":"2012-02-23T07:22:56-05:00","is_question":false,"thumbnail_uri":"http://static.gigapan.org/snapshots0/98703/images/262091-90x60.jpg","xmin":12425.2,"views":4,"id":262091,"gigapan_id":98703,"user_id":18592,"description":".","options":{"comment_count":0}}},
+			{"snapshot":{"comment_count":0,"ymax":12039.7,"name":"TCHO chocolate","conversation_views":0,"xmax":24473.3,"created_at":"2012-02-13T12:08:05-05:00","truncated_name":"TCHO choco...","ymin":11701.8,"updated_at":"2012-02-24T15:33:00-05:00","is_question":false,"thumbnail_uri":"http://static.gigapan.org/snapshots0/98703/images/261858-90x60.jpg","xmin":23966.5,"views":8,"id":261858,"gigapan_id":98703,"user_id":36972,"description":"Good chocolate.","options":{"comment_count":0}}},
+			{"snapshot":{"comment_count":0,"ymax":8683.8,"name":"Pan Am terminal at Treasure Island","conversation_views":0,"xmax":40997.6,"created_at":"2012-02-12T22:12:57-05:00","truncated_name":"Pan Am ter...","ymin":8220.7,"updated_at":"2012-02-13T03:05:46-05:00","is_question":false,"thumbnail_uri":"http://static.gigapan.org/snapshots0/98703/images/261790-90x60.jpg","xmin":40302.9,"views":2,"id":261790,"gigapan_id":98703,"user_id":36972,"description":"Where the seaplanes used to pull-up.","options":{"comment_count":0}}},
+			{"snapshot":{"comment_count":0,"ymax":8206.2,"name":"Satellite Dish","conversation_views":0,"xmax":30584.2,"created_at":"2012-02-12T22:12:09-05:00","truncated_name":"Satellite ...","ymin":7874.35,"updated_at":"2012-02-25T04:14:45-05:00","is_question":false,"thumbnail_uri":"http://static.gigapan.org/snapshots0/98703/images/261789-90x60.jpg","xmin":30086.4,"views":3,"id":261789,"gigapan_id":98703,"user_id":36972,"description":"Made by Scientific Atlanta, apparently.","options":{"comment_count":0}}},
+			{"snapshot":{"comment_count":0,"ymax":7711.2,"name":"Nike Missile radar cutouts","conversation_views":0,"xmax":14185.0,"created_at":"2012-02-12T22:11:11-05:00","truncated_name":"Nike Missi...","ymin":7348.05,"updated_at":"2012-02-12T23:51:36-05:00","is_question":false,"thumbnail_uri":"http://static.gigapan.org/snapshots0/98703/images/261788-90x60.jpg","xmin":13640.2,"views":2,"id":261788,"gigapan_id":98703,"user_id":36972,"description":"These were apparently cut into the hillside so the radar system had a better view to the north.","options":{"comment_count":0}}},
+			{"snapshot":{"comment_count":0,"ymax":8092.25,"name":"Alcatraz Lighthouse","conversation_views":0,"xmax":8894.55,"created_at":"2012-02-12T22:10:10-05:00","truncated_name":"Alcatraz L...","ymin":7869.85,"updated_at":"2012-02-13T03:05:46-05:00","is_question":false,"thumbnail_uri":"http://static.gigapan.org/snapshots0/98703/images/261787-90x60.jpg","xmin":8561.0,"views":3,"id":261787,"gigapan_id":98703,"user_id":36972,"description":"You can see the tourists walking around.","options":{"comment_count":0}}},
+			{"snapshot":{"comment_count":0,"ymax":18259.6,"name":"Shadow of the Mandarin Oriental","conversation_views":0,"xmax":41876.9,"created_at":"2012-02-12T22:07:25-05:00","truncated_name":"Shadow of ...","ymin":13050.8,"updated_at":"2012-02-23T02:52:29-05:00","is_question":false,"thumbnail_uri":"http://static.gigapan.org/snapshots0/98703/images/261786-90x60.jpg","xmin":34063.1,"views":3,"id":261786,"gigapan_id":98703,"user_id":36972,"description":"We were on the top floor landing, in the middle, between the two antennas.","options":{"comment_count":0}}},
+			{"snapshot":{"comment_count":0,"ymax":7198.75,"name":"Flag","conversation_views":0,"xmax":27346.2,"created_at":"2012-02-12T22:06:03-05:00","truncated_name":"Flag","ymin":6780.7,"updated_at":"2012-02-12T23:51:43-05:00","is_question":false,"thumbnail_uri":"http://static.gigapan.org/snapshots0/98703/images/261785-90x60.jpg","xmin":26719.2,"views":2,"id":261785,"gigapan_id":98703,"user_id":36972,"description":"Closeup on the flag.","options":{"comment_count":0}}},
+			{"snapshot":{"comment_count":0,"ymax":14979.2,"name":"Balcony","conversation_views":0,"xmax":21643.2,"created_at":"2012-02-12T22:04:08-05:00","truncated_name":"Balcony","ymin":14799.3,"updated_at":"2012-02-24T03:36:20-05:00","is_question":false,"thumbnail_uri":"http://static.gigapan.org/snapshots0/98703/images/261784-90x60.jpg","xmin":21373.5,"views":2,"id":261784,"gigapan_id":98703,"user_id":36972,"description":"Hanging out on the balcony.","options":{"comment_count":0}}},
+			{"snapshot":{"comment_count":0,"ymax":9444.65,"name":"Coit Tower","conversation_views":0,"xmax":11646.5,"created_at":"2012-02-12T22:03:33-05:00","truncated_name":"Coit Tower...","ymin":7914.5,"updated_at":"2012-02-13T02:05:54-05:00","is_question":false,"thumbnail_uri":"http://static.gigapan.org/snapshots0/98703/images/261783-90x60.jpg","xmin":9351.15,"views":2,"id":261783,"gigapan_id":98703,"user_id":36972,"description":"Coit Tower","options":{"comment_count":0}}}],
+	url: '/gigapans/98703/snapshots.json'
+};
+// End Snapshots
+
+// Build the list of snapshots along the bottom
+Filmstrip.setup();
+
+//]]>
+</script>
+
+</html>
