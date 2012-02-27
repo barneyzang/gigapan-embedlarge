@@ -1,10 +1,10 @@
 gigapan-embedlarge
 Joseph Saracino
 
-This repository has a few files that show how create to webpages that display a gigapan image and a few thumbnails.  In particular, this pages show how to embed a gigpan image that takes a much greater advantage of the browser window and provides a few extra features that aren't in the standard embedding wizards or, AFAIK, documented anywhere else.
+This repository has a few files that show how create to webpages that display a gigapan image and a few thumbnails.  In particular, this pages show how to embed a gigapan image that takes a much greater advantage of the browser window and provides a few extra features that aren't in the standard embedding wizards or, AFAIK, documented anywhere else.
 
 - Doesn't the gigapan website already have a wizard that does this?
-Yes.  However, the code it produces is relativelty limited (doesn't have a full-screen button, is kind of small, no snapshots, etc)
+Yes.  However, the code it produces is relatively limited (doesn't have a full-screen button, is kind of small, no snapshots, etc)
 
 - Why not just view gigapans on the regular gigapan website?
 IMHO, the default gigapan.org pages are bit cluttered and don't take advantage of the maximum size of these typically very large images.  This code is intended to remove the clutter and focus on the image.
@@ -15,13 +15,30 @@ The gigapan website doesn't have a dynamic API to query details about images (eg
 - Where did you get most of the code to do this?
 I started from a forum post on the gigapan.org website (http://gigapan.org/forums/15/topics/64) and, inspired by some work done by one of the contributors ('tip of the hat to Ronnie Miranda), started hacking around with the different pieces to make my own pages.
 
-- Could this all break if the Gigapan folks change their code?
+- Could this all break if the GigaPan folks change their code?
 Yep.
 
 - Why did you do XXX this way?  Are you some kind html/css/js idiot?
 Yes -- I'm very much a novice with web coding (I probably have just enough knowledge to be dangerous).  So, forgive my slash and hack efforts to get this all to work.  I'm posting this so that others with more refined web-coding skills will have the opportunity to clean it up (or throw it all-away) as appropriate.
 
 
+
+
+So, how do I make this work?
+-----------------------------
+1.  Find the gigapan image you'd like to use on gigapan.org  (eg, http://gigapan.org/gigapans/98719)
+
+2.  Make a copy of gigapan.embedlarge.html (eg, name it gigapan.test.html)
+
+3.  Open up the source of the gigapan.org page (eg, from Chrome on OSX, select View->Developer->ViewSource
+
+4.  Copy the line that starts with "var gigapan . . ." (typically around ~816) into line 40 of your new gigapan.test.html file (these are the parameters that are fed to the embedded flash viewer).
+
+5.  Copy the lines that start with "var snapshots = . . ." until "// End Snapshots" (typically lines 855 - ~863, depending on the number of snapshots you have).  Note that I added line breaks in the sample html that aren't in the generated pages -- these don't actually matter.
+
+6.  Touch up the title and details manually on lines 16 and 17 (remember to fix the link to the actual webpage on gigapan.org).
+
+7.  Load all the files up on your webserver and try it all out.
 
 
 
