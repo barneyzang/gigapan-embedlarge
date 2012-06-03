@@ -1,22 +1,143 @@
+/**
+ * Gigapan user interface
+ */
 var Gigapan = {
 	setup : function() {
-//		$j.get("/user_header", function(data) {
-//			$j(data).appendTo("#header-list");
-//			Gigapan.Lightbox.setup();
-//		});
-		Gigapan.Lightbox.setup();
-
+		/* Load the current user header info/login box and then set up the Lightbox when complete
+		 */
+		$j.get("/user_header", function(data) {
+			$j(data).appendTo("#header-list");
+			Gigapan.Lightbox.setup();
+		});
 		$j("#flash-box").load("/welcome/flash_box");
 		if(Gigapan.Form.setup) {
 			Gigapan.Form.setup();
+		}(function($j) {
+			$j.fn.jTruncate = function(options) {
+				var defaults = {
+					length : 500,
+					minTrail : 20,
+					moreText : " More",
+					lessText : " Less",
+					ellipsisText : " ...",
+					moreAni : "",
+					lessAni : ""
+				};
+				/* Down arrow, More Text*/
+				var moreObj = {
+					'background' : 'url("/images/sprite_faqs.png") no-repeat scroll 100% 6px transparent',
+					'font-weight' : 'normal',
+					'padding-right' : '8px',
+					'display' : 'inline',
+					'float' : 'right',
+					'width' : 'auto'
+				};
+				/* Up arrow, Less Text*/
+				var lessObj = {
+					'background-position' : '100% -40px'
+				};
+				var options = $j.extend(defaults, options);
+				return this.each(function() {
+					obj = $j(this);
+					var body = obj.html();
+					if(body.length > options.length + options.minTrail) {
+						var splitLocation = body.indexOf(' ', options.length);
+						if(splitLocation != -1) {
+							// truncate tip
+							var splitLocation = body.indexOf(' ', options.length);
+							var str1 = body.substring(0, splitLocation);
+							var str2 = body.substring(splitLocation, body.length - 1);
+							obj.html(str1 + '<span class="truncate_ellipsis">' + options.ellipsisText + '</span>' + '<span class="truncate_more">' + str2 + '</span>');
+							obj.find('.truncate_more').css("display", "none");
+							// insert more link
+							obj.append('<div class="clearboth">' + '<a href="#" class="truncate_more_link" style="color:#F47D30;">' + options.moreText + '</a>' + '</div>');
+							// set onclick event for more/less link
+							var moreLink = $j('.truncate_more_link', obj).css(moreObj);
+							var moreContent = $j('.truncate_more', obj);
+							var ellipsis = $j('.truncate_ellipsis', obj);
+							moreLink.click(function() {
+								if(moreLink.text() == options.moreText) {
+									$j(moreLink).css(lessObj);
+									moreContent.show(options.moreAni);
+									moreLink.text(options.lessText);
+									ellipsis.css("display", "none");
+								} else {
+									moreContent.hide(options.lessAni);
+									$j(moreLink).css(moreObj);
+									moreLink.text(options.moreText);
+									ellipsis.css("display", "inline");
+								}
+								return false;
+							});
+						}
+					} // end if
+				});
+			};
+		})(jQuery);
+		$j().ready(function() {
+			$j('#gigapan-tag-links').jTruncate({
+				length : 550 /* Tags */
+			});
+			$j('#gigapan-description, #stitcher-notes').jTruncate({
+				length : 200 /* GigaPan Description & Stitcher Notes */
+			});
+		});
+/* Competitions Tooltip */
+	$j('#voting-widget h4').each(function() {
+		$j(this).qtip({
+			content : $j(this).next('.gigapan-vote-info'),
+			style : {
+				tip : {
+					corner : false
+				},
+				classes : "ui-tooltip-comp ui-tooltip-comp"
+			},
+			show : {
+				event : "mouseover"
+			},
+			hide : {
+				fixed : true,
+				event : "mouseout",
+				delay : 300
+			},
+			position : {
+				my : 'right top',
+				at : 'bottom right',
+
+				adjust : {
+					method : 'flip horizontal'
+				}
+			}
+		});
+	});
+
+/* tooltips*/ 
+var shared = { /* Shared Styles*/
+	show : 'mouseover',
+	hide : 'mouseout',
+	api : {
+		onRender : function() {
+			$j(this.elements.tooltip).css('z-index', 10000);
 		}
+	},
+	position : {
+		my : 'top left',
+		at : 'bottom right'
+	},
+	style : {
+		classes : 'ui-tooltip-white ui-tooltip-shadow ui-tooltip-rounded',
+		'font-size' : 14
+	}
+}
+/* Search Results and Gigapan Profile */
+$j('span.private-gigapan').qtip($j.extend({}, shared, {
+	content : 'Private GigaPan'
+}));
+
 
 		Gigapan.Detail.setup();
 		$j("#plusone a").text("Google+");
 
-		if($j("#competitions-scroll, #agreement-scroll").length > 0) {
-			Gigapan.Scrollable.setup();
-		}
 		function goToByScroll() {
 			$j(".scroll").click(function(event) {
 				event.preventDefault();
@@ -28,8 +149,7 @@ var Gigapan = {
 			});
 		}
 
-
-		$j("form").quickEach(function() {
+		$j("form").each(function() {
 			this.onsubmit = function() {
 				$j("input").css("display", "block");
 			};
@@ -40,7 +160,6 @@ var Gigapan = {
 		/**
 		 * Section toggle
 		 */
-
 		$j("a.toggle").each(function(e) {
 			var section = $j(this.parentNode);
 			var content = section.children(".content");
@@ -55,6 +174,7 @@ var Gigapan = {
 			});
 		});
 	},
+	/* Fix for Firefox */
 	detectFirefox : function() {
 		var userAgent = navigator.userAgent.toLowerCase();
 		if(userAgent.indexOf("firefox") != -1) {
@@ -151,24 +271,6 @@ var Gigapan = {
 			});
 		}
 	},
-	Scrollable : {
-		elms : [],
-		setup : function(e) {
-			e.update('<div class="scroll-content">' + e.innerHTML + "</div>");
-			e.insert('<div class="scroll-track"><div class="scroll-handle"><span></span></div></div>');
-			e.addClass("scrollable");
-			var content = e.select(".scroll-content").first();
-			var track = e.select(".scroll-track").first();
-			var elm = new Control.ScrollBar(content, track);
-			Gigapan.Scrollable.elms.push(elm);
-		},
-		recalculate : function() {
-			Gigapan.Scrollable.elms.each(function(elm) {
-				elm.recalculateLayout();
-				elm.recalculateLayout();
-			});
-		}
-	},
 	Detail : {
 		setup : function() {
 			Gigapan.Detail.addComment();
@@ -189,7 +291,7 @@ var Gigapan = {
 			var actions = $j('body.detail .share-action');
 			$j(actions).hide();
 			$j("div#detail-share a").each(function(e) {
-				$j(this).bind('click', function() {
+				$j(this).bind('click', function(e) {
 					var id = $j(this).attr("href").replace("#", "");
 					if(id !== "") {
 						$j(actions).each(function(e) {
@@ -201,11 +303,9 @@ var Gigapan = {
 							$j("#" + id).toggle();
 							// Exception: prevent default action on all
 							// links except:
-							if($j(this).is(".share-facebook, .share-blogger, .share-twitter, .share-stumbleupon, .share-reddit ")) {
-								return true;
-							} else {
-								e.preventDefault();
-							}
+							if($j(this).is(".share-link, .share-email, .share-facebook")) {
+								return false;
+							} 
 						}
 					}
 				});
@@ -229,7 +329,7 @@ var Gigapan = {
 							$j("#" + id).toggle();
 							// Exception: prevent default action on all
 							// links except google-earth
-							if($j(this).is(".detail-google-earth")) {
+							if($j(this).is(".detail-google-earth, a.rss-icon, a.detail-competitions")) {
 								return true;
 							} else {
 								e.preventDefault();
@@ -294,6 +394,9 @@ var Viewer = {
 		if( typeof (createAccountURL) != "undefined") {
 			this.fl_vars.createAccountURL = createAccountURL;
 		}
+		if( typeof (emailReminderURL) != "undefined") {
+			this.fl_vars.emailReminderURL = emailReminderURL;
+		}
 	},
 	render : function() {
 		this.fl_vars.url = this.gigapan.tile_server_path;
@@ -349,6 +452,25 @@ function embedCallback(e) {
 		img.setAttribute("src", "/images/get_flash_player.gif");
 		a.appendChild(img);
 		div.appendChild(p);
+	    if ( (navigator.userAgent.indexOf('iPhone') != -1) || (navigator.userAgent.indexOf('iPod') != -1) || (navigator.userAgent.indexOf('iPad') != -1) ) {
+		if (typeof(ios_url) != 'undefined') {
+  		  if (ios_url) {
+		      h1 = document.createElement("h1");
+		      h1_content = document.createTextNode("iOS devices can view the Gigapan here: ");
+		      h1.appendChild(h1_content);	
+		      div.appendChild(h1);
+		      h1 = document.createElement("h1");
+		      a = document.createElement("a");
+		      a.setAttribute("href", ios_url);
+		      a.setAttribute("target", "_blank");
+		      h1.appendChild(a);
+		      a_content = document.createTextNode(ios_url);
+		      a.appendChild(a_content);		
+		      div.appendChild(h1);
+		  }
+		}
+		
+	    }
 		viewer.appendChild(div);
 	}
 }
@@ -420,7 +542,7 @@ function testReady() {
 
 
 $j(window).load(function() {
-	Gigapan.setup();
+//	Gigapan.setup();
 	viewer = document.getElementById("flashholder");
 	if(viewer) {
 		if( typeof (gigapan) != "undefined") {
@@ -709,10 +831,6 @@ $j(function() {
 	$j(".current-selected, .custom-select-wrapper").live("click", function(e) {
 		var $dk = $j(this).parents(".custom-select").first();
 		_openDropdown($dk);
-		if("ontouchstart" in window) {
-			$dk.addClass("cd_touch");
-			$dk.find(".cd_options ul").addClass("scrollable vertical");
-		}
 		e.preventDefault();
 		return false;
 	});
@@ -748,21 +866,6 @@ textFocus = function textFocus() {
 		$j(this).toggleClass("focus_class");
 	});
 };
-jQuery.fn.quickEach = ( function() {
-	var jq = jQuery([1]);
-	return function(c) {
-		var i = -1, el, len = this.length;
-		try {
-			while(++i < len && ( el = jq[0] = this[i]) && c.call(jq, i, el) !== false) {
-			}
-		} catch (e) {
-			delete jq[0];
-			throw e;
-		}
-		delete jq[0];
-		return this;
-	};
-}());
 function flashBrowserLoaded() {
 	Viewer.viewer = document.getElementById('flash_viewer');
 	Viewer.viewer.enableViewer();
