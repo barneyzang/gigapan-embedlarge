@@ -415,7 +415,8 @@ var Viewer = {
 		if( typeof (flash_viewer) == "undefined") {
 			flash_viewer = "http://www.gigapan.org/viewer/GigaPan.swf";
 		}
-		swfobject.embedSWF(flash_viewer, "flashholder", "100%", "100%", "9.0.28.0", "http://www.gigapan.org/viewer/js/expressInstall.swf", this.fl_vars, params, this.fl_attrs);
+//		swfobject.embedSWF(flash_viewer, "flashholder", "100%", "400", "9.0.28.0", "/viewer/js/expressInstall.swf", this.fl_vars, params, this.fl_attrs, embedCallback);
+		swfobject.embedSWF(flash_viewer, "flashholder", "100%", "100%", "9.0.28.0", "http://www.gigapan.org/viewer/js/expressInstall.swf", this.fl_vars, params, this.fl_attrs, embedCallback);
 	},
 	setUserID : function(userID) {
 		if(userID) {
@@ -444,14 +445,14 @@ function embedCallback(e) {
 		h1_content = document.createTextNode("This content requires Adobe Flash.");
 		h1.appendChild(h1_content);
 		div.appendChild(h1);
-		p = document.createElement("p");
-		a = document.createElement("a");
-		a.setAttribute("href", "http://www.adobe.com/go/getflashplayer");
-		p.appendChild(a);
-		img = document.createElement("img");
-		img.setAttribute("src", "/images/get_flash_player.gif");
-		a.appendChild(img);
-		div.appendChild(p);
+//		p = document.createElement("p");
+//		a = document.createElement("a");
+//		a.setAttribute("href", "http://www.adobe.com/go/getflashplayer");
+//		p.appendChild(a);
+//		img = document.createElement("img");
+//		img.setAttribute("src", "/images/get_flash_player.gif");
+//		a.appendChild(img);
+//		div.appendChild(p);
 	    if ( (navigator.userAgent.indexOf('iPhone') != -1) || (navigator.userAgent.indexOf('iPod') != -1) || (navigator.userAgent.indexOf('iPad') != -1) ) {
 		if (typeof(ios_url) != 'undefined') {
   		  if (ios_url) {
