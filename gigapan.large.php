@@ -67,17 +67,37 @@
 <head>
 <title><?php echo $gigapan_newAPI->name; ?></title>
 	
-<link rel="stylesheet" type="text/css" href="gigapan.embedlarge.css">
+	<!-- carousel stuff -->
+	<link rel="stylesheet" type="text/css" href="carousel/richardscarrott-jquery-ui-carousel/css/jquery.rs.carousel.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="carousel/richardscarrott-jquery-ui-carousel/css/jquery.rs.carousel-touch.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="carousel/gigapan.carousel.css" media="all" />
 
-<script type="text/javascript" src="jquery.js"></script>
-<script type="text/javascript"> var $j = jQuery.noConflict();</script>
-<script type="text/javascript" src="swfobject.js"></script>
-<script type="text/javascript" src="gigapan.embedlarge.js"></script>
-<script type="text/javascript" src="gigapan.snapshots.embedlarge.js"></script>
+	<link rel="stylesheet" type="text/css" href="gigapan.embedlarge.css">
+	
+	<script type="text/javascript" src="jquery.js"></script>
+	<script type="text/javascript"> var $j = jQuery.noConflict();</script>
+	<script type="text/javascript" src="swfobject.js"></script>
+
+	<!-- carousel stuff -->
+	<script type="text/javascript" src="carousel/richardscarrott-jquery-ui-carousel/js/lib/jquery.js"></script>
+	<script type="text/javascript" src="carousel/richardscarrott-jquery-ui-carousel/js/lib/jquery.ui.widget.js"></script>
+	<script type="text/javascript" src="carousel/richardscarrott-jquery-ui-carousel/js/jquery.rs.carousel.js"></script>
+	<script type="text/javascript" src="carousel/gigapan.carousel.js"></script>
+
+	<script type="text/javascript" src="gigapan.embedlarge.js"></script>
+	<script type="text/javascript" src="gigapan.snapshots.embedlarge.js"></script>
+
 <?php
 //include("google.analytics.php");
 ?>
 </head>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+		    gigapanCarousel.init($('#container'));
+		});
+	</script>
+
 
 <div class="header">
 	<div class="title"><?php echo $gigapan_newAPI->name; ?> - <a href="http://gigapan.com/gigapans/<?php echo $gigapan_newAPI->id; ?>">view on gigapan.org</a></div>
@@ -89,7 +109,7 @@
 							?>
 							
 							<?php echo $gigapan_newAPI->width; ?> x <?php echo $gigapan_newAPI->height; ?>,
-							<?php printf( "%.2f", ($gigapan_newAPI->resolution/(1000*1000*1000)) ); ?> gigapixels,
+							<?php echo round(($gigapan_newAPI->resolution/(1000*1000*1000)), 2); ?> gigapixels,
 
 							<?php
 							// Show the FOV details if available (the api->field_of_view_w numbers don't always appear to be correct
@@ -116,21 +136,36 @@
 		</noscript>
 	</div>
 </div>
+
 <div class="footer">
-	<div class="snapshots">snapshots
-		<ol id="snapshots">
-		</ol>
+
+	<div class="snapshots">
+		<div id="container">
+			<div id="rs-carousel" class="rs-carousel module">
+				<ul class="rs-carousel-runner" id="snapshots">
+			</div>
+		</div>
 	</div>
+
 	<div class="details">
 		<?php
 			echo 'Gear: ' . 						$imageDetails['Camera make'] . ' ' . $imageDetails['Camera model'] . '<br>';
 			echo 'Capture Time: ' .					$imageDetails['Capture time'] . '<br>';
 			echo 'Aperture: ' . 					$imageDetails['Aperture'] . '<br>';
-			echo 'Exposure: ' . 					$imageDetails['Exposure time'] . '<br>';
+			
+			// make the exposure time more readable
+			$exposureTimeText;
+			if ($imageDetails['Exposure time'] < 1)
+				$exposureTimeText = '1/' . round((1/$imageDetails['Exposure time']));
+			else
+				$exposureTimeText = $imageDetails['Exposure time'];
+			
+			echo 'Exposure: ' . 					$exposureTimeText . '<br>';
 			echo 'ISO: ' .							$imageDetails['ISO'] . '<br>';
 			echo 'Focal Length (35mm equiv.): ' .	$imageDetails['Focal length (35mm equiv.)'] . '<br>';
 		?>
 	</div>
+	<div class="clear"></div>
 </div>
 
 

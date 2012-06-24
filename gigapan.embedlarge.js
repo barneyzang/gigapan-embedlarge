@@ -445,14 +445,14 @@ function embedCallback(e) {
 		h1_content = document.createTextNode("This content requires Adobe Flash.");
 		h1.appendChild(h1_content);
 		div.appendChild(h1);
-//		p = document.createElement("p");
-//		a = document.createElement("a");
-//		a.setAttribute("href", "http://www.adobe.com/go/getflashplayer");
-//		p.appendChild(a);
-//		img = document.createElement("img");
-//		img.setAttribute("src", "/images/get_flash_player.gif");
-//		a.appendChild(img);
-//		div.appendChild(p);
+		p = document.createElement("p");
+		a = document.createElement("a");
+		a.setAttribute("href", "http://www.adobe.com/go/getflashplayer");
+		p.appendChild(a);
+		img = document.createElement("img");
+		img.setAttribute("src", "/images/get_flash_player.gif");
+		a.appendChild(img);
+		div.appendChild(p);
 	    if ( (navigator.userAgent.indexOf('iPhone') != -1) || (navigator.userAgent.indexOf('iPod') != -1) || (navigator.userAgent.indexOf('iPad') != -1) ) {
 		if (typeof(ios_url) != 'undefined') {
   		  if (ios_url) {
@@ -974,8 +974,8 @@ var Filmstrip = {
 		var content = '';
 		for( i = 0, len = items.length; i < len; i++) {
 			var snapshot = items[i].snapshot;
-			content += '<li id="' + snapshot.id + '_slide" class="snapshot">' + 
-						'<h3><a title="View snapshot: ' + snapshot.name + '" id="' + snapshot.id + '_comment" href="#" class="snapshot_title">' + snapshot.truncated_name + '</a></h3>' + 
+			content += '<li id="' + snapshot.id + '_slide" class="rs-carousel-item">' + 
+//						'<a title="View snapshot: ' + snapshot.name + '" id="' + snapshot.id + '_comment" href="#" class="snapshot_title">' + snapshot.truncated_name + '</a>' + 
 						'<a title="View snapshot: ' + snapshot.name + '" id="' + snapshot.id + '_thumbnail" class="photo" href="#"><img src="' + snapshot.thumbnail_uri + '" id="' + snapshot.id + '_img"></a>' + 
 //						'<a title="View Snapshot" id="' + snapshot.id + '_comment_count" href="#" class="comments">' + snapshot.comment_count + '</a>' + 
 						'</li>';
