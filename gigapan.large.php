@@ -88,7 +88,7 @@
 	<script type="text/javascript" src="gigapan.snapshots.embedlarge.js"></script>
 
 <?php
-//include("google.analytics.php");
+include("google.analytics.php");
 ?>
 </head>
 
@@ -150,7 +150,23 @@
 	<div class="details">
 		<?php
 			echo 'Gear: ' . 						$imageDetails['Camera make'] . ' ' . $imageDetails['Camera model'] . '<br>';
-			echo 'Capture Time: ' .					$imageDetails['Capture time'] . '<br>';
+			
+			if (isset($imageDetails['Capture time']))
+			{
+				// Format the capture time, including calculation of elapsed time
+				$captureTimes = explode(" - ", $imageDetails['Capture time']);
+				$captureStart = DateTime::createFromFormat('Y-m-d H:i:s', trim($captureTimes[0]));
+				$captureEnd = DateTime::createFromFormat('Y-m-d H:i:s', trim($captureTimes[1]));
+
+				// Sometimes the date is omitted from the end time, so it's necessary to reparse assuming a slightly different format
+				if (!($captureEnd))
+					$captureEnd = DateTime::createFromFormat('H:i:s', trim($captureTimes[1]));
+
+				$captureElapsedTime = date_diff($captureStart, $captureEnd);
+				$elapsedTimeString = $captureElapsedTime->format('(%H:%I:%S)');
+				echo 'Capture Time: ' .	$captureStart->format('Y-m-d H:i:s') . ' - ' . $captureEnd->format('H:i:s') . ' ' . $elapsedTimeString . '<br>';
+			}
+
 			echo 'Aperture: ' . 					$imageDetails['Aperture'] . '<br>';
 			
 			// make the exposure time more readable
@@ -189,13 +205,14 @@ var ios_url = "http://www.gigapan.com/mobile/iOS/1.0/?id=<?php echo $gigapan_new
 	// Get the snapshot data
 	$snapshots = file_get_contents('http://www.gigapan.com/gigapans/'.$id.'/snapshots.json');
 	$snapshots_items = utf8_encode($snapshots);
+	$snapshots = json_decode($snapshots_items);
 ?>
 
 var snapshots = {
 	current_page: 1,
 	per_page: 40,
 	total_entries: <?php echo count($snapshots); ?>,
-	total_pages: 1,
+	total_pages: <?php echo round((count($snapshots) / 40)); ?>,
 	items: <?php echo $snapshots_items; ?>,
 	url: '/gigapans/<?php echo $gigapan_newAPI->id; ?>/snapshots.json'
 };
