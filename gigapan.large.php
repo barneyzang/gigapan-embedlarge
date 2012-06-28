@@ -88,7 +88,7 @@
 	<script type="text/javascript" src="gigapan.snapshots.embedlarge.js"></script>
 
 <?php
-include("google.analytics.php");
+//include("google.analytics.php");
 ?>
 </head>
 
@@ -164,7 +164,7 @@ include("google.analytics.php");
 
 				$captureElapsedTime = date_diff($captureStart, $captureEnd);
 				$elapsedTimeString = $captureElapsedTime->format('(%H:%I:%S)');
-				echo 'Capture Time: ' .	$captureStart->format('Y-m-d H:i:s') . ' - ' . $captureEnd->format('H:i:s') . ' ' . $elapsedTimeString . '<br>';
+				echo 'Capture Time: ' .	$captureStart->format('H:i:s') . ' - ' . $captureEnd->format('H:i:s') . ' ' . $elapsedTimeString . '<br>';
 			}
 
 			echo 'Aperture: ' . 					$imageDetails['Aperture'] . '<br>';
