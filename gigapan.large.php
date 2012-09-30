@@ -247,7 +247,7 @@ $("#map_toggle").click(function() {
 });
 </script>
 
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<?php include("googlemaps.apikey")?>&sensor=false"></script>
+echo '<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script> \n'
 <script type="text/javascript" src="gigapan.large/gigapan.map.js"></script>
 <script type="text/javascript">
 
