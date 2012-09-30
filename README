@@ -25,11 +25,17 @@ Probably.  I'm a bit of a novice with web coding (I probably have just enough kn
 
 So, how do I make this work?
 -----------------------------
-The php code takes a single parameter corresponding to the gigapan id.  For example:
+1. Download and unzip the files from the github repository.
+2. Copy the decompressed files to an accessible location on your web server (minus the README).
+3. Link to (or directly address) the gigapan.larage.php file with a passed-in parameter corresponding to the gigapan id you’d like to display
+
+For example: http://yourhost.com//gigapan.large.php?id=XXXX” (where XXXX is the id of the gigapn you’d like to display.
+
+Another Example:
 http://www.saracino.com/gigapans/gigapan.large.php?id=98719
 
 
-How does it get the data to be shown?
+How does the code gather the data to be shown?
 -------------------------------------
 The code starts by looking at the "Stitcher Notes" associated with the gigapan id.  If that is empty (which is typical when using 3P stitchers like Autopano), the code looks at the contents of the "Description" associated with the id.  It assumes there is a block at the end of the description starting with "--Image Details--" and parses the remaining text as though it were the "Stitcher Notes" attached by the Gigapan stitching application.
 

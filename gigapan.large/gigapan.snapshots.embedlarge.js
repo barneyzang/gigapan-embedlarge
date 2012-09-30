@@ -55,12 +55,14 @@ function onSnapshotClick(id) {
 
 function zoomToSnapshot(snapshot) {
 	var bb = (snapshot.ymax - snapshot.ymin) * 0.02;
-	return document.getElementById('flash_viewer').setViewBounds(
-		'onSnapshotClickSetViewBoundsReturn',
-		snapshot.xmin - bb,
-		snapshot.ymin - bb,
-		snapshot.xmax + bb,
-		snapshot.ymax + bb);
+	if (!isSnapshotDialogVisible) {
+		return document.getElementById('flash_viewer').setViewBounds(
+			'onSnapshotClickSetViewBoundsReturn',
+			snapshot.xmin - bb,
+			snapshot.ymin - bb,
+			snapshot.xmax + bb,
+			snapshot.ymax + bb);
+	}
 }
 
 

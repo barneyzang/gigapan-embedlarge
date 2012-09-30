@@ -65,27 +65,28 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
 <html>
 <head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title><?php echo $gigapan_newAPI->name; ?></title>
 	
 	<!-- carousel stuff -->
-	<link rel="stylesheet" type="text/css" href="carousel/richardscarrott-jquery-ui-carousel/css/jquery.rs.carousel.css" media="all" />
-	<link rel="stylesheet" type="text/css" href="carousel/richardscarrott-jquery-ui-carousel/css/jquery.rs.carousel-touch.css" media="all" />
-	<link rel="stylesheet" type="text/css" href="carousel/gigapan.carousel.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="gigapan.large/carousel/richardscarrott-jquery-ui-carousel/css/jquery.rs.carousel.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="gigapan.large/carousel/richardscarrott-jquery-ui-carousel/css/jquery.rs.carousel-touch.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="gigapan.large/carousel/gigapan.carousel.css" media="all" />
 
-	<link rel="stylesheet" type="text/css" href="gigapan.embedlarge.css">
+	<link rel="stylesheet" type="text/css" href="gigapan.large/gigapan.embedlarge.css">
 	
-	<script type="text/javascript" src="jquery.js"></script>
+	<script type="text/javascript" src="gigapan.large/jquery.js"></script>
 	<script type="text/javascript"> var $j = jQuery.noConflict();</script>
-	<script type="text/javascript" src="swfobject.js"></script>
+	<script type="text/javascript" src="gigapan.large/swfobject.js"></script>
 
 	<!-- carousel stuff -->
-	<script type="text/javascript" src="carousel/richardscarrott-jquery-ui-carousel/js/lib/jquery.js"></script>
-	<script type="text/javascript" src="carousel/richardscarrott-jquery-ui-carousel/js/lib/jquery.ui.widget.js"></script>
-	<script type="text/javascript" src="carousel/richardscarrott-jquery-ui-carousel/js/jquery.rs.carousel.js"></script>
-	<script type="text/javascript" src="carousel/gigapan.carousel.js"></script>
+	<script type="text/javascript" src="gigapan.large/carousel/richardscarrott-jquery-ui-carousel/js/lib/jquery.js"></script>
+	<script type="text/javascript" src="gigapan.large/carousel/richardscarrott-jquery-ui-carousel/js/lib/jquery.ui.widget.js"></script>
+	<script type="text/javascript" src="gigapan.large/carousel/richardscarrott-jquery-ui-carousel/js/jquery.rs.carousel.js"></script>
+	<script type="text/javascript" src="gigapan.large/carousel/gigapan.carousel.js"></script>
 
-	<script type="text/javascript" src="gigapan.embedlarge.js"></script>
-	<script type="text/javascript" src="gigapan.snapshots.embedlarge.js"></script>
+	<script type="text/javascript" src="gigapan.large/gigapan.embedlarge.js"></script>
+	<script type="text/javascript" src="gigapan.large/gigapan.snapshots.embedlarge.js"></script>
 
 <?php
 //include("google.analytics.php");
@@ -100,7 +101,7 @@
 
 
 <div class="header">
-	<div class="title"><?php echo $gigapan_newAPI->name; ?> - <a href="http://gigapan.com/gigapans/<?php echo $gigapan_newAPI->id; ?>">view on gigapan.org</a></div>
+	<div class="title"><?php echo $gigapan_newAPI->name; ?> - <a href="http://gigapan.com/gigapans/<?php echo $gigapan_newAPI->id; ?>">view on gigapan.com</a></div>
 	<div class="info">taken <?php echo strtok($gigapan_newAPI->taken_at, 'T'); ?>,
 							
 							<?php 
@@ -116,14 +117,17 @@
 							// if a 3P stitcher is used
 							if (isset($imageDetails['Field of view']))
 							{
-								sscanf($imageDetails['Field of view'], "%f %s %s %s %f", $width, $d, $d, $d, $height);
-								print '<img src="fovicon.white.width.png" height="12">';
-								echo $width . '&deg';
-								print ' x <img src="fovicon.white.height.png" height="12">';
+								sscanf($imageDetails['Field of view'], "%f %s %s %s %f", $fov_width, $d, $d, $d, $height);
+								print '<img src="gigapan.large/fovicon.white.width.png" height="12">';
+								echo $fov_width . '&deg';
+								print ' x <img src="gigapan.large/fovicon.white.height.png" height="12">';
 								echo $height . '&deg';
 							}
 							?>
 	</div>
+</div>
+
+<div class="map-full" id="map-full">
 </div>
 
 <div class="gigapan-view">
@@ -138,7 +142,6 @@
 </div>
 
 <div class="footer">
-
 	<div class="snapshots">
 		<div id="container">
 			<div id="rs-carousel" class="rs-carousel module">
@@ -149,7 +152,7 @@
 
 	<div class="details">
 		<?php
-			echo 'Gear: ' . 						$imageDetails['Camera make'] . ' ' . $imageDetails['Camera model'] . '<br>';
+			echo 'Gear: ' . $imageDetails['Camera make'] . ' ' . $imageDetails['Camera model'] . '<br>';
 			
 			if (isset($imageDetails['Capture time']))
 			{
@@ -167,7 +170,7 @@
 				echo 'Capture Time: ' .	$captureStart->format('H:i:s') . ' - ' . $captureEnd->format('H:i:s') . ' ' . $elapsedTimeString . '<br>';
 			}
 
-			echo 'Aperture: ' . 					$imageDetails['Aperture'] . '<br>';
+			echo 'Aperture: ' . $imageDetails['Aperture'] . '<br>';
 			
 			// make the exposure time more readable
 			$exposureTimeText;
@@ -180,8 +183,10 @@
 			echo 'ISO: ' .							$imageDetails['ISO'] . '<br>';
 			echo 'Focal Length (35mm equiv.): ' .	$imageDetails['Focal length (35mm equiv.)'] . '<br>';
 		?>
+			<div class="map_toggle"><a href="#" id="map_toggle">toggle map / image</a></div>
 	</div>
-	<div class="clear"></div>
+
+	</div>
 </div>
 
 
@@ -189,9 +194,11 @@
 
 // Initialize the gigapan variable used to display the main image
 <?php 
-// tile server path is composed of the first 3 significant digits of the id and the id itself
-// example:  "http://tile104.gigapan.org/gigapans0/104141/tiles/"
-$tile_server_path = 'http://tile'.substr($gigapan_newAPI->id, 0, -3).'.gigapan.org/gigapans0/'.$gigapan_newAPI->id.'/tiles/';
+// tile server path is composed of the first 3 significant (or padded out to 2) digits of the id and the id itself
+// example: "http://tile104.gigapan.org/gigapans0/104141/tiles/"
+// example: "http://tile05.gigapan.org/gigapans0/5322/tiles/"
+$tile_id = str_pad($gigapan_newAPI->id, 5, "0", STR_PAD_LEFT);
+$tile_server_path = 'http://tile' . substr($tile_id, 0, -3) . '.gigapan.org/gigapans0/'.$gigapan_newAPI->id . '/tiles/';
 ?>
 var gigapan = {"gigapan":{"is_game":false,
 							"tile_server_path":"<?php echo $tile_server_path; ?>",
@@ -221,5 +228,48 @@ var snapshots = {
 Filmstrip.setup();
 
 </script>
+
+
+
+<script type="text/javascript">
+// Hide the map view until toggled
+$(function() {
+    $('.map-full').hide();
+});
+
+$("#map_toggle").click(function() {
+    $(".gigapan-view").toggle();
+    isSnapshotDialogVisible = !isSnapshotDialogVisible;		// we piggyback on this variable to disable javascript for thumbnails when the map is visible
+
+    $(".map-full").toggle();
+	google.maps.event.trigger(map, 'resize');
+	map.fitBounds(bounds);
+});
+</script>
+
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<?php include("googlemaps.apikey")?>&sensor=false"></script>
+<script type="text/javascript" src="gigapan.large/gigapan.map.js"></script>
+<script type="text/javascript">
+
+<?php 
+// Revert to the JSON fov data if the Image Details version isn't available
+if ( !isset($fov_width) )
+	$fov_width = $gigapan_newAPI->field_of_view_w;
+
+// Disable the map toggle if not all the right data is available
+if ( !isset($gigapan_newAPI->latitude) || !isset($gigapan_newAPI->longitude) || !isset($gigapan_newAPI->heading) || !isset($fov_width) )
+	echo '$(".map_toggle").toggle();';
+else
+	echo 'var map = initialize_map(' . $gigapan_newAPI->latitude . ',' . 
+										$gigapan_newAPI->longitude . ',' . 
+										$gigapan_newAPI->heading . ',' .
+										$fov_width . ');';
+
+?>
+</script>
+
+<?php
+//include("statcounter.php");
+?>
 
 </html>
