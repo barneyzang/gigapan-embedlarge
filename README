@@ -27,7 +27,8 @@ So, how do I make this work?
 -----------------------------
 1. Download and unzip the files from the github repository.
 2. Copy the decompressed files to an accessible location on your web server (minus the README).
-3. Link to (or directly address) the gigapan.larage.php file with a passed-in parameter corresponding to the gigapan id you’d like to display
+3. Create a file called "googlemaps.apikey" in the gigapan.large/folder and put your google maps API key at the top (you can setup a google maps API key here: https://code.google.com/apis/console/)
+3. Link to (or directly address) the gigapan.large.php file with a passed-in parameter corresponding to the gigapan id you’d like to display
 
 For example: http://yourhost.com//gigapan.large.php?id=XXXX” (where XXXX is the id of the gigapn you’d like to display.
 
