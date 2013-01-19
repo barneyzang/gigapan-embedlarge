@@ -152,9 +152,10 @@
 
 	<div class="details">
 		<?php
-			echo 'Gear: ' . $imageDetails['Camera make'] . ' ' . $imageDetails['Camera model'] . '<br>';
+			if ( isset($imageDetails['Camera make']) && isset($imageDetails['Camera model']) )
+				echo 'Gear: ' . $imageDetails['Camera make'] . ' ' . $imageDetails['Camera model'] . '<br>';
 			
-			if (isset($imageDetails['Capture time']))
+			if ( isset($imageDetails['Capture time']) && ($imageDetails['Capture time'] != 'unknown') )
 			{
 				// Format the capture time, including calculation of elapsed time
 				$captureTimes = explode(" - ", $imageDetails['Capture time']);
@@ -170,18 +171,26 @@
 				echo 'Capture Time: ' .	$captureStart->format('H:i:s') . ' - ' . $captureEnd->format('H:i:s') . ' ' . $elapsedTimeString . '<br>';
 			}
 
-			echo 'Aperture: ' . $imageDetails['Aperture'] . '<br>';
+			if ( isset($imageDetails['Aperture']) && ($imageDetails['Aperture'] != 'unknown') )
+				echo 'Aperture: ' . $imageDetails['Aperture'] . '<br>';
 			
-			// make the exposure time more readable
-			$exposureTimeText;
-			if ($imageDetails['Exposure time'] < 1)
-				$exposureTimeText = '1/' . round((1/$imageDetails['Exposure time']));
-			else
-				$exposureTimeText = $imageDetails['Exposure time'];
+			if ( isset($imageDetails['Exposure time']) && ($imageDetails['Exposure time'] != 'unknown') )
+			{
+				// make the exposure time more readable
+				$exposureTimeText;
+				if ($imageDetails['Exposure time'] < 1)
+					$exposureTimeText = '1/' . round((1/$imageDetails['Exposure time']));
+				else
+					$exposureTimeText = $imageDetails['Exposure time'];
+				
+				echo 'Exposure: ' . $exposureTimeText . '<br>';
+			}
+
+			if ( isset($imageDetails['ISO']) && ($imageDetails['ISO'] != 'unknown') )
+				echo 'ISO: ' . $imageDetails['ISO'] . '<br>';
 			
-			echo 'Exposure: ' . 					$exposureTimeText . '<br>';
-			echo 'ISO: ' .							$imageDetails['ISO'] . '<br>';
-			echo 'Focal Length (35mm equiv.): ' .	$imageDetails['Focal length (35mm equiv.)'] . '<br>';
+			if ( isset($imageDetails['Focal length (35mm equiv.)']) && ($imageDetails['Focal length (35mm equiv.)'] != 'unknown') )
+				echo 'Focal Length (35mm equiv.): ' .	$imageDetails['Focal length (35mm equiv.)'] . '<br>';
 		?>
 			<div class="map_toggle"><a href="#" id="map_toggle">toggle map / image</a></div>
 	</div>
@@ -247,7 +256,7 @@ $("#map_toggle").click(function() {
 });
 </script>
 
-echo '<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script> \n'
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<?php include("googlemaps.apikey")?>&sensor=false"></script>
 <script type="text/javascript" src="gigapan.large/gigapan.map.js"></script>
 <script type="text/javascript">
 
