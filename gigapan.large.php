@@ -15,45 +15,55 @@
 //
 // =========================================================================
 
-	// grab the passed in "id"
-	$id='';
-	if (isset($_GET['id']))
-	{ 
-		$id=$_GET['id'];
-	}
-  
-	// Get the data using the new API
-	$contents = file_get_contents('http://www.gigapan.com/gigapans/'.$id.'.json');
-	$contents = utf8_encode($contents);
-	$contents = json_decode($contents);
-	$gigapan_newAPI = $contents->gigapan;
+// Turn on error reporting
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
 
-	// Retrieve a few fields from the stitcher notes if it exists
-	$unparsed_ImageDetails = array();
-	$imageDetails = array();
-	if (isset($gigapan_newAPI->stitcher_notes))
+
+// grab the passed in "id"
+$id='';
+if (isset($_GET['id']))
+{ 
+	$id=$_GET['id'];
+}
+
+// Get the data using the new API
+$contents = file_get_contents('http://www.gigapan.com/gigapans/'.$id.'.json');
+if ($contents == false) {
+	// All bets are off if the id is invalid
+	trigger_error("invalid gigapan id = " . $id, E_USER_ERROR);
+}
+
+$contents = utf8_encode($contents);
+$contents = json_decode($contents);
+$gigapan_newAPI = $contents->gigapan;
+
+// Retrieve a few fields from the stitcher notes if it exists
+$unparsed_ImageDetails = array();
+$imageDetails = array();
+if (isset($gigapan_newAPI->stitcher_notes))
+{
+	$unparsed_ImageDetails = explode("\n", $gigapan_newAPI->stitcher_notes);
+}
+else
+{
+	// otherwise, try to parse the description for pasted in information
+	// note we assume that anything after "--Image Details--" is made up of 
+	// the same key-value pairs that are in the Gigapan stiching notes
+	$description = explode("--Image Details--", $gigapan_newAPI->description);
+	$unparsed_ImageDetails = explode("\n", $description[1]);
+}
+
+// Build the imageDetails key-value array
+foreach($unparsed_ImageDetails as $imageDetailArrayItem)
+{
+	// Only look at lines with a ":" in them
+	if (strpos($imageDetailArrayItem, ': '))
 	{
-		$unparsed_ImageDetails = explode("\n", $gigapan_newAPI->stitcher_notes);
+		$tempImageDetail = explode(": ", $imageDetailArrayItem);
+		$imageDetails[trim($tempImageDetail[0])] = $tempImageDetail[1];
 	}
-	else
-	{
-		// otherwise, try to parse the description for pasted in information
-		// note we assume that anything after "--Image Details--" is made up of 
-		// the same key-value pairs that are in the Gigapan stiching notes
-		$description = explode("--Image Details--", $gigapan_newAPI->description);
-		$unparsed_ImageDetails = explode("\n", $description[1]);
-	}
-	
-	// Build the imageDetails key-value array
-	foreach($unparsed_ImageDetails as $imageDetailArrayItem)
-	{
-		// Only look at lines with a ":" in them
-		if (strpos($imageDetailArrayItem, ': '))
-		{
-			$tempImageDetail = explode(": ", $imageDetailArrayItem);
-			$imageDetails[trim($tempImageDetail[0])] = $tempImageDetail[1];
-		}
-	}
+}
 
 	// Get the data using the old API (no longer needed)
 //	$contents = file_get_contents('http://api.gigapan.com/beta/gigapans/'.$id.'.json');
@@ -87,6 +97,8 @@
 
 	<script type="text/javascript" src="gigapan.large/gigapan.embedlarge.js"></script>
 	<script type="text/javascript" src="gigapan.large/gigapan.snapshots.embedlarge.js"></script>
+	<script type="text/javascript" src="gigapan.large/gigapan.embedlarge-sd.js"></script>
+
 
 <?php
 //include("google.analytics.php");
@@ -102,28 +114,29 @@
 
 <div class="header">
 	<div class="title"><?php echo $gigapan_newAPI->name; ?> - <a href="http://gigapan.com/gigapans/<?php echo $gigapan_newAPI->id; ?>">view on gigapan.com</a></div>
-	<div class="info">taken <?php echo strtok($gigapan_newAPI->taken_at, 'T'); ?>,
-							
-							<?php 
-								// Show the number of images and columns x rows if available
-								if (isset($imageDetails['Input images']))  { echo $imageDetails['Input images'] . ', '; }
-							?>
-							
-							<?php echo $gigapan_newAPI->width; ?> x <?php echo $gigapan_newAPI->height; ?>,
-							<?php echo round(($gigapan_newAPI->resolution/(1000*1000*1000)), 2); ?> gigapixels,
+	<div class="info">
+		taken <?php echo strtok($gigapan_newAPI->taken_at, 'T'); ?>,
+		
+		<?php 
+			// Show the number of images and columns x rows if available
+			if (isset($imageDetails['Input images']))  { echo $imageDetails['Input images'] . ', '; }
+		?>
+		
+		<?php echo $gigapan_newAPI->width; ?> x <?php echo $gigapan_newAPI->height; ?>,
+		<?php echo round(($gigapan_newAPI->resolution/(1000*1000*1000)), 2); ?> gigapixels,
 
-							<?php
-							// Show the FOV details if available (the api->field_of_view_w numbers don't always appear to be correct
-							// if a 3P stitcher is used
-							if (isset($imageDetails['Field of view']))
-							{
-								sscanf($imageDetails['Field of view'], "%f %s %s %s %f", $fov_width, $d, $d, $d, $height);
-								print '<img src="gigapan.large/fovicon.white.width.png" height="12">';
-								echo $fov_width . '&deg';
-								print ' x <img src="gigapan.large/fovicon.white.height.png" height="12">';
-								echo $height . '&deg';
-							}
-							?>
+		<?php
+		// Show the FOV details if available (the api->field_of_view_w numbers don't always appear to be correct
+		// if a 3P stitcher is used
+		if (isset($imageDetails['Field of view']))
+		{
+			sscanf($imageDetails['Field of view'], "%f %s %s %s %f", $fov_width, $d, $d, $d, $height);
+			print '<img src="gigapan.large/fovicon.white.width.png" height="12">';
+			echo $fov_width . '&deg';
+			print ' x <img src="gigapan.large/fovicon.white.height.png" height="12">';
+			echo $height . '&deg';
+		}
+		?>
 	</div>
 </div>
 
@@ -131,10 +144,11 @@
 </div>
 
 <div class="gigapan-view">
+    <div id="gigapan-viewer"></div>
 	<div id="flashholder">
 		<noscript>
 			<div class="user-warning">
-				<h1>This content requires JavaScript and Adobe Flash.</h1>
+				<h1>This content requires JavaScript and/or Adobe Flash.</h1>
 				<p>Please enable JavaScript in your web browser.</p>
 			</div>
 		</noscript>

@@ -1,178 +1,27 @@
 /**
  * Gigapan user interface
+ * Drawn from gigapan.js -- removed some unused code, but left close to original to incorporate future improvements
  */
 var Gigapan = {
 	setup : function() {
-		/* Load the current user header info/login box and then set up the Lightbox when complete
-		 */
-		$j.get("/user_header", function(data) {
-			$j(data).appendTo("#header-list");
-			Gigapan.Lightbox.setup();
-		});
-		$j("#flash-box").load("/welcome/flash_box");
-		if(Gigapan.Form.setup) {
-			Gigapan.Form.setup();
-		}(function($j) {
-			$j.fn.jTruncate = function(options) {
-				var defaults = {
-					length : 500,
-					minTrail : 20,
-					moreText : " More",
-					lessText : " Less",
-					ellipsisText : " ...",
-					moreAni : "",
-					lessAni : ""
-				};
-				/* Down arrow, More Text*/
-				var moreObj = {
-					'background' : 'url("/images/sprite_faqs.png") no-repeat scroll 100% 6px transparent',
-					'font-weight' : 'normal',
-					'padding-right' : '8px',
-					'display' : 'inline',
-					'float' : 'right',
-					'width' : 'auto'
-				};
-				/* Up arrow, Less Text*/
-				var lessObj = {
-					'background-position' : '100% -40px'
-				};
-				var options = $j.extend(defaults, options);
-				return this.each(function() {
-					obj = $j(this);
-					var body = obj.html();
-					if(body.length > options.length + options.minTrail) {
-						var splitLocation = body.indexOf(' ', options.length);
-						if(splitLocation != -1) {
-							// truncate tip
-							var splitLocation = body.indexOf(' ', options.length);
-							var str1 = body.substring(0, splitLocation);
-							var str2 = body.substring(splitLocation, body.length - 1);
-							obj.html(str1 + '<span class="truncate_ellipsis">' + options.ellipsisText + '</span>' + '<span class="truncate_more">' + str2 + '</span>');
-							obj.find('.truncate_more').css("display", "none");
-							// insert more link
-							obj.append('<div class="clearboth">' + '<a href="#" class="truncate_more_link" style="color:#F47D30;">' + options.moreText + '</a>' + '</div>');
-							// set onclick event for more/less link
-							var moreLink = $j('.truncate_more_link', obj).css(moreObj);
-							var moreContent = $j('.truncate_more', obj);
-							var ellipsis = $j('.truncate_ellipsis', obj);
-							moreLink.click(function() {
-								if(moreLink.text() == options.moreText) {
-									$j(moreLink).css(lessObj);
-									moreContent.show(options.moreAni);
-									moreLink.text(options.lessText);
-									ellipsis.css("display", "none");
-								} else {
-									moreContent.hide(options.lessAni);
-									$j(moreLink).css(moreObj);
-									moreLink.text(options.moreText);
-									ellipsis.css("display", "inline");
-								}
-								return false;
-							});
-						}
-					} // end if
-				});
-			};
-		})(jQuery);
-		$j().ready(function() {
-			$j('#gigapan-tag-links').jTruncate({
-				length : 550 /* Tags */
-			});
-			$j('#gigapan-description, #stitcher-notes').jTruncate({
-				length : 200 /* GigaPan Description & Stitcher Notes */
-			});
-		});
-/* Competitions Tooltip */
-	$j('#voting-widget h4').each(function() {
-		$j(this).qtip({
-			content : $j(this).next('.gigapan-vote-info'),
-			style : {
-				tip : {
-					corner : false
-				},
-				classes : "ui-tooltip-comp ui-tooltip-comp"
-			},
-			show : {
-				event : "mouseover"
-			},
-			hide : {
-				fixed : true,
-				event : "mouseout",
-				delay : 300
+		/* tooltips*/ 
+		var shared = { /* Shared Styles*/
+			show : 'mouseover',
+			hide : 'mouseout',
+			api : {
+				onRender : function() {
+					$j(this.elements.tooltip).css('z-index', 10000);
+				}
 			},
 			position : {
-				my : 'right top',
-				at : 'bottom right',
-
-				adjust : {
-					method : 'flip horizontal'
-				}
+				my : 'top left',
+				at : 'bottom right'
+			},
+			style : {
+				classes : 'ui-tooltip-white ui-tooltip-shadow ui-tooltip-rounded',
+				'font-size' : 14
 			}
-		});
-	});
-
-/* tooltips*/ 
-var shared = { /* Shared Styles*/
-	show : 'mouseover',
-	hide : 'mouseout',
-	api : {
-		onRender : function() {
-			$j(this.elements.tooltip).css('z-index', 10000);
 		}
-	},
-	position : {
-		my : 'top left',
-		at : 'bottom right'
-	},
-	style : {
-		classes : 'ui-tooltip-white ui-tooltip-shadow ui-tooltip-rounded',
-		'font-size' : 14
-	}
-}
-/* Search Results and Gigapan Profile */
-$j('span.private-gigapan').qtip($j.extend({}, shared, {
-	content : 'Private GigaPan'
-}));
-
-
-		Gigapan.Detail.setup();
-		$j("#plusone a").text("Google+");
-
-		function goToByScroll() {
-			$j(".scroll").click(function(event) {
-				event.preventDefault();
-				var target_offset = $j(".container-full").offset();
-				var target_top = target_offset.top;
-				$j("html, body").animate({
-					scrollTop : target_top
-				}, "slow");
-			});
-		}
-
-		$j("form").each(function() {
-			this.onsubmit = function() {
-				$j("input").css("display", "block");
-			};
-			this.onreset = function() {
-				$j("input").css("display", "block");
-			};
-		});
-		/**
-		 * Section toggle
-		 */
-		$j("a.toggle").each(function(e) {
-			var section = $j(this.parentNode);
-			var content = section.children(".content");
-			$j(this).click(function() {
-				if(section.hasClass("toggled")) {
-					content.show();
-				} else {
-					content.hide();
-				}
-				$j(section).toggleClass("toggled");
-				return false;
-			});
-		});
 	},
 	/* Fix for Firefox */
 	detectFirefox : function() {
@@ -194,7 +43,7 @@ $j('span.private-gigapan').qtip($j.extend({}, shared, {
 			$j("textarea[placeholder]").each(Placeholder);
 			$j(".button").each(buttonBehavior);
 			$j("input.txt, textarea").each(textFocus);
-			$j(".custom-select").customDrop();
+//			$j(".custom-select").customDrop();
 		}
 	},
 	Lightbox : {
@@ -343,6 +192,140 @@ $j('span.private-gigapan').qtip($j.extend({}, shared, {
 	}
 };
 
+var timerCount = 0;
+
+var SDViewer = {
+
+	gigapan: {
+
+	},
+	initialize: function (gigapan){
+		this.gigapan = gigapan;
+	},
+	render: function(viewer){
+		// load the gigapan
+		if (typeof this.gigapan.id != 'undefined') 
+		{
+			var gigapanId = this.gigapan.id;
+			var authKey = (gigapanId == this.gigapanIdOrAuthKey ? null : this.gigapanIdOrAuthKey);
+
+			viewer = new org.gigapan.viewers.SeadragonViewer("gigapan-viewer", {
+				id: this.gigapan.id,
+				auth_key: this.gigapan.auth_key,
+				width: this.gigapan.width,
+				height: this.gigapan.height,
+				levels: this.gigapan.levels,
+			});
+
+			this.viewer = viewer;
+			sdViewerLoaded(viewer);
+		}
+		else
+		{
+			alert("Failed to load gigapan " );
+		}
+	},
+
+	takeSnapshot : function() {
+		$('#take-snapshot').bind('click', function() {
+			//document.getElementById("flash_viewer").startTakingSnapshot();
+			alert("Take a snapshot!");
+			$("#noSnapshot").hide();
+
+			return false;
+		});
+	},
+
+	zoomToSnapshot : function() {
+		if((SDViewer.viewer.isOpen() ) || timerCount > 5) {
+			clearInterval(timer);
+			onSnapshotClick(currentSnapshot.snapshot.id);
+			scrollToSnapshot(currentSnapshotIndex);
+		} else {
+			timerCount++;
+		}
+	}
+};
+
+function drawSnapshotBoundry(x1,y1,x2,y2){
+	// Pass the xy values of the current view - so we don't draw the snapshot rectangle in empty space...
+	var startx = 0;
+	var starty = 60;
+	var snapWidth = 420;
+	var snapHeight = 280;
+	var viewerH = SDViewer.gigapan.height;
+	var viewerW = SDViewer.gigapan.height;
+
+	if( (x1<0 || y1<0) && ( x2 > viewerH || y2 > viewerW) ){
+	// We're beyond the edges of the image - make a small boundry
+		//console.log("Outside");
+
+		//var pixel = Seadragon.Utils.getMousePosition(e).minus(Seadragon.Utils.getElementPosition(SDViewer.viewer.elmt));
+		//var point = SDViewer.viewer.viewport.pointFromPixel(pixel);
+		//var sizePoints = SDViewer.viewer.viewport.getBounds().getSize();
+    //var sizePixels = SDViewer.viewer.viewport.getContainerSize();
+    //var other = SDViewer.viewer.viewport.deltaPixelsFromPoints(sizePoints);
+		//Set the height and width to be smaller.
+
+		snapHeight = 200;
+		snapWidth = (snapHeight*3)/2;
+
+		if(y2 > SDViewer.gigapan.height){
+			// We've panned up, beyond the bottom of the image...
+			startx = 100;
+			starty = 0;
+		}
+
+		if(x1<0){
+
+		}
+	}else{
+	// We should be within the image bounds, so draw as normal.
+		//console.log("Inside");
+		startx = ($("#gigapan-viewer").width() / 2 )-210;
+		// Leave all other dimentions as default.
+	}
+
+	SnapshotHandler.setSelection(startx, starty, startx+snapWidth, starty+snapHeight, true); // 3:2 ratio, like existing snapshots
+	SnapshotHandler.update();
+}
+
+function getViewBounds(x1,y1,x2,y2){
+	//console.log("x1:" + x1 + ", y1: "+ y1 + ", x2: "+ x2 + ", y2: "+ y2 );
+	return {
+		"xmin": x1,
+		"ymin": y1,
+		"xmax": x2,
+		"ymax": y2
+	}
+}
+
+function setViewerContainerSize(viewer)
+{
+	$("#gigapan-viewer").width('100%');		//	$("#gigapan-viewer").width($(window).width()-155);
+	$("#gigapan-viewer").height('100%');	//	$("#gigapan-viewer").height('400px');
+}
+
+function sdViewerLoaded(viewer)
+{
+   setViewerContainerSize(viewer)
+   if (SDViewer.viewer && SDViewer.viewer.isOpen())
+      {
+      // remove the control panel and snapshot browser controls before the viewer gets resized (resizing the seadragon
+      // viewer often goes all wonky if there are controls added to it)
+      if (isControlPanelEnabled)
+         {
+         viewer.removeControl(gigapanControlPanel.getElement());
+         }
+      viewer.removeControl(snapshotBrowser.getElement());
+
+      // resize the viewer
+      viewer.viewport.resize(Seadragon.Utils.getElementSize("gigapan-viewer"), false);
+    }
+}
+
+
+
 var Viewer = {
 	fl_vars : {
 		suffix : ".jpg",
@@ -488,7 +471,9 @@ function refreshSnapshots() {
 		},
 		success : function(response) {
 			FS.prepend_snapshots(response);
-			FS.render_snapshots(snapshot);
+			if (typeof snapshot != 'undefined') {
+				FS.render_snapshots(snapshot);
+			}
 		}
 	});
 }
@@ -542,19 +527,64 @@ function testReady() {
 }
 
 
-$j(window).load(function() {
-//	Gigapan.setup();
-	viewer = document.getElementById("flashholder");
-	if(viewer) {
-		if( typeof (gigapan) != "undefined") {
-			Viewer.initialize(gigapan.gigapan);
+var SnapshotHandler ;
+$(window).load(function() {
+  Gigapan.setup();
+
+	if ((navigator.userAgent.indexOf('iPhone') != -1) || (navigator.userAgent.indexOf('iPod') != -1) || (navigator.userAgent.indexOf('iPad') != -1)  || (navigator.userAgent.indexOf('Android') != -1) ){
+		viewer = document.getElementById("gigapan-viewer");
+		// create and initialize the viewer
+		if (viewer) {
+			if (typeof (gigapan) != "undefined") {
+				SDViewer.initialize(gigapan.gigapan);
+			}
+			if( typeof (snapshot) != "undefined") {
+				SDViewer.snapshot = snapshot.snapshot;
+			}
+
+			SDViewer.render(viewer);
+			SDViewer.takeSnapshot();
+
+			if (typeof (currentSnapshot) != 'undefined') {
+				timer = setInterval(SDViewer.zoomToSnapshot, 1000);
+			}
+
+			$(window).bind('resize', function(e) {
+				window.resizeEvt;
+				$(window).resize(function() {
+					clearTimeout(window.resizeEvt);
+					window.resizeEvt = setTimeout(function() {
+							setViewerContainerSize(SDViewer.viewer);
+							// scrollToSnapshot(currentSnapshotIndex);	// <jps>
+						}, 250); // Trigger the resize event 250 milliseconds after the user has stopped resizing
+				});
+			});
 		}
-		if( typeof (snapshot) != "undefined") {
-			Viewer.snapshot = snapshot.snapshot;
+
+//		if( gigapan.gigapan.allow_others_to_print == false){
+			$("#mobile-buy-print-button").remove();
+//		}else{
+//			setupPrintLink();
+//		}
+		$("#flashholder").remove();
+		$("#actions-button-block").remove();
+//		$(".gigapan-view .gigapan-actions").css("padding", "0 40px 0 40px");
+
+	}else{
+		$("#gigapan-viewer").remove();
+		viewer = document.getElementById("flashholder");
+		if(viewer) {
+			if( typeof (gigapan) != "undefined") {
+				Viewer.initialize(gigapan.gigapan);
+			}
+			if( typeof (snapshot) != "undefined") {
+				Viewer.snapshot = snapshot.snapshot;
+			}
+			Viewer.render();
 		}
-		Viewer.render();
 	}
 });
+
 function showDefaultFeedbackForm() {
 	$j("custom_feedback").hide();
 	$j("form_area").show();
@@ -891,12 +921,12 @@ function flashBrowserLoaded() {
 
 	if( typeof (currentSnapshot) != 'undefined') {
 		onSnapshotClick(currentSnapshot.snapshot.id);
+//	    scrollToSnapshot(currentSnapshotIndex);
 	}
 }
 
 // This is the *total* width of a snapshot--the image, plus right margin (90 + 15).
 var snapshotWidth = 105;
-
 var scrollRight = true;
 
 function snapshotsInView() {
@@ -904,13 +934,6 @@ function snapshotsInView() {
 	var viewport = $j('#gigapan-carousel')[0];
 	return Math.floor(viewport.clientWidth / snapshotWidth);
 }
-
-/*
-// Zero snapshots? Hide the controls.
-if(snapshots.items.length <= 0) {
-	$j("#prev, #next").hide();
-}
-*/
 
 // Filmstrip Scroll
 function snapshotScroll(amount, refresh) {
@@ -927,21 +950,29 @@ function snapshotScroll(amount, refresh) {
 	//How many snapshots in view
 	var viewport = $j('#gigapan-carousel')[0];
 	var inView = Math.floor(viewport.clientWidth / snapshotWidth);
-
 	var maxPos = (imageSum * -snapshotWidth);
 	// prevent left side from going too far right
-
 	if(pos > 0) {
 		pos = 0;
-
 	} else if(pos < c.clientWidth - dl.clientWidth) {
 		pos = c.clientWidth - dl.clientWidth;
+    // To account for 8px variation,
+    // Set position to initial pos0 for animation.
+    if(pos == 8) {
+      pos = pos0;
+    }
 	}
+  // Animate scroll
+  $(dl).animate({"left" : pos}, 1200);
 
-	dl.style.left = pos + "px";
+  // Toggle "filter" class (reduces opacity) depending on position.
+  // if position is max, toggleClass of #next.
+  // if position is 0, toggleClass of #prev.
+  $('#next').toggleClass('filter', (pos - maxPos) == (c.clientWidth))
+  $('#prev').toggleClass('filter', (pos >= 0))
+
 	if(imageSum > inView) {
 		dl.style.width = maxPos * -1 + "px";
-
 	}
 }
 
@@ -967,7 +998,6 @@ var Filmstrip = {
 			Filmstrip.max_page = snapshots.current_page + 1;
 			Filmstrip.fetch(snapshots.current_page + 1, 40);
 		}
-
 		return snapshotScroll(-1 * snapshotsInView() * snapshotWidth, true);
 	},
 	render_snapshots : function(items) {
@@ -999,6 +1029,12 @@ var Filmstrip = {
 			data : {
 				page : page,
 				per_page : per_page
+			},
+			beforeSend: function(){
+			$('#loading').show();
+			},
+			complete: function(){
+			$('#loading').hide();
 			},
 			success : function(data) {
 				var new_items = data;

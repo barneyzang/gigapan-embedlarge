@@ -27,6 +27,7 @@ ol {
 /* Gigapan view */
 .gigapan-view { position: absolute; top:25px; bottom:110px; left:0; right:0; }
 .gigapan-view #flashholder .user-warning { font-size:150%; color:#FFF; line-height:1.8; }
+.overlay { border:1px solid #fff; }
 
 /* footer div */
 .footer { position:absolute; width:100%; bottom:0; left:0; right:0; margin: 0 5px 0 5px; font-size:10px; }
@@ -40,3 +41,45 @@ ol {
 /* map div */
 .map-full { position: absolute; top:25px; bottom:110px; left:0; right:0; }
 
+
+
+
+/* mobile navigation */
+
+#gigapan-mobile-navigation {
+left:6px;
+}
+
+#gigapan-mobile-navigation div {
+width:50px;
+height:50px;
+background-color:#e4eafa;
+color:#2e4987;
+border:2px solid;
+border-radius:5px;
+margin-bottom:2px;
+opacity:.75;
+}
+
+.mobile-zoom-minus-button,.mobile-zoom-plus-button {
+background:url(images/controls/GigapanMobileNavigation.png) no-repeat;
+}
+
+.mobile-zoom-minus-button {
+background-position:5px -35px;
+width:50px;
+height:50px;
+}
+
+.mobile-zoom-plus-button {
+background-position:5px 6px;
+width:50px;
+height:50px;
+}
+
+.mobile-full-screen-button {
+background:url(images/controls/Gigapan_Mobile_FullScreen.png) no-repeat;
+background-position:5px 5px;
+width:50px;
+height:50px;
+}

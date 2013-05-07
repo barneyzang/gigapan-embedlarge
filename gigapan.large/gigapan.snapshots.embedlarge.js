@@ -1,5 +1,7 @@
 
 var isSnapshotDialogVisible = false;
+var isMobileDevice; 
+
 
 function getSnapshotById(id) {
 	for (var i = 0; i < snapshots.items.length; i++) {
@@ -25,15 +27,40 @@ function flashShowSnapInclusion(snapshot) {
 }
 
 
+this.showSnapInclusion = function(id, xmin, ymin, xmax, ymax) {
+	SDViewer.viewer.showSnapInclusion(id, xmin, ymin, xmax, ymax);
+}
+
+
+this.hideSnapInclusion = function(id) {
+	SDViewer.viewer.hideSnapInclusion(id);
+}
+
+
 function onSnapshotMouseOver(id) {
 	snapshot = getSnapshotById(id);
-	flashShowSnapInclusion(snapshot);
+	if(isMobileDevice){
+		return this.showSnapInclusion(
+			snapshot.id,
+			snapshot.xmin,
+			snapshot.ymin,
+			snapshot.xmax,
+			snapshot.ymax,
+			snapshot.name,
+			snapshot.description);
+	}else{
+		flashShowSnapInclusion(snapshot);
+	}
 }
 
 
 function onSnapshotMouseOut(id) {
-	if (!isSnapshotDialogVisible) {
-		return document.getElementById('flash_viewer').hideSnapInclusion(id);
+	if(isMobileDevice){
+		return this.hideSnapInclusion(id);
+	}else{
+		if (!isSnapshotDialogVisible) {
+			return document.getElementById('flash_viewer').hideSnapInclusion(id);
+		}
 	}
 	return null;
 }
@@ -53,9 +80,23 @@ function onSnapshotClick(id) {
 }
 
 
+function setViewBounds (callbackFn, xmin, ymin, xmax, ymax) {
+	var bounds = org.gigapan.seadragon.SeadragonUtils.convertGigapanRectToSeadragonRect(xmin, ymin, xmax, ymax, SDViewer.gigapan.width);
+	SDViewer.viewer.setViewBounds(callbackFn, xmin, ymin, xmax, ymax);
+	if (typeof window[callbackFn] != "undefined") {
+		return window[callbackFn]();
+	}
+}
+
+
 function zoomToSnapshot(snapshot) {
 	var bb = (snapshot.ymax - snapshot.ymin) * 0.02;
-	if (!isSnapshotDialogVisible) {
+	if(isMobileDevice){
+		currentSnapshotId = snapshot["id"];
+		hideSnapInclusion(snapshot['id']);
+		return setViewBounds('hideSnapInclusion', snapshot['xmin'] - bb, snapshot['ymin'] - bb, snapshot['xmax'] + bb, snapshot['ymax'] + bb);
+	}else{
+		currentSnapshotId = snapshot["id"];
 		return document.getElementById('flash_viewer').setViewBounds(
 			'onSnapshotClickSetViewBoundsReturn',
 			snapshot.xmin - bb,
@@ -68,6 +109,9 @@ function zoomToSnapshot(snapshot) {
 
 
 $j(window).load(function() {
+	// initialize the global
+	isMobileDevice = ( (navigator.userAgent.indexOf('iPhone') != -1) || (navigator.userAgent.indexOf('iPod') != -1) || (navigator.userAgent.indexOf('iPad') != -1)  || (navigator.userAgent.indexOf('Android') != -1) ) ? true : false ;
+
 	// snapshot thumbnail mouse events
 	$j(document).delegate('a.photo', "mouseover", function(e) {
 		onSnapshotMouseOver($j(this).attr('id').split('_')[0]);
