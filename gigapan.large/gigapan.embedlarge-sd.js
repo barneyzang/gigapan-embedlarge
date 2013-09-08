@@ -1,34 +1,31 @@
-// Originated from gigapan-sd-min.js
-// Made legible using:  http://jsbeautifier.org/
-
-(function (c, e, h, a) {
-    var r, t, y, O, K = 10,
-        S = "hidden",
-        n = " while executing ",
+(function (b, a, d, q) {
+    var k, v, p, x, f = 10,
+        P = "hidden",
+        s = " while executing ",
         A = "function",
-        x = "none",
-        w = "",
-        p = null,
+        E = "none",
+        z = "",
+        h = null,
         m = !0,
-        P = 0.5,
-        k = !1;
-    c.Seadragon || (c.Seadragon = {});
-    var l = c.Seadragon,
-        b = l.Config;
-    b || (b = l.Config = {
-        debugMode: k,
-        animationTime: 2.5,
-        blendTime: P,
-        alwaysBlend: k,
+        J = 0.5,
+        n = !1;
+    b.Seadragon || (b.Seadragon = {});
+    var C = b.Seadragon,
+        e = C.Config;
+    e || (e = C.Config = {
+        debugMode: n,
+        animationTime: 1.5,
+        blendTime: J,
+        alwaysBlend: n,
         autoHideControls: m,
         constrainDuringPan: m,
-        immediateRender: k,
+        immediateRender: n,
         logarithmicZoom: m,
-        wrapHorizontal: k,
-        wrapVertical: k,
-        wrapOverlays: k,
-        transformOverlays: k,
-        minZoomDimension: p,
+        wrapHorizontal: n,
+        wrapVertical: n,
+        wrapOverlays: n,
+        transformOverlays: n,
+        minZoomDimension: h,
         minZoomImageRatio: 0.8,
         maxZoomPixelRatio: 2,
         visibilityRatio: 0.8,
@@ -37,1278 +34,1304 @@
         clickTimeThreshold: 200,
         clickDistThreshold: 5,
         zoomPerClick: 2,
-		zoomPerScroll: 1.04,	// <jps>  was: h.pow(2, 1 / 3),
+        zoomPerScroll: d.pow(2, 1 / 3),
         zoomPerSecond: 2,
-        proxyUrl: p,
-        imagePath: "images/controls/"
+        proxyUrl: h,
+        imagePath: "img/"
     });
-    var g = l.Strings;
-    g || (g = l.Strings = {
-        Errors: {
-            Failure: "Sorry, but Seadragon Ajax can't run on your browser!\nPlease try using IE 8 or Firefox 3.\n",
-            Dzc: "Sorry, we don't support Deep Zoom Collections!",
-            Dzi: "Hmm, this doesn't appear to be a valid Deep Zoom Image.",
-            Xml: "Hmm, this doesn't appear to be a valid Deep Zoom Image.",
-            Empty: "You asked us to open nothing, so we did just that.",
-            ImageFormat: "Sorry, we don't support {0}-based Deep Zoom Images.",
-            Security: "It looks like a security restriction stopped us from loading this Deep Zoom Image.",
-            Status: "This space unintentionally left blank ({0} {1}).",
-            Unknown: "Whoops, something inexplicably went wrong. Sorry!"
-        },
-        Messages: {
-            Loading: "Loading..."
-        },
-        Tooltips: {
-            FullPage: "Toggle full page",
-            Home: "Go home",
-            ZoomIn: "Zoom in (you can also use your mouse's scroll wheel)",
-            ZoomOut: "Zoom out (you can also use your mouse's scroll wheel)"
-        }
-    }, g.getString = function (f) {
-        for (var a = f.split("."), b = g, d = 0; d < a.length; d++) b = b[a[d]] || {};
-        "string" != typeof b && (b = w);
-        var c = arguments;
-        return b.replace(/\{\d+\}/g, function (f) {
-            f = parseInt(f.match(/\d+/)) + 1;
-            return f < c.length ? c[f] : w
-        })
-    }, g.setString = function (f, a) {
-        for (var b = f.split("."), d = g, c = 0; c < b.length - 1; c++) d[b[c]] || (d[b[c]] = {}), d = d[b[c]];
-        d[b[c]] = a
-    });
-    var q = function () {
-        this.log = function (f, a) {
-            var G = c.console || {}, d = b.debugMode;
-            d && G.log ? G.log(f) : d && a && alert(f)
+    var j = C.Strings;
+    j || (j = C.Strings = {
+            Errors: {
+                Failure: "Sorry, but Seadragon Ajax can't run on your browser!\nPlease try using IE 8 or Firefox 3.\n",
+                Dzc: "Sorry, we don't support Deep Zoom Collections!",
+                Dzi: "Hmm, this doesn't appear to be a valid Deep Zoom Image.",
+                Xml: "Hmm, this doesn't appear to be a valid Deep Zoom Image.",
+                Empty: "You asked us to open nothing, so we did just that.",
+                ImageFormat: "Sorry, we don't support {0}-based Deep Zoom Images.",
+                Security: "It looks like a security restriction stopped us from loading this Deep Zoom Image.",
+                Status: "This space unintentionally left blank ({0} {1}).",
+                Unknown: "Whoops, something inexplicably went wrong. Sorry!"
+            },
+            Messages: {
+                Loading: "Loading..."
+            },
+            Tooltips: {
+                FullPage: "Toggle full page",
+                Home: "Go home",
+                ZoomIn: "Zoom in (you can also use your mouse's scroll wheel)",
+                ZoomOut: "Zoom out (you can also use your mouse's scroll wheel)"
+            }
+        }, j.getString =
+        function (g) {
+            for (var a = g.split("."), c = j, w = 0; w < a.length; w++) c = c[a[w]] || {};
+            "string" != typeof c && (c = z);
+            var b = arguments;
+            return c.replace(/\{\d+\}/g, function (g) {
+                g = parseInt(g.match(/\d+/)) + 1;
+                return g < b.length ? b[g] : z
+            })
+        }, j.setString = function (g, a) {
+            for (var c = g.split("."), w = j, b = 0; b < c.length - 1; b++) w[c[b]] || (w[c[b]] = {}), w = w[c[b]];
+            w[c[b]] = a
+        });
+    var y = function () {
+        this.log = function (g, a) {
+            var c = b.console || {}, w = e.debugMode;
+            w && c.log ? c.log(g) : w && a && alert(g)
         };
-        this.error = function (f, a) {
-            var G = c.console || {}, d = b.debugMode;
-            d && G.error ?
-                G.error(f) : d && alert(f);
-            if (d) throw a || Error(f);
+        this.error = function (g, a) {
+            var c = b.console || {}, w = e.debugMode;
+            w && c.error ?
+                c.error(g) : w && alert(g);
+            if (w) throw a || Error(g);
         };
-        this.fail = function (f) {
-            alert(g.getString("Errors.Failure"));
-            throw Error(f);
+        this.fail = function (g) {
+            alert(j.getString("Errors.Failure"));
+            throw Error(g);
         }
-    }, q = l.Debug = new q,
-        s = l.Profiler = function () {
-            var f = this,
-                a = k,
-                b = 0,
-                d = p,
-                c = p,
+    }, y = C.Debug = new y,
+        qa = C.Profiler = function () {
+            var g = this,
+                a = n,
+                c = 0,
+                w = h,
+                b = h,
                 e = Infinity,
-                h = 0,
-                j = 0,
-                i = Infinity,
-                v = 0,
-                g = 0;
+                d = 0,
+                f = 0,
+                j = Infinity,
+                l = 0,
+                t = 0;
             this.getAvgUpdateTime = function () {
-                return h
+                return d
             };
             this.getMinUpdateTime = function () {
                 return e
             };
             this.getMaxUpdateTime = function () {
-                return j
+                return f
             };
             this.getAvgIdleTime = function () {
-                return v
+                return l
             };
             this.getMinIdleTime = function () {
-                return i
+                return j
             };
             this.getMaxIdleTime = function () {
-                return g
+                return t
             };
             this.isMidUpdate = function () {
                 return a
             };
             this.getNumUpdates = function () {
-                return b
+                return c
             };
             this.beginUpdate = function () {
-                a && f.endUpdate();
+                a && g.endUpdate();
                 a = m;
-                d = (new Date).getTime();
-                if (!(1 > b)) {
-                    var Pa = d - c;
-                    v = (v * (b - 1) + Pa) / b;
-                    Pa < i && (i = Pa);
-                    Pa > g && (g = Pa)
+                w = (new Date).getTime();
+                if (!(1 > c)) {
+                    var e = w - b;
+                    l = (l * (c - 1) + e) / c;
+                    e < j && (j = e);
+                    e > t && (t = e)
                 }
             };
             this.endUpdate = function () {
                 if (a) {
-                    c = (new Date).getTime();
-                    a = k;
-                    var f = c - d;
-                    b++;
-                    h = (h * (b - 1) + f) / b;
-                    f < e && (e = f);
-                    f > j && (j = f)
+                    b = (new Date).getTime();
+                    a = n;
+                    var g = b - w;
+                    c++;
+                    d = (d * (c - 1) + g) / c;
+                    g < e && (e = g);
+                    g > f && (f = g)
                 }
             };
             this.clearProfile = function () {
-                a = k;
-                b = 0;
-                c = d = p;
+                a = n;
+                c = 0;
+                b = w = h;
                 e = Infinity;
-                j = h = 0;
-                i = Infinity;
-                g = v = 0
+                f = d = 0;
+                j = Infinity;
+                t = l = 0
             }
-        }, j = l.Point;
-    if (!j) {
-        var j = l.Point = function (f, a) {
-            this.x = "number" == typeof f ? f : 0;
+        }, l = C.Point;
+    if (!l) {
+        var l = C.Point = function (g, a) {
+            this.x = "number" == typeof g ? g : 0;
             this.y = "number" == typeof a ? a : 0
-        }, u = j.prototype;
-        u.plus = function (f) {
-            return new j(this.x +
-                f.x, this.y + f.y)
+        }, G = l.prototype;
+        G.plus = function (g) {
+            return new l(this.x +
+                g.x, this.y + g.y)
         };
-        u.minus = function (f) {
-            return new j(this.x - f.x, this.y - f.y)
+        G.minus = function (g) {
+            return new l(this.x - g.x, this.y - g.y)
         };
-        u.times = function (f) {
-            return new j(this.x * f, this.y * f)
+        G.times = function (g) {
+            return new l(this.x * g, this.y * g)
         };
-        u.divide = function (f) {
-            return new j(this.x / f, this.y / f)
+        G.divide = function (g) {
+            return new l(this.x / g, this.y / g)
         };
-        u.negate = function () {
-            return new j(-this.x, -this.y)
+        G.negate = function () {
+            return new l(-this.x, -this.y)
         };
-        u.distanceTo = function (f) {
-            return h.sqrt(h.pow(this.x - f.x, 2) + h.pow(this.y - f.y, 2))
+        G.distanceTo = function (g) {
+            return d.sqrt(d.pow(this.x - g.x, 2) + d.pow(this.y - g.y, 2))
         };
-        u.apply = function (f) {
-            return new j(f(this.x), f(this.y))
+        G.apply = function (g) {
+            return new l(g(this.x), g(this.y))
         };
-        u.equals = function (f) {
-            return f instanceof j && this.x === f.x && this.y === f.y
+        G.equals = function (g) {
+            return g instanceof l && this.x === g.x && this.y === g.y
         };
-        u.toString = function () {
+        G.toString = function () {
             return "(" + this.x + "," + this.y + ")"
         }
     }
-    var D =
-        l.Rect;
-    D || (D = l.Rect = function (f, a, b, d) {
-        this.x = "number" == typeof f ? f : 0;
-        this.y = "number" == typeof a ? a : 0;
-        this.width = "number" == typeof b ? b : 0;
-        this.height = "number" == typeof d ? d : 0
-    }, u = D.prototype, u.getAspectRatio = function () {
-        return this.width / this.height
-    }, u.getTopLeft = function () {
-        return new j(this.x, this.y)
-    }, u.getBottomRight = function () {
-        return new j(this.x + this.width, this.y + this.height)
-    }, u.getCenter = function () {
-        return new j(this.x + this.width / 2, this.y + this.height / 2)
-    }, u.getSize = function () {
-        return new j(this.width, this.height)
-    },
-        u.equals = function (f) {
-        return f instanceof D && this.x === f.x && this.y === f.y && this.width === f.width && this.height === f.height
-    }, u.toString = function () {
-        return "[" + this.x + "," + this.y + "," + this.width + "x" + this.height + "]"
-    });
-    var T = l.Spring = function (f) {
-        var a = "number" == typeof f ? f : 0,
+    var u =
+        C.Rect;
+    u || (u = C.Rect = function (g, a, c, b) {
+            this.x = "number" == typeof g ? g : 0;
+            this.y = "number" == typeof a ? a : 0;
+            this.width = "number" == typeof c ? c : 0;
+            this.height = "number" == typeof b ? b : 0
+        }, G = u.prototype, G.getAspectRatio = function () {
+            return this.width / this.height
+        }, G.getTopLeft = function () {
+            return new l(this.x, this.y)
+        }, G.getBottomRight = function () {
+            return new l(this.x + this.width, this.y + this.height)
+        }, G.getCenter = function () {
+            return new l(this.x + this.width / 2, this.y + this.height / 2)
+        }, G.getSize = function () {
+            return new l(this.width, this.height)
+        },
+        G.equals = function (g) {
+            return g instanceof u && this.x === g.x && this.y === g.y && this.width === g.width && this.height === g.height
+        }, G.toString = function () {
+            return "[" + this.x + "," + this.y + "," + this.width + "x" + this.height + "]"
+        });
+    var K = C.Spring = function (g) {
+        var a = "number" == typeof g ? g : 0,
             c = a,
-            d = a,
-            e = (new Date).getTime(),
-            j = e,
-            i = e;
+            b = a,
+            h = (new Date).getTime(),
+            f = h,
+            j = h;
         this.getCurrent = function () {
             return a
         };
         this.getTarget = function () {
-            return d
+            return b
         };
-        this.resetTo = function (f) {
-            d = f;
-            i = e;
-            c = d;
-            j = i
+        this.resetTo = function (g) {
+            b = g;
+            j = h;
+            c = b;
+            f = j
         };
-        this.springTo = function (f) {
+        this.springTo = function (g) {
             c = a;
-            j = e;
-            d = f;
-            i = j + 1E3 * b.animationTime
+            f = h;
+            b = g;
+            j = f + 1E3 * e.animationTime
         };
-        this.shiftBy = function (f) {
+        this.shiftBy = function (g) {
             c +=
-                f;
-            d += f
+                g;
+            b += g
         };
         this.update = function () {
-            e = (new Date).getTime();
-            var f;
-            if (e >= i) f = d;
+            h = (new Date).getTime();
+            var g;
+            if (h >= j) g = b;
             else {
-                f = c;
-                var m = d - c,
-                    v;
-                v = b.springStiffness;
-                v = (1 - h.exp(-((e - j) / (i - j)) * v)) / (1 - h.exp(-v));
-                f += m * v
+                g = c;
+                var l = b - c,
+                    m;
+                m = e.springStiffness;
+                m = (1 - d.exp(-((h - f) / (j - f)) * m)) / (1 - d.exp(-m));
+                g += l * m
             }
-            a = f
+            a = g
         }
-    }, U = l.Browser = {
+    }, L = C.Browser = {
             UNKNOWN: 0,
             IE: 1,
             FIREFOX: 2,
             SAFARI: 3,
             CHROME: 4,
             OPERA: 5
-        }, i = function () {
-            var f = this,
-                a = ["Msxml2.XMLHTTP", "Msxml3.XMLHTTP", "Microsoft.XMLHTTP"],
-                G = {
-                    bmp: k,
+        }, c = function () {
+            var g = this,
+                Fa = ["Msxml2.XMLHTTP", "Msxml3.XMLHTTP", "Microsoft.XMLHTTP"],
+                f = {
+                    bmp: n,
                     jpeg: m,
                     jpg: m,
                     png: m,
-                    tif: k,
-                    wdp: k
-                }, d = U.UNKNOWN,
-                wa = 0,
-                Wa = k,
-                $ = {}, g = navigator.appName,
-                aa = navigator.appVersion,
-                v = navigator.userAgent;
-            if ("Microsoft Internet Explorer" == g && c.attachEvent &&
-                c.ActiveXObject) g = v.indexOf("MSIE"), d = U.IE, wa = parseFloat(v.substring(g + 5, v.indexOf(";", g))), v = e.documentMode, "undefined" !== typeof v && (wa = v);
-            else if ("Netscape" == g && c.addEventListener) {
-                var l = v.indexOf("Firefox"),
-                    g = v.indexOf("Safari"),
-                    aa = v.indexOf("Chrome");
-                0 <= l ? (d = U.FIREFOX, wa = parseFloat(v.substring(l + 8))) : 0 <= g && (l = v.substring(0, g).lastIndexOf("/"), d = 0 <= aa ? U.CHROME : U.SAFARI, wa = parseFloat(v.substring(l + 1, g)))
-            } else "Opera" == g && (c.opera && c.attachEvent) && (d = U.OPERA, wa = parseFloat(aa));
-            v = c.location.search.substring(1).split("&");
-            for (g = 0; g < v.length; g++) aa = v[g], l = aa.indexOf("="), 0 < l && ($[aa.substring(0, l)] = decodeURIComponent(aa.substring(l + 1)));
-            Wa = d == U.IE && 9 > wa || d == U.CHROME && 2 > wa;
+                    tif: n,
+                    wdp: n
+                }, w = L.UNKNOWN,
+                j = 0,
+                t = n,
+                Sa = {}, k = navigator.appName,
+                B = navigator.appVersion,
+                u = navigator.userAgent;
+            if ("Microsoft Internet Explorer" == k && b.attachEvent &&
+                b.ActiveXObject) k = u.indexOf("MSIE"), w = L.IE, j = parseFloat(u.substring(k + 5, u.indexOf(";", k))), u = a.documentMode, "undefined" !== typeof u && (j = u);
+            else if ("Netscape" == k && b.addEventListener) {
+                var x = u.indexOf("Firefox"),
+                    k = u.indexOf("Safari"),
+                    B = u.indexOf("Chrome");
+                0 <= x ? (w = L.FIREFOX, j = parseFloat(u.substring(x + 8))) : 0 <= k && (x = u.substring(0, k).lastIndexOf("/"), w = 0 <= B ? L.CHROME : L.SAFARI, j = parseFloat(u.substring(x + 1, k)))
+            } else "Opera" == k && (b.opera && b.attachEvent) && (w = L.OPERA, j = parseFloat(B));
+            u = b.location.search.substring(1).split("&");
+            for (k = 0; k < u.length; k++) B = u[k], x = B.indexOf("="), 0 < x && (Sa[B.substring(0, x)] = decodeURIComponent(B.substring(x + 1)));
+            t = w == L.IE && 9 > j || w == L.CHROME && 2 > j;
             this.getBrowser = function () {
-                return d
+                return w
             };
             this.getBrowserVersion = function () {
-                return wa
+                return j
             };
-            this.getElement = function (f) {
-                "string" == typeof f && (f = e.getElementById(f));
-                return f
+            this.getElement = function (g) {
+                "string" == typeof g && (g = a.getElementById(g));
+                return g
             };
-            this.getElementPosition = function (a) {
-                for (var a = f.getElement(a), b = new j, d = "fixed" == f.getElementStyle(a).position, c = d && a != e.body ? e.body : a.offsetParent; c;) b.x += a.offsetLeft, b.y += a.offsetTop,
-                d && (b = b.plus(f.getPageScroll())), a = c, c = (d = "fixed" == f.getElementStyle(a).position) && a != e.body ? e.body : a.offsetParent;
+            this.getElementPosition = function (c) {
+                for (var c = g.getElement(c), b = new l, e = "fixed" == g.getElementStyle(c).position, w = e && c != a.body ? a.body : c.offsetParent; w;) b.x += c.offsetLeft, b.y += c.offsetTop, e && (b = b.plus(g.getPageScroll())),
+                c = w, w = (e = "fixed" == g.getElementStyle(c).position) && c != a.body ? a.body : c.offsetParent;
                 return b
             };
             this.getElementSize = function (a) {
-                a = f.getElement(a);
-                return new j(a.clientWidth, a.clientHeight)
+                a = g.getElement(a);
+                return new l(a.clientWidth, a.clientHeight)
             };
             this.getElementStyle = function (a) {
-                a = f.getElement(a);
+                a = g.getElement(a);
                 if (a.currentStyle) return a.currentStyle;
-                if (c.getComputedStyle) return c.getComputedStyle(a, w);
-                q.fail("Unknown element style, no known technique.")
+                if (b.getComputedStyle) return b.getComputedStyle(a, z);
+                y.fail("Unknown element style, no known technique.")
             };
-            this.getEvent = function (f) {
-                return f ? f : c.event
+            this.getEvent = function (g) {
+                return g ? g : b.event
             };
-            this.getMousePosition = function (a) {
-                var a =
-                    f.getEvent(a),
-                    b = new j;
-                "DOMMouseScroll" == a.type && d == U.FIREFOX && 3 > wa ? (b.x = a.screenX, b.y = a.screenY) : "number" == typeof a.pageX ? (b.x = a.pageX, b.y = a.pageY) : "number" == typeof a.clientX ? (b.x = a.clientX + e.body.scrollLeft + e.documentElement.scrollLeft, b.y = a.clientY + e.body.scrollTop + e.documentElement.scrollTop) : q.fail("Unknown event mouse position, no known technique.");
+            this.getMousePosition = function (c) {
+                var c = g.getEvent(c),
+                    b = new l;
+                "DOMMouseScroll" ==
+                    c.type && w == L.FIREFOX && 3 > j ? (b.x = c.screenX, b.y = c.screenY) : "number" == typeof c.pageX ? (b.x = c.pageX, b.y = c.pageY) : "number" == typeof c.clientX ? (b.x = c.clientX + a.body.scrollLeft + a.documentElement.scrollLeft, b.y = c.clientY + a.body.scrollTop + a.documentElement.scrollTop) : y.fail("Unknown event mouse position, no known technique.");
                 return b
             };
-            this.getMouseScroll = function (a) {
-                var a = f.getEvent(a),
-                    b = 0;
-                "number" == typeof a.wheelDelta ? b = a.wheelDelta : "number" == typeof a.detail ? b = -1 * a.detail :
-                    q.fail("Unknown event mouse scroll, no known technique.");
-                return b ? b / h.abs(b) : 0
+            this.getMouseScroll = function (c) {
+                var c = g.getEvent(c),
+                    a = 0;
+                "number" == typeof c.wheelDelta ? a = c.wheelDelta : "number" == typeof c.detail ? a = -1 * c.detail : y.fail("Unknown event mouse scroll, no known technique.");
+                return a ? a / d.abs(a) : 0
             };
             this.getPageScroll = function () {
-                var f = new j,
-                    a = e.documentElement || {}, b = e.body || {};
-                if ("number" == typeof c.pageXOffset) f.x = c.pageXOffset, f.y = c.pageYOffset;
-                else if (b.scrollLeft || b.scrollTop) f.x = b.scrollLeft, f.y = b.scrollTop;
-                else if (a.scrollLeft || a.scrollTop) f.x = a.scrollLeft, f.y = a.scrollTop;
-                return f
+                var g = new l,
+                    c = a.documentElement || {}, e = a.body || {};
+                if ("number" == typeof b.pageXOffset) g.x = b.pageXOffset, g.y = b.pageYOffset;
+                else if (e.scrollLeft || e.scrollTop) g.x = e.scrollLeft, g.y = e.scrollTop;
+                else if (c.scrollLeft || c.scrollTop) g.x = c.scrollLeft, g.y = c.scrollTop;
+                return g
             };
             this.getWindowSize = function () {
-                var f = new j,
-                    a = e.documentElement || {}, b = e.body || {};
-                "number" == typeof c.innerWidth ? (f.x = c.innerWidth,
-                    f.y = c.innerHeight) : a.clientWidth || a.clientHeight ? (f.x = a.clientWidth, f.y = a.clientHeight) : b.clientWidth || b.clientHeight ? (f.x = b.clientWidth, f.y = b.clientHeight) : q.fail("Unknown window size, no known technique.");
-                return f
+                var g = new l,
+                    c = a.documentElement || {}, e = a.body || {};
+                "number" == typeof b.innerWidth ? (g.x = b.innerWidth, g.y = b.innerHeight) : c.clientWidth || c.clientHeight ? (g.x = c.clientWidth,
+                    g.y = c.clientHeight) : e.clientWidth || e.clientHeight ? (g.x = e.clientWidth, g.y = e.clientHeight) : y.fail("Unknown window size, no known technique.");
+                return g
             };
-            this.imageFormatSupported = function (f) {
-                f = f ? f : w;
-                return !!G[f.toLowerCase()]
+            this.imageFormatSupported = function (g) {
+                g = g ? g : z;
+                return !!f[g.toLowerCase()]
             };
             this.makeCenteredNode = function (a) {
-                var a = i.getElement(a),
-                    b = f.makeNeutralElement("div"),
-                    d = [];
-                d.push('<div style="display:table; height:100%; width:100%;');
-                d.push("border:none; margin:0px; padding:0px;");
-                d.push('#position:relative; overflow:hidden; text-align:left;">');
-                d.push('<div style="#position:absolute; #top:50%; width:100%; ');
-                d.push("border:none; margin:0px; padding:0px;");
-                d.push('display:table-cell; vertical-align:middle;">');
-                d.push('<div style="#position:relative; #top:-50%; width:100%; ');
-                d.push("border:none; margin:0px; padding:0px;");
-                d.push('text-align:center;"></div></div></div>');
-                b.innerHTML = d.join(w);
-                for (var d = b = b.firstChild, c = b.getElementsByTagName("div"); 0 < c.length;) d = c[0], c = d.getElementsByTagName("div");
-                d.appendChild(a);
+                var a = c.getElement(a),
+                    b = g.makeNeutralElement("div"),
+                    e = [];
+                e.push('<div style="display:table; height:100%; width:100%;');
+                e.push("border:none; margin:0px; padding:0px;");
+                e.push('#position:relative; overflow:hidden; text-align:left;">');
+                e.push('<div style="#position:absolute; #top:50%; width:100%; ');
+                e.push("border:none; margin:0px; padding:0px;");
+                e.push('display:table-cell; vertical-align:middle;">');
+                e.push('<div style="#position:relative; #top:-50%; width:100%; ');
+                e.push("border:none; margin:0px; padding:0px;");
+                e.push('text-align:center;"></div></div></div>');
+                b.innerHTML = e.join(z);
+                for (var e = b = b.firstChild, w = b.getElementsByTagName("div"); 0 < w.length;) e = w[0], w = e.getElementsByTagName("div");
+                e.appendChild(a);
                 return b
             };
-            this.makeNeutralElement = function (f) {
-                var f = e.createElement(f),
-                    a = f.style;
-                a.background = "transparent none";
-                a.border = x;
-                a.margin = "0px";
-                a.padding = "0px";
-                a.position = "static";
-                return f
+            this.makeNeutralElement = function (g) {
+                var g = a.createElement(g),
+                    c = g.style;
+                c.background =
+                    "transparent none";
+                c.border = E;
+                c.margin = "0px";
+                c.padding = "0px";
+                c.position = "static";
+                return g
             };
-            this.makeTransparentImage = function (a) {
-                var b = f.makeNeutralElement("img"),
-                    c = p;
-                d == U.IE && 7 > wa ? (c = f.makeNeutralElement("span"), c.style.display = "inline-block", b.onload = function () {
-                    c.style.width = c.style.width || b.width + "px";
-                    c.style.height = c.style.height || b.height + "px";
-                    b = b.onload = p
-                }, b.src = a, c.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='" +
-                    a + "', sizingMethod='scale')") : (c = b, c.src = a);
-                return c
+            this.makeTransparentImage = function (c) {
+                var a = g.makeNeutralElement("img"),
+                    b = h;
+                w == L.IE && 7 > j ? (b = g.makeNeutralElement("span"), b.style.display = "inline-block", a.onload = function () {
+                    b.style.width = b.style.width || a.width + "px";
+                    b.style.height = b.style.height || a.height + "px";
+                    a = a.onload = h
+                }, a.src = c, b.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='" + c + "', sizingMethod='scale')") : (b = a, b.src = c);
+                return b
             };
-            this.setElementOpacity = function (a, b, d) {
-                a = f.getElement(a);
-                d && Wa && (b = h.round(b));
-                a.style.opacity = 1 > b ? b : w;
-                a.style.filter = (a.style.filter || w).replace(/[\s]*alpha\(.*?\)[\s]*/g, w);
-                1 <= b || (b = " alpha(opacity=" + h.round(100 * b) + ") ", a.style.filter += b)
+            this.setElementOpacity =
+                function (c, a, b) {
+                    c = g.getElement(c);
+                    b && t && (a = d.round(a));
+                    c.style.opacity = 1 > a ? a : z;
+                    c.style.filter = (c.style.filter || z).replace(/[\s]*alpha\(.*?\)[\s]*/g, z);
+                    1 <= a || (a = " alpha(opacity=" + d.round(100 * a) + ") ", c.style.filter += a)
             };
-            this.addEvent = function (a, b, d, c) {
-                a = f.getElement(a);
-                a.addEventListener ? ("mousewheel" == b && a.addEventListener("DOMMouseScroll", d, c), a.addEventListener(b, d, c)) : a.attachEvent ? (a.attachEvent("on" + b, d), c && a.setCapture &&
-                    a.setCapture()) : q.fail("Unable to attach event handler, no known technique.")
+            this.addEvent = function (c, a, b, e) {
+                c = g.getElement(c);
+                c.addEventListener ? ("mousewheel" == a && c.addEventListener("DOMMouseScroll", b, e), c.addEventListener(a, b, e)) : c.attachEvent ? (c.attachEvent("on" + a, b), e && c.setCapture && c.setCapture()) : y.fail("Unable to attach event handler, no known technique.")
             };
-            this.removeEvent = function (a, b, d, c) {
-                a = f.getElement(a);
-                a.removeEventListener ? ("mousewheel" == b && a.removeEventListener("DOMMouseScroll", d, c), a.removeEventListener(b, d, c)) : a.detachEvent ? (a.detachEvent("on" + b, d), c && a.releaseCapture && a.releaseCapture()) : q.fail("Unable to detach event handler, no known technique.")
+            this.removeEvent = function (c, a, b, e) {
+                c = g.getElement(c);
+                c.removeEventListener ? ("mousewheel" == a && c.removeEventListener("DOMMouseScroll", b, e), c.removeEventListener(a, b, e)) : c.detachEvent ? (c.detachEvent("on" + a, b), e && c.releaseCapture && c.releaseCapture()) : y.fail("Unable to detach event handler, no known technique.")
             };
-            this.cancelEvent = function (a) {
-                a = f.getEvent(a);
-                a.preventDefault && a.preventDefault();
-                a.cancel = m;
-                a.returnValue = k
+            this.cancelEvent = function (c) {
+                c = g.getEvent(c);
+                c.preventDefault && c.preventDefault();
+                c.cancel = m;
+                c.returnValue = n
             };
-            this.stopEvent = function (a) {
-                a = f.getEvent(a);
-                a.stopPropagation && a.stopPropagation();
-                a.cancelBubble = m
+            this.stopEvent = function (c) {
+                c = g.getEvent(c);
+                c.stopPropagation && c.stopPropagation();
+                c.cancelBubble = m
             };
-            this.createCallback = function (f, a) {
-                for (var b = [], d = 2; d < arguments.length; d++) b.push(arguments[d]);
+            this.createCallback = function (g, c) {
+                for (var a = [], b = 2; b < arguments.length; b++) a.push(arguments[b]);
                 return function () {
-                    for (var d = b.concat([]), c = 0; c < arguments.length; c++) d.push(arguments[c]);
-                    return a.apply(f, d)
+                    for (var b = a.concat([]), e = 0; e < arguments.length; e++) b.push(arguments[e]);
+                    return c.apply(g, b)
                 }
             };
-            this.getUrlParameter = function (f) {
-                return (f = $[f]) ? f : p
+            this.getUrlParameter = function (g) {
+                return (g = Sa[g]) ? g : h
             };
-            this.makeAjaxRequest = function (f, d) {
-                var G = typeof d == A,
-                    e = p;
-                if (G) var h = d,
-                d = function () {
-                    c.setTimeout(i.createCallback(p, h, e), 1)
+            this.makeAjaxRequest = function (g, a) {
+                var w = typeof a == A,
+                    d = h;
+                if (w) var f = a,
+                a = function () {
+                    b.setTimeout(c.createCallback(h, f, d), 1)
                 };
-                if (c.ActiveXObject) for (var j = 0; j <
-                        a.length; j++) try {
-                            e = new ActiveXObject(a[j]);
-                            break
-                } catch ($) {} else c.XMLHttpRequest && (e = new XMLHttpRequest);
-                !e && q.fail("Browser doesn't support XMLHttpRequest.");
-                b.proxyUrl && (f = b.proxyUrl + f);
-                G && (e.onreadystatechange = function () {
-                    4 == e.readyState && (e.onreadystatechange = new Function, d())
+                if (b.ActiveXObject)
+                    for (var j = 0; j < Fa.length; j++) try {
+                        d = new ActiveXObject(Fa[j]);
+                        break
+                    } catch (l) {} else b.XMLHttpRequest &&
+                        (d = new XMLHttpRequest);
+                !d && y.fail("Browser doesn't support XMLHttpRequest.");
+                e.proxyUrl && (g = e.proxyUrl + g);
+                w && (d.onreadystatechange = function () {
+                    4 == d.readyState && (d.onreadystatechange = new Function, a())
                 });
                 try {
-                    e.open("GET", f, G), e.send(p)
-                } catch (g) {
-                    q.log(g.name + " while making AJAX request: " + g.message), e = e.onreadystatechange = p, G && d()
+                    d.open("GET", g, w), d.send(h)
+                } catch (m) {
+                    y.log(m.name + " while making AJAX request: " + m.message), d = d.onreadystatechange = h, w && a()
                 }
-                return G ? p : e
+                return w ? h : d
             };
-            this.parseXml = function (f) {
-                var a = p;
-                if (c.ActiveXObject) try {
-                        a = new ActiveXObject("Microsoft.XMLDOM"),
-                        a.async = k, a.loadXML(f)
-                } catch (b) {
-                    q.log(b.name + " while parsing XML (ActiveX): " + b.message)
-                } else if (c.DOMParser) try {
-                        a = (new DOMParser).parseFromString(f, "text/xml")
-                } catch (d) {
-                    q.log(d.name + " while parsing XML (DOMParser): " + d.message)
-                } else q.fail("Browser doesn't support XML DOM.");
-                return a
+            this.parseXml = function (g) {
+                var c = h;
+                if (b.ActiveXObject) try {
+                    c = new ActiveXObject("Microsoft.XMLDOM"), c.async = n, c.loadXML(g)
+                } catch (a) {
+                    y.log(a.name + " while parsing XML (ActiveX): " +
+                        a.message)
+                } else if (b.DOMParser) try {
+                    c = (new DOMParser).parseFromString(g, "text/xml")
+                } catch (e) {
+                    y.log(e.name + " while parsing XML (DOMParser): " + e.message)
+                } else y.fail("Browser doesn't support XML DOM.");
+                return c
             }
-        }, i = l.Utils = new i,
-        Ca = l.MouseTracker;
-    var ba = function (f, a) {
-        var b = i.getMousePosition(f),
-            d = i.getElementPosition(a);
-        return b.minus(d)
-    }, na = function (f, a) {
-            for (var b = e.body; a && f != a && b != a;) try {
-                    a = a.parentNode
-            } catch (d) {
-                return k
+        }, c = C.Utils = new c,
+        R = C.MouseTracker;
+    var H = function (g, a) {
+        var b = c.getMousePosition(g),
+            e = c.getElementPosition(a);
+        return b.minus(e)
+    }, W = function (g, c) {
+            for (var b = a.body; c && g != c && b != c;) try {
+                c = c.parentNode
+            } catch (e) {
+                return n
             }
-            return f ==
-                a
-        }, u = function () {
-            oa = m
-        }, ga = function () {
-            oa = k
-        }, E = "mouseup";
-    if (!Ca) {
-        var da = i.getBrowser() == U.IE && 9 > i.getBrowserVersion(),
-            oa = k,
-            La = k,
-            Ma = {}, W = [];
-        da ? (i.addEvent(e, "mousedown", u, k), i.addEvent(e, E, ga, k)) : (i.addEvent(c, "mousedown", u, m), i.addEvent(c, E, ga, m));
-        Ca = l.MouseTracker = function (f) {
-            function a() {
-                s && (da ? (i.removeEvent(f, ja, u, m), i.removeEvent(f, E, l, m), i.addEvent(f, E, $, k)) : (i.removeEvent(c, ja, n, m), i.removeEvent(c, E, aa, m)), s = k)
+            return g == c
+        }, G = function () {
+            ga = m
+        }, ea = function () {
+            ga = n
+        }, I = "mouseup";
+    if (!R) {
+        var ca = c.getBrowser() ==
+            L.IE && 9 > c.getBrowserVersion(),
+            ga = n,
+            ha = n,
+            Z = {}, ia = [];
+        ca ? (c.addEvent(a, "mousedown", G, n), c.addEvent(a, I, ea, n)) : (c.addEvent(b, "mousedown", G, m), c.addEvent(b, I, ea, m));
+        R = C.MouseTracker = function (g) {
+            function f() {
+                z && (ca ? (c.removeEvent(g, sa, r, m), c.removeEvent(g, I, B, m), c.addEvent(g, I, k, n)) : (c.removeEvent(b, sa, p, m), c.removeEvent(b, I, u, m)), z = n)
             }
-            function G(f, a) {
-                var b = Ma,
-                    d;
-                for (d in b) b.hasOwnProperty(d) && B != d && b[d][f](a)
+
+            function j(g, c) {
+                var a = Z,
+                    b;
+                for (b in a) a.hasOwnProperty(b) && za != b && a[b][g](c)
             }
-            function d(a) {
-                a =
-                    i.getEvent(a);
-                da && s && !na(a.srcElement, f) && G("onMouseOver", a);
-                var b = a.relatedTarget ? a.relatedTarget : a.fromElement;
-                if (na(f, a.target ? a.target : a.srcElement) && !na(f, b)) if (w = m, typeof z.enterHandler == A) try {
-                            z.enterHandler(z, ba(a, f), t, oa)
-                    } catch (d) {
-                    q.error(d.name + " while executing enter handler: " + d.message, d)
-                }
+
+            function w(a) {
+                a = c.getEvent(a);
+                ca && z && !W(a.srcElement, g) && j("onMouseOver", a);
+                var b = a.relatedTarget ?
+                    a.relatedTarget : a.fromElement;
+                if (W(g, a.target ? a.target : a.srcElement) && !W(g, b))
+                    if (q = m, typeof M.enterHandler == A) try {
+                        M.enterHandler(M, H(a, g), K, ga)
+                    } catch (e) {
+                        y.error(e.name + " while executing enter handler: " + e.message, e)
+                    }
             }
-            function j(a) {
-                a = i.getEvent(a);
-                da && s && !na(a.srcElement, f) && G("onMouseOut", a);
+
+            function l(a) {
+                a = c.getEvent(a);
+                ca && z && !W(a.srcElement, g) && j("onMouseOut", a);
                 var b = a.relatedTarget ? a.relatedTarget : a.toElement;
-                if (na(f, a.target ? a.target : a.srcElement) && !na(f, b)) if (w = k, typeof z.exitHandler ==
-                        A) try {
-                            z.exitHandler(z, ba(a, f), t, oa)
+                if (W(g, a.target ? a.target : a.srcElement) && !W(g, b))
+                    if (q = n, typeof M.exitHandler == A) try {
+                        M.exitHandler(M, H(a, g), K, ga)
+                    } catch (e) {
+                        y.error(e.name + " while executing exit handler: " +
+                            e.message, e)
+                    }
+            }
+
+            function t(a) {
+                a = c.getEvent(a);
+                if (2 != a.button) {
+                    K = m;
+                    O = v = c.getMousePosition(a);
+                    P = (new Date).getTime();
+                    if (typeof M.pressHandler == A) try {
+                        M.pressHandler(M, H(a, g))
+                    } catch (e) {
+                        y.error(e.name + " while executing press handler: " + e.message, e)
+                    }(M.pressHandler || M.dragHandler) && c.cancelEvent(a);
+                    !ca || !ha ? (z || (ca ? (c.removeEvent(g, I, k, n), c.addEvent(g, I, B, m), c.addEvent(g, sa, r, m)) : (c.addEvent(b, I, u, m), c.addEvent(b, sa, p, m)), z = m), ha = m, ia = [ba]) : ca && ia.push(ba)
+                }
+            }
+
+            function k(a) {
+                var a = c.getEvent(a),
+                    b = K,
+                    w = q;
+                if (2 !=
+                    a.button) {
+                    K = n;
+                    if (typeof M.releaseHandler == A) try {
+                        M.releaseHandler(M, H(a, g), b, w)
                     } catch (d) {
-                    q.error(d.name + " while executing exit handler: " + d.message, d)
-                }
-            }
-            function g(a) {
-                a = i.getEvent(a);
-                if (2 != a.button) {
-                    t = m;
-                    y = D = i.getMousePosition(a);
-                    O = (new Date).getTime();
-                    if (typeof z.pressHandler == A) try {
-                            z.pressHandler(z, ba(a, f))
-                    } catch (b) {
-                        q.error(b.name + " while executing press handler: " + b.message, b)
-                    }(z.pressHandler || z.dragHandler) && i.cancelEvent(a);
-                    !da || !La ? (s || (da ? (i.removeEvent(f, E, $, k), i.addEvent(f, E, l, m), i.addEvent(f, ja, u, m)) : (i.addEvent(c, E, aa, m), i.addEvent(c,
-                        ja, n, m)), s = m), La = m, W = [L]) : da && W.push(L)
-                }
-            }
-            function $(a) {
-                var a = i.getEvent(a),
-                    d = t,
-                    c = w;
-                if (2 != a.button) {
-                    t = k;
-                    if (typeof z.releaseHandler == A) try {
-                            z.releaseHandler(z, ba(a, f), d, c)
-                    } catch (Ba) {
-                        q.error(Ba.name + " while executing release handler: " + Ba.message, Ba)
+                        y.error(d.name + " while executing release handler: " + d.message, d)
                     }
-                    if (d && c && (a = i.getEvent(a), 2 != a.button && (d = (new Date).getTime() - O, c = i.getMousePosition(a), c = y.distanceTo(c), d = d <= b.clickTimeThreshold && c <= b.clickDistThreshold, typeof z.clickHandler == A))) try {
-                            z.clickHandler(z, ba(a, f), d, a.shiftKey)
-                    } catch (G) {
-                        q.error(G.name + " while executing click handler: " +
-                            G.message, G)
+                    if (b && w && (a = c.getEvent(a), 2 != a.button && (b = (new Date).getTime() - P, w = c.getMousePosition(a), w = O.distanceTo(w), b = b <= e.clickTimeThreshold && w <= e.clickDistThreshold, typeof M.clickHandler == A))) try {
+                        M.clickHandler(M, H(a, g), b, a.shiftKey)
+                    } catch (h) {
+                        y.error(h.name + " while executing click handler: " + h.message, h)
                     }
                 }
             }
-            function l(f) {
-                f = i.getEvent(f);
-                if (2 != f.button) {
-                    for (var b = 0; b < W.length; b++) {
-                        var d = W[b];
-                        !d.hasMouse() && d.onMouseUp(f)
+
+            function B(g) {
+                g = c.getEvent(g);
+                if (2 != g.button) {
+                    for (var b =
+                        0; b < ia.length; b++) {
+                        var e = ia[b];
+                        !e.hasMouse() && e.onMouseUp(g)
                     }
-                    a();
-                    La = k;
-                    f.srcElement.fireEvent("on" + f.type, e.createEventObject(f));
-                    i.stopEvent(f)
+                    f();
+                    ha = n;
+                    g.srcElement.fireEvent("on" + g.type, a.createEventObject(g));
+                    c.stopEvent(g)
                 }
             }
-            function aa(f) {
-                !w && $(f);
-                a()
+
+            function u(g) {
+                !q && k(g);
+                f()
             }
-            function v(a) {
-                z.clickHandler && i.cancelEvent(a)
+
+            function x(g) {
+                M.clickHandler && c.cancelEvent(g)
             }
-            function n(a) {
-                var a = i.getEvent(a),
-                    b = i.getMousePosition(a),
-                    d = b.minus(D);
-                D = b;
-                if (typeof z.dragHandler == A) {
+
+            function p(a) {
+                var a = c.getEvent(a),
+                    b = c.getMousePosition(a),
+                    e = b.minus(v);
+                v = b;
+                if (typeof M.dragHandler == A) {
                     try {
-                        z.dragHandler(z, ba(a, f), d, a.shiftKey)
-                    } catch (c) {
-                        q.error(c.name + " while executing drag handler: " + c.message,
-                            c)
+                        M.dragHandler(M, H(a, g), e, a.shiftKey)
+                    } catch (w) {
+                        y.error(w.name + " while executing drag handler: " + w.message, w)
                     }
-                    i.cancelEvent(a)
+                    c.cancelEvent(a)
                 }
             }
-            function u(a) {
-                for (var f = 0; f < W.length; f++) W[f].onMouseMove(a);
-                i.stopEvent(a)
+
+            function r(g) {
+                for (var a = 0; a < ia.length; a++) ia[a].onMouseMove(g);
+                c.stopEvent(g)
             }
-            function r(a) {
-                var a = i.getEvent(a),
-                    b = i.getMouseScroll(a);
-                if (typeof z.scrollHandler == A) {
+
+            function s(a) {
+                var a = c.getEvent(a),
+                    b = c.getMouseScroll(a);
+                if (typeof M.scrollHandler == A) {
                     if (b) try {
-                            z.scrollHandler(z, ba(a, f), b, a.shiftKey)
-                    } catch (d) {
-                        q.error(d.name + " while executing scroll handler: " + d.message, d)
+                        M.scrollHandler(M, H(a, g), b, a.shiftKey)
+                    } catch (e) {
+                        y.error(e.name + " while executing scroll handler: " + e.message, e)
                     }
-                    i.cancelEvent(a)
+                    c.cancelEvent(a)
                 }
             }
-            var ja = "mousemove",
-                z = this,
-                L = p,
-                B = h.random(),
-                f = i.getElement(f),
-                xa = k,
-                s = k,
-                t = k,
-                w = k,
-                D = p,
-                O = p,
-                y = p;
-            this.target = f;
-            this.scrollHandler = this.dragHandler = this.clickHandler = this.releaseHandler =
-                this.pressHandler = this.exitHandler = this.enterHandler = p;
-            L = {
+            var sa = "mousemove",
+                M = this,
+                ba = h,
+                za = d.random(),
+                g = c.getElement(g),
+                E = n,
+                z = n,
+                K = n,
+                q = n,
+                v = h,
+                P = h,
+                O = h;
+            this.target = g;
+            this.scrollHandler = this.dragHandler = this.clickHandler = this.releaseHandler = this.pressHandler = this.exitHandler = this.enterHandler = h;
+            ba = {
                 hasMouse: function () {
-                    return w
+                    return q
                 },
-                onMouseOver: d,
-                onMouseOut: j,
-                onMouseUp: $,
-                onMouseMove: n
+                onMouseOver: w,
+                onMouseOut: l,
+                onMouseUp: k,
+                onMouseMove: p
             };
             this.isTracking = function () {
-                return xa
+                return E
             };
-            this.setTracking = function (b) {
-                b ? xa || (i.addEvent(f, "mouseover", d, k), i.addEvent(f, "mouseout", j, k), i.addEvent(f, "mousedown", g, k), i.addEvent(f, E, $, k), i.addEvent(f, "mousewheel", r, k), i.addEvent(f, "click", v, k), xa = m, Ma[B] = L) : xa && (i.removeEvent(f, "mouseover", d, k), i.removeEvent(f, "mouseout", j, k), i.removeEvent(f, "mousedown", g, k), i.removeEvent(f,
-                    E, $, k), i.removeEvent(f, "mousewheel", r, k), i.removeEvent(f, "click", v, k), a(), xa = k, delete Ma[B])
+            this.setTracking = function (a) {
+                a ? E || (c.addEvent(g, "mouseover", w, n), c.addEvent(g, "mouseout", l, n), c.addEvent(g, "mousedown", t, n), c.addEvent(g, I, k, n), c.addEvent(g, "mousewheel", s, n), c.addEvent(g, "click", x, n), E = m, Z[za] = ba) : E && (c.removeEvent(g, "mouseover", w, n), c.removeEvent(g, "mouseout", l, n), c.removeEvent(g, "mousedown", t, n), c.removeEvent(g, I, k, n), c.removeEvent(g, "mousewheel", s, n), c.removeEvent(g, "click", x, n), f(), E = n,
+                    delete Z[za])
             }
         }
     }
-    var gb = l.EventManager = function () {
-        var a = {};
-        this.addListener = function (b, c) {
-            typeof c == A && (a[b] || (a[b] = []), a[b].push(c))
+    var fa = C.EventManager = function () {
+        var g = {};
+        this.addListener = function (a, c) {
+            typeof c == A && (g[a] || (g[a] = []), g[a].push(c))
         };
-        this.removeListener = function (b, c) {
-            var d = a[b];
-            if (typeof c == A && d) for (var e = 0; e < d.length; e++) if (c == d[e]) {
-                        d.splice(e, 1);
+        this.removeListener = function (a, c) {
+            var b = g[a];
+            if (typeof c == A && b)
+                for (var e = 0; e < b.length; e++)
+                    if (c == b[e]) {
+                        b.splice(e, 1);
                         break
                     }
         };
-        this.clearListeners = function (b) {
-            a[b] && delete a[b]
+        this.clearListeners = function (a) {
+            g[a] && delete g[a]
         };
-        this.trigger = function (b) {
-            var e = a[b],
-                d = [];
-            if (e) {
-                for (var j = 1; j < arguments.length; j++) d.push(arguments[j]);
-                for (j = 0; j <
-                    e.length; j++) try {
-                        e[j].apply(c, d)
+        this.trigger = function (a) {
+            var c = g[a],
+                e = [];
+            if (c) {
+                for (var d = 1; d < arguments.length; d++) e.push(arguments[d]);
+                for (d = 0; d < c.length; d++) try {
+                    c[d].apply(b, e)
                 } catch (h) {
-                    q.error(h.name + n + b + " handler: " + h.message, h)
+                    y.error(h.name + s + a + " handler: " + h.message,
+                        h)
                 }
             }
         }
-    }, Xa, ib = function (a, b) {
-            function e(G) {
-                d.onload = p;
-                d.onabort = p;
-                d.onerror = p;
-                j && c.clearTimeout(j);
-                c.setTimeout(function () {
-                    b(a, G ? d : p)
+    }, t, O = function (g, a) {
+            function c(f) {
+                e.onload = h;
+                e.onabort = h;
+                e.onerror = h;
+                d && b.clearTimeout(d);
+                b.setTimeout(function () {
+                    a(g, f ? e : h)
                 }, 1)
             }
-            var d = p,
-                j = p;
+            var e = h,
+                d = h;
             this.start = function () {
-                d = new Image;
-                var b = function () {
-                    e(k)
+                e = new Image;
+                var a = function () {
+                    c(n)
                 };
-                d.onload = function () {
-                    e(m)
+                e.onload = function () {
+                    c(m)
                 };
-                d.onabort = b;
-                d.onerror = b;
-                j = c.setTimeout(function () {
-                    q.log("Image timed out: " + a);
-                    e(k)
-                }, hb);
-                d.src = a
+                e.onabort = a;
+                e.onerror = a;
+                d = b.setTimeout(function () {
+                    y.log("Image timed out: " + g);
+                    c(n)
+                }, V);
+                e.src = g
             }
-        }, hb = 15E3;
-    Xa = l.ImageLoader = function () {
-        function a(f, b, e) {
-            c--;
-            if (typeof f == A) try {
-                    f(e)
-            } catch (j) {
-                q.error(j.name +
-                    n + b + " callback: " + j.message, j)
+        }, V = 15E3;
+    t = C.ImageLoader = function () {
+        function g(g, c, b) {
+            a--;
+            if (typeof g == A) try {
+                g(b)
+            } catch (e) {
+                y.error(e.name + s + c + " callback: " + e.message, e)
             }
         }
-        var c = 0;
-        this.loadImage = function (e, d) {
-            if (c >= b.imageLoaderLimit) return k;
-            var j = i.createCallback(p, a, d),
-                j = new ib(e, j);
-            c++;
-            j.start();
+        var a = 0;
+        this.loadImage = function (b, d) {
+            if (a >=
+                e.imageLoaderLimit) return n;
+            var f = c.createCallback(h, g, d),
+                f = new O(b, f);
+            a++;
+            f.start();
             return m
         }
     };
-    var sa, Ya;
-    r = 0;
-    t = 1;
-    y = 2;
-    O = 3;
-    sa = l.Button = function (a, b, e, d, j, g, $, l, aa, v) {
-        function n() {
-            c.setTimeout(u, 20)
+    k = 0;
+    v = 1;
+    p = 2;
+    x = 3;
+    C.Button = function (g, a, e, w, f, j, l, t, B, u) {
+        function y() {
+            b.setTimeout(E, 20)
         }
-        function u() {
-            if (J) {
-                var a = 1 - ((new Date).getTime() - T) / x,
-                    a = h.min(1, a),
-                    a = h.max(0, a);
-                i.setElementOpacity(xa, a, m);
-                0 < a && n()
+
+        function E() {
+            if (U) {
+                var a = 1 - ((new Date).getTime() - C) / G,
+                    a = d.min(1, a),
+                    a = d.max(0, a);
+                c.setElementOpacity(s, a, m);
+                0 < a && y()
             }
         }
-        function q(a) {
-            a >= t && L == r && (J = k, i.setElementOpacity(xa, 1, m), L = t);
-            a >= y && L == t && (s.style.visibility = w, L = y);
-            a >= O && L ==
-                y && (D.style.visibility = w, L = O)
+
+        function r(a) {
+            a >= v && ba == k && (U = n, c.setElementOpacity(s, 1, m), ba = v);
+            a >= p && ba == v && (K.style.visibility = z, ba = p);
+            a >= x && ba == p && (q.style.visibility = z, ba = x)
         }
-        function ja(a) {
-            a <= y && L == O && (D.style.visibility = S, L = y);
-            a <= t && L == y && (s.style.visibility = S, L = t);
-            a <= r && L == t && (J = m, T = (new Date).getTime() + K, c.setTimeout(n, K), L = r)
+
+        function sa(a) {
+            a <= p && ba == x && (q.style.visibility = P, ba = p);
+            a <= v && ba == p && (K.style.visibility = P, ba = v);
+            a <= k && ba == v && (U = m, C = (new Date).getTime() + O, b.setTimeout(y, O), ba = k)
         }
-        var z = i.makeNeutralElement("span"),
-            L = t,
-            B = new Ca(z),
-            b = i.makeTransparentImage(b),
-            xa = i.makeTransparentImage(e),
-            s = i.makeTransparentImage(d),
-            D = i.makeTransparentImage(j),
-            g = typeof g == A ? g : p,
-            $ = typeof $ == A ? $ : p,
-            l = typeof l == A ? l : p,
-            aa = typeof aa == A ? aa : p,
-            v = typeof v == A ? v : p,
-            K = 0,
-            x = 2E3,
-            T = p,
-            J = k;
-        this.elmt = z;
+        var M = c.makeNeutralElement("span"),
+            ba = v,
+            za = new R(M),
+            a = c.makeTransparentImage(a),
+            s = c.makeTransparentImage(e),
+            K = c.makeTransparentImage(w),
+            q = c.makeTransparentImage(f),
+            j = typeof j == A ? j : h,
+            l = typeof l == A ? l : h,
+            t = typeof t == A ? t : h,
+            B = typeof B == A ? B : h,
+            u = typeof u == A ? u : h,
+            O = 0,
+            G = 2E3,
+            C = h,
+            U = n;
+        this.elmt = M;
         this.notifyGroupEnter = function () {
-            q(t)
+            r(v)
         };
         this.notifyGroupExit = function () {
-            ja(r)
+            sa(k)
         };
-        z.style.display = "inline-block";
-        z.style.position = "relative";
-        z.title = a;
-        z.appendChild(b);
-        z.appendChild(xa);
-        z.appendChild(s);
-        z.appendChild(D);
-        a = xa.style;
-        e = s.style;
-        d = D.style;
-        a.position = e.position = d.position = "absolute";
-        a.top = e.top = d.top = "0px";
-        a.left = e.left = d.left = "0px";
-        e.visibility = d.visibility = S;
-        i.getBrowser() == U.FIREFOX && 3 > i.getBrowserVersion() && (a.top = e.top = d.top = w);
-        B.enterHandler = function (a, f, b, d) {
-            b ? (q(O), aa && aa()) : !d && q(y)
+        M.style.display = "inline-block";
+        M.style.position = "relative";
+        M.title = g;
+        M.appendChild(a);
+        M.appendChild(s);
+        M.appendChild(K);
+        M.appendChild(q);
+        g = s.style;
+        e = K.style;
+        w = q.style;
+        g.position = e.position = w.position = "absolute";
+        g.top = e.top = w.top = "0px";
+        g.left = e.left = w.left = "0px";
+        e.visibility = w.visibility = P;
+        c.getBrowser() == L.FIREFOX && 3 > c.getBrowserVersion() && (g.top = e.top = w.top = z);
+        za.enterHandler = function (a, g, c, b) {
+            c ? (r(x), B && B()) : !b && r(p)
         };
-        B.exitHandler = function (a, f, b) {
-            ja(t);
-            b && v && v()
+        za.exitHandler = function (a, g, c) {
+            sa(v);
+            c && u && u()
         };
-        B.pressHandler = function () {
-            q(O);
-            g && g()
+        za.pressHandler = function () {
+            r(x);
+            j && j()
         };
-        B.releaseHandler = function (a, f, b, d) {
-            b && d ? (ja(y), $ && $()) : b ? ja(t) : q(y)
+        za.releaseHandler = function (a,
+            g, c, b) {
+            c && b ? (sa(p), l && l()) : c ? sa(v) : r(p)
         };
-        B.clickHandler = function (a, f, b) {
-            l && b && l()
+        za.clickHandler = function (a, g, c) {
+            t && c && t()
         };
-        B.setTracking(m);
-        ja(r)
+        za.setTracking(m);
+        sa(k)
     };
-    Ya = l.ButtonGroup = function (a) {
+    C.ButtonGroup = function (a) {
         function b() {
-            for (var d = 0; d < a.length; d++) a[d].notifyGroupEnter()
+            for (var c = 0; c < a.length; c++) a[c].notifyGroupEnter()
         }
-        function c(b, d, e) {
-            if (!e) for (b = 0; b < a.length; b++) a[b].notifyGroupExit()
+
+        function e(c, b, d) {
+            if (!d)
+                for (c = 0; c < a.length; c++) a[c].notifyGroupExit()
         }
-        var d = i.makeNeutralElement("span"),
+        var d = c.makeNeutralElement("span"),
             a = a.concat([]),
-            e = new Ca(d);
+            h = new R(d);
         this.elmt = d;
         this.emulateEnter = function () {
             b()
         };
         this.emulateExit = function () {
-            c()
+            e()
         };
-        d.style.display =
-            "inline-block";
-        for (var j = 0; j < a.length; j++) d.appendChild(a[j].elmt);
-        e.enterHandler = b;
-        e.exitHandler = c;
-        e.releaseHandler = function (b, d, c, e) {
-            if (!e) for (b = 0; b < a.length; b++) a[b].notifyGroupExit()
+        d.style.display = "inline-block";
+        for (var f = 0; f < a.length; f++) d.appendChild(a[f].elmt);
+        h.enterHandler =
+            b;
+        h.exitHandler = e;
+        h.releaseHandler = function (c, b, e, d) {
+            if (!d)
+                for (c = 0; c < a.length; c++) a[c].notifyGroupExit()
         };
-        e.setTracking(m)
+        h.setTracking(m)
     };
-    var Za = l.TileSource = function (a, b, c, d, e, i) {
-        var g = this,
-            m = b / a;
+    var ja = C.TileSource = function (a, c, b, e, h, f) {
+        var j = this,
+            m = c / a;
         this.width = a;
-        this.height = b;
-        this.aspectRatio = a / b;
-        this.dimensions = new j(a, b);
-        this.minLevel = e ? e : 0;
-        this.maxLevel = i ? i : h.ceil(h.log(h.max(a, b)) / h.log(2));
-        this.tileSize = c ? c : 0;
-        this.tileOverlap = d ? d : 0;
+        this.height = c;
+        this.aspectRatio = a / c;
+        this.dimensions = new l(a, c);
+        this.minLevel = h ? h : 0;
+        this.maxLevel = f ? f : d.ceil(d.log(d.max(a, c)) / d.log(2));
+        this.tileSize = b ? b : 0;
+        this.tileOverlap = e ? e : 0;
         this.getLevelScale = function (a) {
-            return 1 / (1 << g.maxLevel -
-                a)
+            return 1 / (1 << j.maxLevel - a)
         };
-        this.getNumTiles = function (d) {
-            var c = g.getLevelScale(d),
-                d = h.ceil(c * a / g.tileSize),
-                c = h.ceil(c * b / g.tileSize);
-            return new j(d, c)
+        this.getNumTiles = function (b) {
+            var e = j.getLevelScale(b),
+                b = d.ceil(e * a / j.tileSize),
+                e = d.ceil(e * c / j.tileSize);
+            return new l(b, e)
         };
         this.getPixelRatio = function (a) {
-            a = g.dimensions.times(g.getLevelScale(a));
-            return new j(1 / a.x, 1 / a.y)
+            a = j.dimensions.times(j.getLevelScale(a));
+            return new l(1 / a.x, 1 / a.y)
         };
-        this.getTileAtPoint = function (a, b) {
-            var f = g.dimensions.times(g.getLevelScale(a)),
-                d = b.times(f.x),
-                c;
-            c = 0 <= b.x && 1 >= b.x ? h.floor(d.x / g.tileSize) : h.ceil(f.x / g.tileSize) * h.floor(d.x / f.x) + h.floor((f.x + d.x % f.x) % f.x / g.tileSize);
-            f = 0 <= b.y && b.y <= m ? h.floor(d.y / g.tileSize) : h.ceil(f.y / g.tileSize) *
-                h.floor(d.y / f.y) + h.floor((f.y + d.y % f.y) % f.y / g.tileSize);
-            return new j(c, f)
+        this.getTileAtPoint = function (a, c) {
+            var g = j.dimensions.times(j.getLevelScale(a)),
+                b = c.times(g.x),
+                e;
+            e = 0 <= c.x && 1 >= c.x ? d.floor(b.x / j.tileSize) : d.ceil(g.x / j.tileSize) * d.floor(b.x / g.x) + d.floor((g.x + b.x % g.x) % g.x / j.tileSize);
+            g = 0 <= c.y && c.y <= m ? d.floor(b.y / j.tileSize) : d.ceil(g.y / j.tileSize) * d.floor(b.y / g.y) + d.floor((g.y + b.y % g.y) % g.y / j.tileSize);
+            return new l(e, g)
         };
-        this.getTileBounds = function (a, f, b) {
-            var d = g.dimensions.times(g.getLevelScale(a)),
-                a = 0 === f ? 0 : g.tileSize * f - g.tileOverlap,
-                c = 0 === b ? 0 : g.tileSize * b - g.tileOverlap,
-                f = g.tileSize + (0 === f ? 1 : 2) * g.tileOverlap,
-                b = g.tileSize + (0 === b ? 1 : 2) * g.tileOverlap,
-                f = h.min(f, d.x - a),
-                b = h.min(b, d.y - c),
-                d = 1 / d.x;
-            return new D(a * d, c * d, f * d, b * d)
+        this.getTileBounds =
+            function (a, g, c) {
+                var b = j.dimensions.times(j.getLevelScale(a)),
+                    a = 0 === g ? 0 : j.tileSize * g - j.tileOverlap,
+                    e = 0 === c ? 0 : j.tileSize * c - j.tileOverlap,
+                    g = j.tileSize + (0 === g ? 1 : 2) * j.tileOverlap,
+                    c = j.tileSize + (0 === c ? 1 : 2) * j.tileOverlap,
+                    g = d.min(g, b.x - a),
+                    c = d.min(c, b.y - e),
+                    b = 1 / b.x;
+                return new u(a * b, e * b, g * b, c * b)
         };
         this.getTileUrl = function () {
             throw Error("Method not implemented.");
         };
-        this.tileExists = function (a, f, b) {
-            var d = g.getNumTiles(a);
-            return a >= g.minLevel && a <= g.maxLevel && 0 <= f && 0 <= b && f < d.x && b < d.y
+        this.tileExists = function (a, g, c) {
+            var b = j.getNumTiles(a);
+            return a >= j.minLevel && a <= j.maxLevel && 0 <= g && 0 <= c && g < b.x && c < b.y
         }
-    }, Fa = l.DisplayRect = function (a, b, c, d, e, j) {
-            D.apply(this, arguments);
-            this.minLevel = e;
+    }, ka = C.DisplayRect = function (a,
+            c, b, e, d, j) {
+            u.apply(this, arguments);
+            this.minLevel = d;
             this.maxLevel = j
         };
-    Fa.prototype = new D;
-    var pa = l.DziTileSource = function (a, b, c, d, e, j, g) {
-        Za.apply(this, [a, b, c, d]);
-        var i = this,
-            p = {};
-        this.tileFormat = this.fileFormat = j;
-        this.displayRects = g;
-        if (g) for (a = g.length - 1; 0 <= a; a--) {
-                b = g[a];
-                for (d = b.minLevel; d <= b.maxLevel; d++) p[d] || (p[d] = []), p[d].push(b)
-        }
-        this.getTileUrl = function (a, b, f) {
-            return [e, a, "/", b, "_", f, ".", j].join(w)
+    ka.prototype = new u;
+    var S = C.DziTileSource = function (a, c, b, e, j, h, f) {
+        ja.apply(this, [a, c, b, e]);
+        var l = this,
+            t = {};
+        this.tileFormat = this.fileFormat = h;
+        this.displayRects = f;
+        if (f)
+            for (a = f.length - 1; 0 <= a; a--) {
+                c = f[a];
+                for (e = c.minLevel; e <= c.maxLevel; e++) t[e] || (t[e] = []), t[e].push(c)
+            }
+        this.getTileUrl = function (a, c, g) {
+            return [j, a, "/", c, "_", g, ".", h].join(z)
         };
-        this.tileExists = function (a, b, f) {
-            var d = p[a];
-            if (!d || !d.length) return m;
-            for (var e = i.getLevelScale(a), j = d.length - 1; 0 <= j; j--) {
-                var g = d[j];
-                if (!(a < g.minLevel || a > g.maxLevel)) {
-                    var Ba = g.x * e,
-                        l = g.y * e,
-                        n = Ba + g.width * e,
-                        g = l + g.height * e,
-                        Ba = h.floor(Ba / c),
-                        l = h.floor(l / c),
-                        n = h.ceil(n / c),
-                        g = h.ceil(g / c);
-                    if (Ba <= b && b < n && l <= f && f < g) return m
+        this.tileExists = function (a, c, g) {
+            var e = t[a];
+            if (!e || !e.length) return m;
+            for (var j = l.getLevelScale(a), h =
+                    e.length - 1; 0 <= h; h--) {
+                var f = e[h];
+                if (!(a < f.minLevel || a > f.maxLevel)) {
+                    var w = f.x * j,
+                        k = f.y * j,
+                        Fa = w + f.width * j,
+                        f = k + f.height * j,
+                        w = d.floor(w / b),
+                        k = d.floor(k / b),
+                        Fa = d.ceil(Fa / b),
+                        f = d.ceil(f / b);
+                    if (w <= c && c < Fa && k <= g && g < f) return m
                 }
             }
-            return k
+            return n
         }
     };
-    pa.prototype = new Za;
-    var H = function (a) {
+    S.prototype = new ja;
+    var N = function (a) {
         Error.apply(this, arguments);
         this.message = a
-    }, Na = function (a) {
-            a instanceof H || (q.error(a.name + " while creating DZI from XML: " + a.message), a = new H(g.getString("Errors.Unknown")));
+    }, aa = function (a) {
+            a instanceof N || (y.error(a.name + " while creating DZI from XML: " + a.message), a = new N(j.getString("Errors.Unknown")));
             return a
-        }, Oa = function (a) {
+        }, Q = function (a) {
             var a = a.split("/"),
-                b = a[a.length - 1],
-                c = b.lastIndexOf("."); - 1 < c && (a[a.length - 1] = b.slice(0, c));
+                c = a[a.length - 1],
+                b = c.lastIndexOf("."); - 1 < b && (a[a.length - 1] = c.slice(0, b));
             return a.join("/") + "_files/"
-        }, $a = function (a, b) {
+        }, da = function (a, b) {
             if (a) {
                 if (200 !== a.status && 0 !== a.status) {
-                    var c = a.status;
-                    throw new H(g.getString("Errors.Status", c, 404 == c ? "Not Found" : a.statusText));
+                    var e = a.status;
+                    throw new N(j.getString("Errors.Status", e, 404 == e ? "Not Found" : a.statusText));
                 }
-            } else throw new H(g.getString("Errors.Security"));
-            c = p;
-            a.responseXML && a.responseXML.documentElement ? c = a.responseXML : a.responseText && (c = i.parseXml(a.responseText));
-            return Ga(c, b)
-        }, Ga = function (a, b) {
-            if (!a || !a.documentElement) throw new H(g.getString("Errors.Xml"));
-            var c = a.documentElement,
-                d = c.tagName;
+            } else throw new N(j.getString("Errors.Security"));
+            e = h;
+            a.responseXML && a.responseXML.documentElement ? e = a.responseXML : a.responseText && (e = c.parseXml(a.responseText));
+            return D(e, b)
+        }, D = function (a, b) {
+            if (!a || !a.documentElement) throw new N(j.getString("Errors.Xml"));
+            var e = a.documentElement,
+                d = e.tagName;
             if ("Image" == d) try {
-                    var e = c.getAttribute("Format");
-                    if (!i.imageFormatSupported(e)) throw new H(g.getString("Errors.ImageFormat", e.toUpperCase()));
-                    for (var j = c.getElementsByTagName("Size")[0], h = c.getElementsByTagName("DisplayRect"), m = parseInt(j.getAttribute("Width"), K), k = parseInt(j.getAttribute("Height"), K), p = parseInt(c.getAttribute("TileSize")), l = parseInt(c.getAttribute("Overlap")), c = [], d = 0; d < h.length; d++) {
-                        var n = h[d],
-                            q = n.getElementsByTagName("Rect")[0];
-                        c.push(new Fa(parseInt(q.getAttribute("X"),
-                            K), parseInt(q.getAttribute("Y"), K), parseInt(q.getAttribute("Width"), K), parseInt(q.getAttribute("Height"), K), parseInt(n.getAttribute("MinLevel"), K), parseInt(n.getAttribute("MaxLevel"), K)))
-                    }
-                    return new pa(m, k, p, l, b, e, c)
-            } catch (ja) {
-                throw e = g.getString("Errors.Dzi"), ja instanceof H ? ja : new H(e);
-            } else {
-                if ("Collection" == d) throw new H(g.getString("Errors.Dzc"));
-                if ("Error" == d) throw e = c.getElementsByTagName("Message")[0].firstChild.nodeValue, new H(e);
-            }
-            throw new H(g.getString("Errors.Dzi"));
-        };
-    H.prototype = Error();
-    pa.getTilesUrl = Oa;
-    pa.createFromJson = function (a, b) {
-        var e = typeof b == A,
-            d, j;
-        if (!a || !a.url && !a.tilesUrl) j = new H(g.getString("Errors.Empty"));
-        else try {
-                var h = a.displayRects;
-                if (h && h.length) for (var m = 0, k = h.length; m < k; m++) {
-                        var l = h[m];
-                        h[m] = new Fa(l.x || l[0], l.y || l[1], l.width || l[2], l.height || l[3], l.minLevel || l[4], l.maxLevel || l[5])
+                var h = e.getAttribute("Format");
+                if (!c.imageFormatSupported(h)) throw new N(j.getString("Errors.ImageFormat", h.toUpperCase()));
+                for (var l = e.getElementsByTagName("Size")[0], m = e.getElementsByTagName("DisplayRect"), t = parseInt(l.getAttribute("Width"), f), k = parseInt(l.getAttribute("Height"), f), B = parseInt(e.getAttribute("TileSize")), u = parseInt(e.getAttribute("Overlap")), e = [], d = 0; d < m.length; d++) {
+                    var n = m[d],
+                        x = n.getElementsByTagName("Rect")[0];
+                    e.push(new ka(parseInt(x.getAttribute("X"), f), parseInt(x.getAttribute("Y"),
+                        f), parseInt(x.getAttribute("Width"), f), parseInt(x.getAttribute("Height"), f), parseInt(n.getAttribute("MinLevel"), f), parseInt(n.getAttribute("MaxLevel"), f)))
                 }
-                d = new pa(a.width, a.height, a.tileSize, a.tileOverlap, a.tilesUrl || Oa(a.url), a.tileFormat, a.displayRects);
-                d.xmlUrl = a.url
-        } catch (n) {
-            j = Na(n)
-        }
-        if (e) c.setTimeout(i.createCallback(p, b, d, j && j.message),
-                1);
-        else {
-            if (j) throw j;
-            return d
-        }
+                return new S(t, k, B, u, b, h, e)
+            } catch (sa) {
+                throw h = j.getString("Errors.Dzi"), sa instanceof N ? sa : new N(h);
+            } else {
+                if ("Collection" == d) throw new N(j.getString("Errors.Dzc"));
+                if ("Error" == d) throw h = e.getElementsByTagName("Message")[0].firstChild.nodeValue, new N(h);
+            }
+            throw new N(j.getString("Errors.Dzi"));
+        };
+    N.prototype = Error();
+    S.getTilesUrl = Q;
+    S.createFromJson =
+        function (a, e) {
+            var d = typeof e == A,
+                f, l;
+            if (!a || !a.url && !a.tilesUrl) l = new N(j.getString("Errors.Empty"));
+            else try {
+                var m = a.displayRects;
+                if (m && m.length)
+                    for (var t = 0, k = m.length; t < k; t++) {
+                        var B = m[t];
+                        m[t] = new ka(B.x || B[0], B.y || B[1], B.width || B[2], B.height || B[3], B.minLevel || B[4], B.maxLevel || B[5])
+                    }
+                f = new S(a.width, a.height, a.tileSize, a.tileOverlap, a.tilesUrl || Q(a.url), a.tileFormat, a.displayRects);
+                f.xmlUrl = a.url
+            } catch (u) {
+                l = aa(u)
+            }
+            if (d) b.setTimeout(c.createCallback(h, e, f, l && l.message), 1);
+            else {
+                if (l) throw l;
+                return f
+            }
     };
-    pa.createFromXml = function (a, b, e) {
-        function d(b, d) {
+    S.createFromXml = function (a, e, d) {
+        function f(c, e) {
             try {
-                var c = b(d, m);
-                c.xmlUrl = a;
-                return c
-            } catch (e) {
-                if (j) return h = Na(e).message, p;
-                throw Na(e);
+                var b = c(e, t);
+                b.xmlUrl = a;
+                return b
+            } catch (d) {
+                if (l) return m = aa(d).message, h;
+                throw aa(d);
             }
         }
-        var j = typeof e == A,
-            h = p;
+        var l = typeof d == A,
+            m = h;
         if (!a) {
-            h = g.getString("Errors.Empty");
-            if (j) return c.setTimeout(function () {
-                    e(p, h)
-                }, 1), p;
-            throw new H(h);
+            m = j.getString("Errors.Empty");
+            if (l) return b.setTimeout(function () {
+                d(h, m)
+            }, 1), h;
+            throw new N(m);
         }
-        var m = Oa(a);
-        return j ? (b ? c.setTimeout(function () {
-            var a = d(Ga, i.parseXml(b));
-            e(a, h)
-        }, 1) : i.makeAjaxRequest(a, function (a) {
-            a = d($a, a);
-            e(a, h)
-        }), p) : b ? d(Ga, i.parseXml(b)) : d($a, i.makeAjaxRequest(a))
+        var t = Q(a);
+        return l ? (e ? b.setTimeout(function () {
+            var a = f(D, c.parseXml(e));
+            d(a, m)
+        }, 1) : c.makeAjaxRequest(a, function (a) {
+            a = f(da, a);
+            d(a, m)
+        }), h) : e ? f(D, c.parseXml(e)) : f(da, c.makeAjaxRequest(a))
     };
-    for (var jb = l.Viewport = function (a, c) {
-        function e(a) {
-            var a = 1 / d.getZoom(a),
-                f = a / d.getAspectRatio(),
-                c = b.visibilityRatio,
-                a = (c - P) * a,
-                f = (c - P) * f,
-                c = 1 - 2 * a,
-                j = i - 2 * f;
-            0 > c && (a += P * c, c = 0);
-            0 > j && (f += P * j, j = 0);
-            return new l.Rect(a, f, c, j)
+    for (var pa = C.Viewport = function (a, c) {
+        function b(a) {
+            var a =
+                1 / f.getZoom(a),
+                c = a / f.getAspectRatio(),
+                g = e.visibilityRatio,
+                a = (g - J) * a,
+                c = (g - J) * c,
+                g = 1 - 2 * a,
+                d = t - 2 * c;
+            0 > g && (a += J * g, g = 0);
+            0 > d && (c += J * d, d = 0);
+            return new C.Rect(a, c, g, d)
         }
-        var d = this,
-            a = new j(a.x, a.y),
-            g = c.x / c.y,
-            i = c.y / c.x,
-            k = new T(0),
-            n = new T(0),
-            q = new T(b.logarithmicZoom ? 0 : 1),
-            u = p,
-            r = new D(0, 0, 1, i),
-            s = r.getCenter(),
-            t = h.LN2;
+        var f = this,
+            a = new l(a.x, a.y),
+            j = c.x / c.y,
+            t = c.y / c.x,
+            k = new K(0),
+            B = new K(0),
+            n = new K(e.logarithmicZoom ? 0 : 1),
+            x = h,
+            p = new u(0, 0, 1, t),
+            y = p.getCenter(),
+            r = d.LN2;
         this.getHomeBounds = function () {
-            var a = d.getAspectRatio(),
-                b = new D(r.x, r.y, r.width, r.height);
-            g >= a ? (b.height = r.width / a, b.y = s.y - b.height / 2) : (b.width = r.height * a, b.x = s.x - b.width /
-                2);
-            return b
+            var a = f.getAspectRatio(),
+                c = new u(p.x, p.y, p.width, p.height);
+            j >= a ? (c.height = p.width / a, c.y = y.y - c.height / 2) : (c.width = p.height * a, c.x = y.x - c.width / 2);
+            return c
         };
-        this.getHomeCenter = function () {
-            return s
+        this.getHomeCenter =
+            function () {
+                return y
         };
         this.getHomeZoom = function () {
-            var a = g / d.getAspectRatio();
+            var a = j / f.getAspectRatio();
             return 1 <= a ? 1 : a
         };
         this.getMinCenter = function (a) {
-            return e(a).getTopLeft()
+            return b(a).getTopLeft()
         };
         this.getMaxCenter = function (a) {
-            return e(a).getBottomRight()
+            return b(a).getBottomRight()
         };
         this.getMinZoom = function () {
-            var e = d.getHomeZoom();
-            return h.min(b.minZoomDimension ? c.x <= c.y ? b.minZoomDimension / a.x : b.minZoomDimension / (a.x * i) : b.minZoomImageRatio * e, e)
+            var b = f.getHomeZoom();
+            return d.min(e.minZoomDimension ? c.x <= c.y ? e.minZoomDimension / a.x : e.minZoomDimension / (a.x * t) : e.minZoomImageRatio * b, b)
         };
         this.getMaxZoom = function () {
-            return h.max(c.x * b.maxZoomPixelRatio / a.x, d.getHomeZoom())
+            return d.max(c.x * e.maxZoomPixelRatio / a.x, f.getHomeZoom())
         };
         this.getAspectRatio = function () {
-            return a.x / a.y
+            return a.x /
+                a.y
         };
         this.getContainerSize = function () {
-            return new j(a.x, a.y)
+            return new l(a.x, a.y)
         };
         this.getBounds = function (a) {
-            var b = d.getCenter(a),
-                a = 1 / d.getZoom(a),
-                f = a / d.getAspectRatio();
-            return new D(b.x - a / 2, b.y - f / 2, a, f)
+            var c = f.getCenter(a),
+                a = 1 / f.getZoom(a),
+                b = a / f.getAspectRatio();
+            return new u(c.x - a / 2, c.y - b / 2, a, b)
         };
-        this.getCenter = function (b) {
-            var c = new j(k.getCurrent(), n.getCurrent()),
-                e = new j(k.getTarget(), n.getTarget());
-            if (b) return c;
-            if (!u) return e;
-            var b = d.getZoom(),
-                g = 1 / b,
-                h = g / d.getAspectRatio(),
-                c = new D(c.x - g / 2, c.y - h / 2, g, h),
-                g = d.pixelFromPoint(u, m),
-                b = u.minus(c.getTopLeft()).times(a.x / c.width).minus(g).divide(a.x *
-                    b);
-            return e.plus(b)
+        this.getCenter = function (c) {
+            var b = new l(k.getCurrent(), B.getCurrent()),
+                e = new l(k.getTarget(), B.getTarget());
+            if (c) return b;
+            if (!x) return e;
+            var c = f.getZoom(),
+                d = 1 / c,
+                h = d / f.getAspectRatio(),
+                b = new u(b.x - d / 2, b.y - h / 2, d, h),
+                d = f.pixelFromPoint(x, m),
+                c = x.minus(b.getTopLeft()).times(a.x / b.width).minus(d).divide(a.x * c);
+            return e.plus(c)
         };
         this.getZoom = function (a) {
-            a = a ? q.getCurrent() : q.getTarget();
-            return b.logarithmicZoom ? h.pow(2, a) : a
+            a = a ? n.getCurrent() : n.getTarget();
+            return e.logarithmicZoom ? d.pow(2, a) : a
         };
         this.applyConstraints = function (a) {
-            var f = d.getZoom(),
-                c;
-            c = d.getMinZoom();
-            var g = d.getMaxZoom();
-            c = h.min(h.max(f, c), g);
-            f != c && d.zoomTo(c, u, a);
-            var f = d.getCenter(),
-                i = e(),
-                g = f.x,
-                m = f.y,
-                k = h.min(h.max(g, i.x), i.x + i.width),
-                i = h.min(h.max(m, i.y), i.y + i.height),
-                g = g === k && m === i ? f : new j(k, i);
-            b.wrapHorizontal && (g.x = f.x);
-            b.wrapVertical && (g.y = f.y);
-            f.equals(g) || (c = 1 / c, f = c / d.getAspectRatio(), d.fitBounds(new D(g.x -
-                P * c, g.y - P * f, c, f), a))
+            var c = f.getZoom(),
+                g;
+            g = f.getMinZoom();
+            var h = f.getMaxZoom();
+            g = d.min(d.max(c, g), h);
+            c != g && f.zoomTo(g, x, a);
+            var c = f.getCenter(),
+                j = b(),
+                h = c.x,
+                m = c.y,
+                t = d.min(d.max(h, j.x), j.x + j.width),
+                j = d.min(d.max(m, j.y), j.y + j.height),
+                h = h === t && m === j ? c : new l(t, j);
+            e.wrapHorizontal && (h.x = c.x);
+            e.wrapVertical && (h.y = c.y);
+            c.equals(h) || (g = 1 / g, c = g / f.getAspectRatio(), f.fitBounds(new u(h.x - J * g, h.y - J * c, g,
+                c), a))
         };
         this.ensureVisible = function (a) {
-            d.applyConstraints(a)
+            f.applyConstraints(a)
         };
-        this.fitBounds = function (b, c) {
-            var e = d.getAspectRatio(),
-                j = b.getCenter(),
-                g = new D(b.x, b.y, b.width, b.height);
-            g.getAspectRatio() >= e ? (g.height = b.width / e, g.y = j.y - g.height / 2) : (g.width = b.height * e, g.x = j.x - g.width / 2);
-            d.panTo(d.getCenter(m), m);
-            d.zoomTo(d.getZoom(m), p, m);
-            var h = d.getBounds(),
-                i = d.getZoom(),
-                e = 1 / g.width;
-            e == i || g.width == h.width ? d.panTo(j, c) : (j = h.getTopLeft().times(a.x / h.width).minus(g.getTopLeft().times(a.x / g.width)).divide(a.x /
-                h.width - a.x / g.width), d.zoomTo(e, j, c))
+        this.fitBounds = function (c, b) {
+            var e = f.getAspectRatio(),
+                d = c.getCenter(),
+                j = new u(c.x, c.y, c.width, c.height);
+            j.getAspectRatio() >= e ? (j.height = c.width / e, j.y = d.y - j.height / 2) : (j.width = c.height * e, j.x = d.x - j.width / 2);
+            f.panTo(f.getCenter(m), m);
+            f.zoomTo(f.getZoom(m), h, m);
+            var l = f.getBounds(),
+                t = f.getZoom(),
+                e = 1 / j.width;
+            e == t || j.width == l.width ? f.panTo(d, b) : (d = l.getTopLeft().times(a.x / l.width).minus(j.getTopLeft().times(a.x / j.width)).divide(a.x / l.width - a.x /
+                j.width), f.zoomTo(e, d, b))
         };
         this.goHome = function (a) {
-            var f = d.getCenter();
-            b.wrapHorizontal && (f.x = (1 + f.x % 1) % 1, k.resetTo(f.x), k.update());
-            b.wrapVertical && (f.y = (i + f.y % i) % i, n.resetTo(f.y), n.update());
-            d.fitBounds(r, a)
+            var c = f.getCenter();
+            e.wrapHorizontal && (c.x = (1 + c.x % 1) % 1, k.resetTo(c.x), k.update());
+            e.wrapVertical && (c.y = (t + c.y % t) % t, B.resetTo(c.y), B.update());
+            f.fitBounds(p, a)
         };
-        this.panBy = function (a, b) {
-            d.panTo(d.getCenter().plus(a), b)
+        this.panBy = function (a, c) {
+            f.panTo(f.getCenter().plus(a), c)
         };
-        this.panTo = function (b, c) {
-            if (c) k.resetTo(b.x), n.resetTo(b.y);
-            else if (u) {
-                var e = d.getZoom(),
-                    g = 1 / e,
-                    j = g / d.getAspectRatio(),
-                    g = new D(k.getCurrent() - g / 2, n.getCurrent() - j / 2, g, j),
-                    j = d.pixelFromPoint(u, m),
-                    e = u.minus(g.getTopLeft()).times(a.x /
-                        g.width).minus(j).divide(a.x * e),
-                    e = b.minus(e);
+        this.panTo = function (c, b) {
+            if (b) k.resetTo(c.x), B.resetTo(c.y);
+            else if (x) {
+                var e = f.getZoom(),
+                    d = 1 / e,
+                    j = d / f.getAspectRatio(),
+                    d = new u(k.getCurrent() - d / 2, B.getCurrent() - j / 2, d, j),
+                    j = f.pixelFromPoint(x, m),
+                    e = x.minus(d.getTopLeft()).times(a.x / d.width).minus(j).divide(a.x *
+                        e),
+                    e = c.minus(e);
                 k.springTo(e.x);
-                n.springTo(e.y)
-            } else k.springTo(b.x), n.springTo(b.y)
+                B.springTo(e.y)
+            } else k.springTo(c.x), B.springTo(c.y)
         };
-        this.zoomBy = function (a, b, f) {
-            d.zoomTo(d.getZoom() * a, b, f)
+        this.zoomBy = function (a, c, b) {
+            f.zoomTo(f.getZoom() * a, c, b)
         };
-        this.zoomTo = function (a, f, d) {
-            d ? q.resetTo(b.logarithmicZoom ? h.log(a) / t : a) : q.springTo(b.logarithmicZoom ? h.log(a) / t : a);
-            u = f instanceof j ? f : p
+        this.zoomTo = function (a, c, b) {
+            b ? n.resetTo(e.logarithmicZoom ? d.log(a) / r : a) : n.springTo(e.logarithmicZoom ? d.log(a) / r : a);
+            x = c instanceof l ? c : h
         };
-        this.resize = function (b, c) {
-            var e = d.getBounds(),
-                g = b.x / a.x;
-            a = new j(b.x, b.y);
-            c && (e.width *= g, e.height = e.width / d.getAspectRatio());
-            d.fitBounds(e, m)
+        this.resize = function (c, b) {
+            var e = f.getBounds(),
+                d = c.x / a.x;
+            a = new l(c.x, c.y);
+            b && (e.width *= d, e.height = e.width / f.getAspectRatio());
+            f.fitBounds(e, m)
         };
         this.update = function () {
             var a = k.getCurrent(),
-                b = n.getCurrent(),
-                f = q.getCurrent();
-            if (u) var c = d.pixelFromPoint(u, m);
-            q.update();
-            u && q.getCurrent() != f ? (c = d.pixelFromPoint(u, m).minus(c), c = d.deltaPointsFromPixels(c, m), k.shiftBy(c.x), n.shiftBy(c.y)) : u = p;
-            k.update();
+                c = B.getCurrent(),
+                b = n.getCurrent();
+            if (x) var e = f.pixelFromPoint(x, m);
             n.update();
-            return k.getCurrent() != a || n.getCurrent() != b || q.getCurrent() != f
+            x && n.getCurrent() != b ? (e = f.pixelFromPoint(x, m).minus(e), e = f.deltaPointsFromPixels(e, m), k.shiftBy(e.x), B.shiftBy(e.y)) : x = h;
+            k.update();
+            B.update();
+            return k.getCurrent() != a || B.getCurrent() != c || n.getCurrent() != b
         };
-        this.deltaPixelsFromPoints = function (b, c) {
-            return b.times(a.x * d.getZoom(c))
+        this.deltaPixelsFromPoints = function (c, e) {
+            return c.times(a.x * f.getZoom(e))
         };
-        this.deltaPointsFromPixels = function (b, c) {
-            return b.divide(a.x * d.getZoom(c))
+        this.deltaPointsFromPixels = function (c, e) {
+            return c.divide(a.x * f.getZoom(e))
         };
-        this.pixelFromPoint = function (b, c) {
-            var e = d.getBounds(c);
-            return b.minus(e.getTopLeft()).times(a.x /
-                e.width)
+        this.pixelFromPoint = function (c, e) {
+            var b = f.getBounds(e);
+            return c.minus(b.getTopLeft()).times(a.x / b.width)
         };
-        this.pointFromPixel = function (b, c) {
-            var e = d.getBounds(c);
-            return b.divide(a.x / e.width).plus(e.getTopLeft())
+        this.pointFromPixel = function (c, e) {
+            var b = f.getBounds(e);
+            return c.divide(a.x / b.width).plus(b.getTopLeft())
         };
-        d.goHome(m);
-        d.update()
-    }, ab, F, Da = function (a, b, c, d, e, g) {
+        f.goHome(m);
+        f.update()
+    }, r, T, ua = function (a, c, e, b, f, d) {
             this.level = a;
-            this.x = b;
-            this.y = c;
-            this.bounds = d;
-            this.exists = e;
-            this.url = g;
-            this.image = this.elmt = p;
-            this.loading = this.loaded = k;
-            this.visibility = this.distance = this.opacity = this.blendStart = this.size = this.position = this.style = p;
-            this.beingDrawn = k;
+            this.x = c;
+            this.y = e;
+            this.bounds = b;
+            this.exists = f;
+            this.url = d;
+            this.image = this.elmt = h;
+            this.loading = this.loaded = n;
+            this.visibility = this.distance = this.opacity = this.blendStart = this.size = this.position = this.style = h;
+            this.beingDrawn = n;
             this.lastTouchTime = this.lastDrawnTime = 0
-        }, bb = function (a) {
+        }, la = function (a) {
             switch (a) {
-            case F.TOP_LEFT:
+            case T.TOP_LEFT:
                 return function () {};
-            case F.TOP:
-                return function (a, b) {
-                    a.x -= b.x / 2
+            case T.TOP:
+                return function (a,
+                    c) {
+                    a.x -= c.x / 2
                 };
-            case F.TOP_RIGHT:
-                return function (a, b) {
-                    a.x -= b.x
+            case T.TOP_RIGHT:
+                return function (a, c) {
+                    a.x -= c.x
                 };
-            case F.RIGHT:
-                return function (a, b) {
-                    a.x -= b.x;
-                    a.y -= b.y / 2
+            case T.RIGHT:
+                return function (a, c) {
+                    a.x -= c.x;
+                    a.y -= c.y / 2
                 };
-            case F.BOTTOM_RIGHT:
-                return function (a, b) {
-                    a.x -= b.x;
-                    a.y -= b.y
+            case T.BOTTOM_RIGHT:
+                return function (a, c) {
+                    a.x -= c.x;
+                    a.y -= c.y
                 };
-            case F.BOTTOM:
-                return function (a, b) {
-                    a.x -= b.x / 2;
-                    a.y -= b.y
+            case T.BOTTOM:
+                return function (a, c) {
+                    a.x -= c.x / 2;
+                    a.y -= c.y
                 };
-            case F.BOTTOM_LEFT:
-                return function (a, b) {
-                    a.y -= b.y
+            case T.BOTTOM_LEFT:
+                return function (a, c) {
+                    a.y -= c.y
                 };
-            case F.LEFT:
-                return function (a, b) {
-                    a.y -= b.y / 2
+            case T.LEFT:
+                return function (a, c) {
+                    a.y -= c.y / 2
                 };
             default:
-                return function (a, b) {
-                    a.x -= b.x / 2;
-                    a.y -= b.y / 2
+                return function (a, c) {
+                    a.x -= c.x / 2;
+                    a.y -= c.y / 2
                 }
             }
-        }, Ha = function (a, b, c) {
+        }, X = function (a, c, e) {
             this.elmt = a;
-            this.scales = b instanceof D;
-            this.bounds = new D(b.x, b.y, b.width,
-                b.height);
-            this.adjust = bb(b instanceof j ? c : F.TOP_LEFT);
-            this.position = new j(b.x, b.y);
-            this.size = new j(b.width, b.height);
+            this.scales = c instanceof u;
+            this.bounds = new u(c.x, c.y, c.width, c.height);
+            this.adjust = la(c instanceof l ? e : T.TOP_LEFT);
+            this.position = new l(c.x, c.y);
+            this.size = new l(c.width, c.height);
             this.style = a.style;
-            this.naturalSize = new j(a.clientWidth, a.clientHeight)
-        }, kb = 100, cb = P, db = i.getBrowser(), ga = i.getBrowserVersion(), u = !! e.createElement("canvas").getContext, lb = (e.documentElement || {}).style || {}, Ia = k, mb = ["msTransform", "WebkitTransform", "MozTransform"], V, Va; V = mb.shift();) if ("undefined" !== typeof lb[V]) {
-            Ia = m;
-            Va = /webkit/i.test(V);
+            this.naturalSize = new l(a.clientWidth, a.clientHeight)
+        }, va = 100, B = J, U = c.getBrowser(), ea = c.getBrowserVersion(), G = !! a.createElement("canvas").getContext, ya = (a.documentElement || {}).style || {}, F = n, Ca = ["msTransform", "WebkitTransform", "MozTransform"], ma, Aa; ma = Ca.shift();)
+        if ("undefined" !== typeof ya[ma]) {
+            F = m;
+            Aa = /webkit/i.test(ma);
             break
         }
-    var ga = db == U.SAFARI && 4 > ga,
-        Ja = u && !ga,
-        eb = !Ja && Ia,
-        fb = k,
-        nb = "undefined" !== typeof e.documentMode ? "bicubic" : "nearest-neighbor";
-    Da.prototype.toString = function () {
+    var ea = U == L.SAFARI && 4 > ea,
+        Ba = G && !ea,
+        Ua = !Ba && F,
+        Va = n,
+        Xa = "undefined" !== typeof a.documentMode ?
+            "bicubic" : "nearest-neighbor";
+    ua.prototype.toString = function () {
         return this.level + "/" + this.x + "_" + this.y
     };
-    Da.prototype.drawHTML = function (a) {
+    ua.prototype.drawHTML = function (a) {
         if (this.loaded) {
-            this.elmt || (this.elmt = i.makeNeutralElement("img"), this.elmt.src = this.url, this.style = this.elmt.style, this.style.position = "absolute", this.style.msInterpolationMode = nb, eb && (this.style[V + "Origin"] = "0px 0px"));
-            var b = this.elmt,
-                c = this.image,
-                d = this.style,
-                e = this.position,
-                g = this.size;
-            b.parentNode != a && a.appendChild(b);
-            eb ? d[V] = ["matrix(", (g.x / c.width).toFixed(8), ",0,0,", (g.y / c.height).toFixed(8), ",", e.x.toFixed(8), Va ? "," : "px,", e.y.toFixed(8), Va ? ")" : "px)"].join(w) : fb ? (c = a.clientWidth, a = a.clientHeight, d.width = c + "px", d.height = a + "px", d.filter = ["progid:DXImageTransform.Microsoft.Matrix(", "M11=", (g.x / c).toFixed(8), ",M22=", (g.y / a).toFixed(8), ",Dx=", e.x.toFixed(8), ",Dy=", e.y.toFixed(8), ")"].join(w)) : (e = e.apply(h.floor), g = g.apply(h.ceil), d.left = e.x + "px", d.top = e.y + "px", d.width = g.x + "px", d.height = g.y + "px");
-            i.setElementOpacity(b,
-                this.opacity)
-        } else q.error("Attempting to draw tile " + this.toString() + " when it's not yet loaded.")
+            this.elmt || (this.elmt = c.makeNeutralElement("img"), this.elmt.src = this.url, this.style = this.elmt.style, this.style.position = "absolute", this.style.msInterpolationMode = Xa, Ua && (this.style[ma + "Origin"] = "0px 0px"));
+            var e = this.elmt,
+                b = this.image,
+                f = this.style,
+                j = this.position,
+                h = this.size;
+            e.parentNode != a && a.appendChild(e);
+            Ua ? f[ma] = ["matrix(", (h.x / b.width).toFixed(8),
+                ",0,0,", (h.y / b.height).toFixed(8), ",", j.x.toFixed(8), Aa ? "," : "px,", j.y.toFixed(8), Aa ? ")" : "px)"
+            ].join(z) : Va ? (b = a.clientWidth, a = a.clientHeight, f.width = b + "px", f.height = a + "px", f.filter = ["progid:DXImageTransform.Microsoft.Matrix(", "M11=", (h.x / b).toFixed(8), ",M22=", (h.y / a).toFixed(8), ",Dx=", j.x.toFixed(8), ",Dy=", j.y.toFixed(8), ")"].join(z)) : (j = j.apply(d.floor), h = h.apply(d.ceil), f.left = j.x + "px", f.top = j.y + "px", f.width = h.x + "px", f.height = h.y + "px");
+            c.setElementOpacity(e, this.opacity)
+        } else y.error("Attempting to draw tile " +
+            this.toString() + " when it's not yet loaded.")
     };
-    Da.prototype.drawCanvas = function (a) {
+    ua.prototype.drawCanvas = function (a) {
         if (this.loaded) {
-            var b = this.position,
-                c = this.size;
+            var c = this.position,
+                e = this.size;
             a.globalAlpha = this.opacity;
-            a.drawImage(this.image, b.x, b.y, c.x, c.y)
-        } else q.error("Attempting to draw tile " + this.toString() + " when it's not yet loaded.")
+            a.drawImage(this.image, c.x, c.y, e.x, e.y)
+        } else y.error("Attempting to draw tile " + this.toString() + " when it's not yet loaded.")
     };
-    Da.prototype.unload = function () {
+    ua.prototype.unload = function () {
         this.elmt && this.elmt.parentNode && this.elmt.parentNode.removeChild(this.elmt);
-        this.image = this.elmt = p;
-        this.loading = this.loaded = k
+        this.image = this.elmt = h;
+        this.loading = this.loaded = n
     };
-    F = l.OverlayPlacement = {
+    T = C.OverlayPlacement = {
         CENTER: 0,
         TOP_LEFT: 1,
         TOP: 2,
@@ -1319,619 +1342,594 @@
         BOTTOM_LEFT: 7,
         LEFT: 8
     };
-    Ha.prototype.destroy = function () {
+    X.prototype.destroy = function () {
         var a = this.elmt,
-            b = this.style;
+            c = this.style;
         a.parentNode && a.parentNode.removeChild(a);
-        b.top = w;
-        b.left = w;
-        b.position = w;
-        this.scales && (b.width = w, b.height = w)
+        c.top = z;
+        c.left = z;
+        c.position = z;
+        this.scales && (c.width = z, c.height = z)
     };
-    Ha.prototype.drawHTML = function (a) {
+    X.prototype.drawHTML = function (a) {
         var c = this.elmt,
-            e = this.style,
-            d = this.scales,
-            g = this.naturalSize;
-        c.parentNode != a && (a.appendChild(c), e.position = "absolute", g.x = c.clientWidth, g.y = c.clientHeight);
-        var j = this.position,
-            i = this.size;
-        d || (i.x = g.x = g.x ||
-            c.clientWidth, i.y = g.y = g.y || c.clientHeight);
-        this.adjust(j, i);
-        b.transformOverlays && Ia ? (e[V + "Origin"] = "0px 0px", e[V] = ["translate(", j.x.toFixed(8), "px,", j.y.toFixed(8), "px)"].join(w), d && (c.clientWidth || (e.width = "100%"), c.clientHeight || (e.height = "100%"), e[V] += [" scale(", (i.x / c.clientWidth).toFixed(8), ",", (i.y / c.clientHeight).toFixed(8), ")"].join(w))) : b.transformOverlays && fb ? (c = a.clientWidth, a = a.clientHeight, e.width = c + "px", e.height = a + "px", e.filter = ["progid:DXImageTransform.Microsoft.Matrix(", "M11=", (i.x /
-                c).toFixed(8), ",M22=", (i.y / a).toFixed(8), ",Dx=", j.x.toFixed(8), ",Dy=", j.y.toFixed(8), ")"].join(w)) : (j = j.apply(h.floor), i = i.apply(h.ceil), e.left = j.x + "px", e.top = j.y + "px", d && (e.width = i.x + "px", e.height = i.y + "px"))
+            b = this.style,
+            f = this.scales,
+            j = this.naturalSize;
+        c.parentNode != a && (a.appendChild(c), b.position = "absolute", j.x = c.clientWidth, j.y = c.clientHeight);
+        var h = this.position,
+            l = this.size;
+        f || (l.x = j.x = j.x || c.clientWidth, l.y = j.y = j.y || c.clientHeight);
+        this.adjust(h, l);
+        e.transformOverlays && F ? (b[ma + "Origin"] = "0px 0px", b[ma] = ["translate(", h.x.toFixed(8), "px,", h.y.toFixed(8), "px)"].join(z), f && (c.clientWidth || (b.width = "100%"), c.clientHeight || (b.height = "100%"), b[ma] += [" scale(", (l.x / c.clientWidth).toFixed(8), ",", (l.y / c.clientHeight).toFixed(8), ")"].join(z))) : e.transformOverlays && Va ? (c = a.clientWidth, a = a.clientHeight, b.width = c + "px", b.height = a + "px", b.filter = ["progid:DXImageTransform.Microsoft.Matrix(", "M11=", (l.x / c).toFixed(8), ",M22=", (l.y / a).toFixed(8),
+            ",Dx=", h.x.toFixed(8), ",Dy=", h.y.toFixed(8), ")"
+        ].join(z)) : (h = h.apply(d.floor), l = l.apply(d.ceil), b.left = h.x + "px", b.top = h.y + "px", f && (b.width = l.x + "px", b.height = l.y + "px"))
     };
-    Ha.prototype.update = function (a, b) {
-        this.scales = a instanceof D;
-        this.bounds = new D(a.x, a.y, a.width, a.height);
-        this.adjust = bb(a instanceof j ? b : F.TOP_LEFT)
+    X.prototype.update = function (a, c) {
+        this.scales = a instanceof u;
+        this.bounds = new u(a.x, a.y, a.width, a.height);
+        this.adjust = la(a instanceof l ? c : T.TOP_LEFT)
     };
-    ab = l.Drawer = function (c, e, g) {
-        function d(a) {
-            T[a] || (T[a] = c.getPixelRatio(a));
-            return T[a]
+    r = C.Drawer = function (a, b, f) {
+        function j(c) {
+            ja[c] || (ja[c] = a.getPixelRatio(c));
+            return ja[c]
         }
-        function l(a, b, c) {
-            a.loading = k;
-            if (ha) q.error("Tile load callback in middle of drawing routine.");
-            else if (c) if (b < E) q.log("Ignoring tile " + a + " loaded before reset: " + a.url);
+
+        function k(a, c, b) {
+            a.loading = n;
+            if (ya) y.error("Tile load callback in middle of drawing routine.");
+            else if (b)
+                if (c < D) y.log("Ignoring tile " + a + " loaded before reset: " + a.url);
                 else {
                     a.loaded = m;
-                    a.image = c;
-                    b = F.length;
-                    if (F.length >= kb) {
-                        for (var c = h.ceil(h.log(x) / h.log(2)), d = p, f = -1, e = F.length - 1; 0 <= e; e--) {
-                            var g = F[e];
-                            if (!(g.level <= c || g.beingDrawn)) if (d) {
-                                    var j = g.lastTouchTime,
-                                        i = d.lastTouchTime,
-                                        n = g.level,
-                                        u = d.level;
-                                    if (j < i || j == i && n > u) d = g, f = e
-                                } else d = g, f = e
+                    a.image = b;
+                    c = V.length;
+                    if (V.length >= va) {
+                        for (var b = d.ceil(d.log(O) / d.log(2)), e = h, g = -1, f = V.length - 1; 0 <= f; f--) {
+                            var j = V[f];
+                            if (!(j.level <= b || j.beingDrawn))
+                                if (e) {
+                                    var l = j.lastTouchTime,
+                                        t = e.lastTouchTime,
+                                        B = j.level,
+                                        u = e.level;
+                                    if (l < t || l == t && B > u) e = j, g = f
+                                } else e = j, g = f
                         }
-                        d && 0 <= f && (d.unload(), b = f)
+                        e && 0 <= g && (e.unload(), c = g)
                     }
-                    F[b] = a;
-                    Q = m
-                } else q.log("Tile " + a + " failed to load: " + a.url), a.exists = k
+                    V[c] = a;
+                    F = m
+                } else y.log("Tile " + a + " failed to load: " + a.url), a.exists = n
         }
-        function n(b, c, d) {
-            if (!ia[b]) return k;
-            if (c === a || d === a) {
-                var b = ia[b],
-                    f;
-                for (f in b) if (b.hasOwnProperty(f)) {
-                        var c = b[f],
-                            e;
-                        for (e in c) if (c.hasOwnProperty(e) && !c[e]) return k
+
+        function u(a, c, b) {
+            if (!S[a]) return n;
+            if (c === q || b === q) {
+                var a = S[a],
+                    e;
+                for (e in a)
+                    if (a.hasOwnProperty(e)) {
+                        var c = a[e],
+                            g;
+                        for (g in c)
+                            if (c.hasOwnProperty(g) && !c[g]) return n
                     }
                 return m
             }
-            return ia[b][c] === a || ia[b][c][d] === a || ia[b][c][d] === m
+            return S[a][c] === q || S[a][c][b] === q || S[a][c][b] === m
         }
-        function u(a, b, c, d) {
-            ia[a] ? (ia[a][b] || (ia[a][b] = {}), ia[a][b][c] = d) : q.error("Setting coverage for a tile before its level's coverage has been reset: " + a)
+
+        function x(a, c, b, e) {
+            S[a] ? (S[a][c] || (S[a][c] = {}), S[a][c][b] = e) : y.error("Setting coverage for a tile before its level's coverage has been reset: " + a)
         }
-        function r(a) {
-            for (var b = J.length - 1; 0 <= b; b--) if (J[b].elmt == a) return b;
+
+        function p(a) {
+            for (var c = da.length - 1; 0 <= c; c--)
+                if (da[c].elmt == a) return c;
             return -1
         }
-        var t = i.getElement(g),
-            v = i.makeNeutralElement(Ja ? "canvas" : "div"),
-            D = Ja ? v.getContext("2d") : p,
-            O = new Xa,
-            y = new s,
-            K =
-                c.minLevel,
-            z = c.maxLevel,
-            x = c.tileSize,
-            B = c.tileOverlap,
-            S = c.height / c.width,
-            A = {}, T = {}, H = {}, F = [],
-            ia = {}, J = [],
-            ka = [],
-            C = 0,
-            E = 0,
-            ha = k,
-            Q = m;
-        this.elmt = t;
-        this.profiler = y;
-        v.style.width = "100%";
-        v.style.height = "100%";
-        v.style.position = "absolute";
-        t.style.textAlign = "left";
-        t.appendChild(v);
-        this.addOverlay = function (a, b, c) {
-            a = i.getElement(a);
-            0 <= r(a) || (J.push(new Ha(a, b, c)), Q = m)
+        var r = c.getElement(f),
+            s = c.makeNeutralElement(Ba ? "canvas" : "div"),
+            E = Ba ? s.getContext("2d") : h,
+            K = new t,
+            A = new qa,
+            v = a.minLevel,
+            P = a.maxLevel,
+            O = a.tileSize,
+            G = a.tileOverlap,
+            C = a.height / a.width,
+            ka = {}, ja = {}, H = {}, V = [],
+            S = {}, da = [],
+            N = [],
+            Ta = 0,
+            D = 0,
+            ya = n,
+            F = m;
+        this.elmt = r;
+        this.profiler = A;
+        s.style.width = "100%";
+        s.style.height = "100%";
+        s.style.position = "absolute";
+        r.style.textAlign = "left";
+        r.appendChild(s);
+        this.addOverlay = function (a, b, e) {
+            a = c.getElement(a);
+            0 <= p(a) || (da.push(new X(a, b, e)), F = m)
         };
-        this.updateOverlay = function (a, b, c) {
-            a = i.getElement(a);
-            a = r(a);
-            0 <= a && (J[a].update(b, c), Q = m)
+        this.updateOverlay = function (a, b, e) {
+            a = c.getElement(a);
+            a = p(a);
+            0 <= a && (da[a].update(b, e), F = m)
         };
         this.removeOverlay = function (a) {
-            a = i.getElement(a);
-            a = r(a);
-            0 <= a && (J[a].destroy(), J.splice(a, 1), Q = m)
+            a = c.getElement(a);
+            a = p(a);
+            0 <= a && (da[a].destroy(),
+                da.splice(a, 1), F = m)
         };
         this.clearOverlays = function () {
-            for (; 0 < J.length;) J.pop().destroy(), Q = m
+            for (; 0 < da.length;) da.pop().destroy(), F = m
         };
         this.needsUpdate = function () {
-            return Q
+            return F
         };
         this.numTilesLoaded = function () {
-            return F.length
+            return V.length
         };
         this.reset = function () {
             H = {};
-            F = [];
-            E = (new Date).getTime();
-            Q = m
+            V = [];
+            D = (new Date).getTime();
+            F = m
         };
         this.update = function () {
-            y.beginUpdate();
-            ha = m;
-            for (Q = k; 0 < ka.length;) {
-                var g = ka.pop();
-                g.beingDrawn = k
+            A.beginUpdate();
+            ya = m;
+            for (F = n; 0 < N.length;) {
+                var f = N.pop();
+                f.beingDrawn = n
             }
-            var q = e.getContainerSize(),
-                r = q.x,
-                q = q.y;
-            Ja ? (v.width = r, v.height = q, D.clearRect(0, 0, r, q)) : v.innerHTML = w;
-            var r = e.getBounds(m),
-                s = r.getTopLeft(),
-                x = r.getBottomRight();
-            if (b.wrapHorizontal || !(0 > x.x || 1 < s.x)) if (b.wrapVertical || !(0 > x.y || s.y > S)) {
-                    var G = C,
-                        T = db === U.CHROME,
-                        L = h.abs,
-                        r = h.floor,
-                        I = h.log,
-                        F = h.max,
-                        E = h.min,
-                        q = e.deltaPixelsFromPoints,
-                        V = e.pixelFromPoint,
-                        qa = c.getTileAtPoint,
-                        va = b.alwaysBlend,
-                        pa = 1E3 * b.blendTime,
-                        ba = b.immediateRender,
-                        za = b.minZoomDimension,
-                        ta = b.wrapHorizontal,
-                        da = b.wrapVertical,
-                        Ca = b.wrapOverlays;
-                    ta || (s.x = F(s.x, 0), x.x = E(x.x, 1));
-                    da || (s.y = F(s.y, 0), x.y = E(x.y, S));
-                    for (var N = p, ca = k, X = (new Date).getTime(), Ea = e.getCenter(), na = V(Ea), ya = q(d(0), k).x, ba = ba ? 1 : ya, F = F(K,
-                            r(I(za || 64) / I(2))), za = q(d(0), m).x, I = E(z, r(I(za / cb) / I(2))), F = E(F, I); I >= F; I--) {
-                        za = k;
-                        ya = q(d(I), m).x;
-                        if (!ca && ya >= cb || I == F) ca = za = m;
+            var t = b.getContainerSize(),
+                p = t.x,
+                t = t.y;
+            Ba ? (s.width = p, s.height = t, E.clearRect(0, 0, p, t)) : s.innerHTML = z;
+            var p = b.getBounds(m),
+                y = p.getTopLeft(),
+                O = p.getBottomRight();
+            if (e.wrapHorizontal || !(0 > O.x || 1 < y.x))
+                if (e.wrapVertical || !(0 > O.y || y.y > C)) {
+                    var V = Ta,
+                        ja = U === L.CHROME,
+                        qa = d.abs,
+                        p = d.floor,
+                        D = d.log,
+                        R = d.max,
+                        I = d.min,
+                        t = b.deltaPixelsFromPoints,
+                        aa = b.pixelFromPoint,
+                        ma = a.getTileAtPoint,
+                        W = e.alwaysBlend,
+                        ba = 1E3 * e.blendTime,
+                        Q = e.immediateRender,
+                        pa = e.minZoomDimension,
+                        T = e.wrapHorizontal,
+                        ea = e.wrapVertical,
+                        ha = e.wrapOverlays;
+                    T || (y.x = R(y.x, 0), O.x = I(O.x, 1));
+                    ea || (y.y = R(y.y, 0), O.y = I(O.y, C));
+                    for (var na = h, ca = n, Z = (new Date).getTime(), ia = b.getCenter(), Ca = aa(ia), ga = t(j(0), n).x, Q = Q ? 1 : ga, R = R(v, p(D(pa || 64) / D(2))), pa =
+                            t(j(0), m).x, D = I(P, p(D(pa / B) / D(2))), R = I(R, D); D >= R; D--) {
+                        pa = n;
+                        ga = t(j(D), m).x;
+                        if (!ca && ga >= B || D == R) ca = pa = m;
                         else if (!ca) continue;
-                        ia[I] = {};
-                        var ya = E(1, (ya - P) / P),
-                            R = q(d(I), k).x,
-                            R = ba / L(ba - R),
-                            ga = qa(I, s),
-                            la = qa(I, x),
-                            ma, ua = I;
-                        A[ua] || (A[ua] = c.getNumTiles(ua));
-                        ma = A[ua];
-                        ua = ma.x;
-                        ma = ma.y;
-                        ta || (la.x = E(la.x, ua - 1));
-                        da || (la.y = E(la.y, ma - 1));
-                        for (var Y = ga.x; Y <= la.x; Y++) for (var ra = ga.y; ra <= la.y; ra++) {
-                                var M = I,
-                                    Z = Y,
-                                    fa = ra,
-                                    g = X,
-                                    Aa = ua,
-                                    Ua = ma;
-                                H[M] || (H[M] = {});
-                                H[M][Z] || (H[M][Z] = {});
-                                if (!H[M][Z][fa]) {
-                                    var W = (Aa + Z % Aa) %
-                                        Aa,
-                                        Qa = (Ua + fa % Ua) % Ua,
-                                        sa = c.getTileBounds(M, W, Qa),
-                                        Ka = c.tileExists(M, W, Qa),
-                                        oa = c.getTileUrl(M, W, Qa);
-                                    sa.x += 1 * (Z - W) / Aa;
-                                    sa.y += S * (fa - Qa) / Ua;
-                                    H[M][Z][fa] = new Da(M, Z, fa, sa, Ka, oa)
+                        S[D] = {};
+                        var ga = I(1, (ga - J) / J),
+                            Ra = t(j(D), n).x,
+                            Ra = Q / qa(Q - Ra),
+                            Wa = ma(D, y),
+                            Ha = ma(D, O),
+                            Ia, Ea = D;
+                        ka[Ea] || (ka[Ea] = a.getNumTiles(Ea));
+                        Ia = ka[Ea];
+                        Ea = Ia.x;
+                        Ia = Ia.y;
+                        T || (Ha.x = I(Ha.x, Ea - 1));
+                        ea || (Ha.y = I(Ha.y, Ia - 1));
+                        for (var wa = Wa.x; wa <= Ha.x; wa++)
+                            for (var xa = Wa.y; xa <= Ha.y; xa++) {
+                                var Y = D,
+                                    oa = wa,
+                                    ra = xa,
+                                    f = Z,
+                                    fa = Ea,
+                                    ta = Ia;
+                                H[Y] || (H[Y] = {});
+                                H[Y][oa] || (H[Y][oa] = {});
+                                if (!H[Y][oa][ra]) {
+                                    var Ka = (fa + oa % fa) % fa,
+                                        la = (ta +
+                                            ra % ta) % ta,
+                                        X = a.getTileBounds(Y, Ka, la),
+                                        va = a.tileExists(Y, Ka, la),
+                                        Aa = a.getTileUrl(Y, Ka, la);
+                                    X.x += 1 * (oa - Ka) / fa;
+                                    X.y += C * (ra - la) / ta;
+                                    H[Y][oa][ra] = new ua(Y, oa, ra, X, va, Aa)
                                 }
-                                M = H[M][Z][fa];
-                                M.lastTouchTime = g;
-                                g = M;
-                                M = za;
-                                u(I, Y, ra, k);
-                                g.exists && (ca && !M && ((Y === a || ra === a ? n(I + 1) : n(I + 1, 2 * Y, 2 * ra) && n(I + 1, 2 * Y, 2 * ra + 1) && n(I + 1, 2 * Y + 1, 2 * ra) && n(I + 1, 2 * Y + 1, 2 * ra + 1)) ? u(I, Y, ra, m) : M = m), M && (Aa = g.bounds.getTopLeft(), fa = g.bounds.getSize(), M = V(Aa, m), Z = q(fa, m), B || (Z = Z.plus(new j(1, 1))), Aa = V(Aa, k), fa = q(fa, k), fa = Aa.plus(fa.divide(2)), fa =
-                                    na.distanceTo(fa), g.position = M, g.size = Z, g.distance = fa, g.visibility = R, g.loaded ? (g.blendStart || (g.blendStart = X), M = X - g.blendStart, Z = 0 === pa ? 1 : E(1, M / pa), va && (Z *= ya), g.opacity = Z, ka.push(g), 1 <= Z ? (u(I, Y, ra, m), T && g.lastDrawnTime !== G && u(I, Y, ra, k)) : M < pa && (Q = m), g.lastDrawnTime = X) : g.loading || (N = !N || g.visibility > N.visibility || g.visibility == N.visibility && g.distance < N.distance ? g : N)))
-                        }
-                        if (n(I)) break
+                                Y = H[Y][oa][ra];
+                                Y.lastTouchTime = f;
+                                f = Y;
+                                Y = pa;
+                                x(D, wa, xa, n);
+                                f.exists && (ca && !Y && ((wa === q || xa === q ? u(D + 1) : u(D + 1, 2 * wa, 2 * xa) && u(D + 1, 2 * wa, 2 * xa + 1) && u(D + 1, 2 * wa + 1, 2 * xa) && u(D + 1, 2 * wa + 1, 2 * xa + 1)) ? x(D, wa, xa, m) : Y = m), Y && (fa = f.bounds.getTopLeft(), ra = f.bounds.getSize(), Y = aa(fa, m), oa = t(ra, m), G || (oa = oa.plus(new l(1, 1))), fa = aa(fa, n), ra = t(ra, n), ra = fa.plus(ra.divide(2)),
+                                    ra = Ca.distanceTo(ra), f.position = Y, f.size = oa, f.distance = ra, f.visibility = Ra, f.loaded ? (f.blendStart || (f.blendStart = Z), Y = Z - f.blendStart, oa = 0 === ba ? 1 : I(1, Y / ba), W && (oa *= ga), f.opacity = oa, N.push(f), 1 <= oa ? (x(D, wa, xa, m), ja && f.lastDrawnTime !== V && x(D, wa, xa, n)) : Y < ba && (F = m), f.lastDrawnTime = Z) : f.loading || (na = !na || f.visibility > na.visibility || f.visibility == na.visibility && f.distance < na.distance ? f : na)))
+                            }
+                        if (u(D)) break
                     }
-                    for (s = ka.length - 1; 0 <= s; s--) g = ka[s], Ja ? g.drawCanvas(D) : g.drawHTML(v), g.beingDrawn = m;
-                    x = J.length;
-                    for (s = 0; s < x; s++) G = J[s],
-                    T = G.bounds, L = T.getTopLeft(), Ca && ta && (L.x += r(Ea.x)), G.position = V(L, m), G.size = q(T.getSize(), m), G.drawHTML(t);
-                    N && (N.loading = O.loadImage(N.url, i.createCallback(p, l, N, X)), Q = m);
-                    C = X
+                    for (y = N.length - 1; 0 <= y; y--) f = N[y], Ba ? f.drawCanvas(E) : f.drawHTML(s), f.beingDrawn = m;
+                    O = da.length;
+                    for (y = 0; y <
+                        O; y++) V = da[y], ja = V.bounds, qa = ja.getTopLeft(), ha && T && (qa.x += p(ia.x)), V.position = aa(qa, m), V.size = t(ja.getSize(), m), V.drawHTML(r);
+                    na && (na.loading = K.loadImage(na.url, c.createCallback(h, k, na, Z)), F = m);
+                    Ta = Z
                 }
-            ha = k;
-            y.endUpdate()
+            ya = n;
+            A.endUpdate()
         };
         this.idle = function () {}
     };
-    var va, Ka = function (a, b, c) {
-            var d = i.makeNeutralElement("span");
+    var ta, Ja = function (a, b, e) {
+            var f = c.makeNeutralElement("span");
             this.elmt = a;
             this.anchor = b;
-            this.container = c;
-            this.wrapper = d;
-            d.style.display = "inline-block";
-            d.appendChild(a);
-            b == va.NONE && (d.style.width = d.style.height = "100%");
-            b == va.TOP_RIGHT || b == va.BOTTOM_RIGHT ? c.insertBefore(d, c.firstChild) :
-                c.appendChild(d)
-        }, ob = i.getBrowser();
-    va = l.ControlAnchor = {
+            this.container = e;
+            this.wrapper = f;
+            f.style.display = "inline-block";
+            f.appendChild(a);
+            b == ta.NONE && (f.style.width = f.style.height = "100%");
+            b == ta.TOP_RIGHT || b == ta.BOTTOM_RIGHT ? e.insertBefore(f,
+                e.firstChild) : e.appendChild(f)
+        }, Ya = c.getBrowser();
+    ta = C.ControlAnchor = {
         NONE: 0,
         TOP_LEFT: 1,
         TOP_RIGHT: 2,
         BOTTOM_RIGHT: 3,
         BOTTOM_LEFT: 4
     };
-    Ka.prototype.destroy = function () {
+    Ja.prototype.destroy = function () {
         this.wrapper.removeChild(this.elmt);
         this.container.removeChild(this.wrapper)
     };
-    Ka.prototype.isVisible = function () {
-        return this.wrapper.style.display != x
+    Ja.prototype.isVisible = function () {
+        return this.wrapper.style.display != E
     };
-    Ka.prototype.setVisible = function (a) {
-        this.wrapper.style.display = a ? "inline-block" : x
+    Ja.prototype.setVisible = function (a) {
+        this.wrapper.style.display = a ? "inline-block" : E
     };
-    Ka.prototype.setOpacity = function (a) {
-        this.elmt["----seadragon----"] && ob == U.IE ? i.setElementOpacity(this.elmt, a, m) : i.setElementOpacity(this.wrapper,
-            a, m)
+    Ja.prototype.setOpacity = function (a) {
+        this.elmt["----seadragon----"] && Ya == L.IE ? c.setElementOpacity(this.elmt,
+            a, m) : c.setElementOpacity(this.wrapper, a, m)
     };
-    l.Viewer = function (a) {
-        function l(a) {
-            a = e.createTextNode(a);
-            E.innerHTML = w;
-            E.appendChild(i.makeCenteredNode(a));
-            a = a.parentNode.style;
-            a.fontFamily = "verdana";
-            a.fontSize = "13px";
-            a.fontSizeAdjust = x;
-            a.fontStyle = "normal";
-            a.fontStretch = "normal";
-            a.fontVariant = "normal";
-            a.fontWeight = "normal";
-            a.lineHeight = "1em";
-            a.textAlign = "center";
-            a.textDecoration = x
+    C.Viewer = function (g) {
+        function t(b) {
+            b = a.createTextNode(b);
+            L.innerHTML = z;
+            L.appendChild(c.makeCenteredNode(b));
+            b = b.parentNode.style;
+            b.fontFamily = "verdana";
+            b.fontSize = "13px";
+            b.fontSizeAdjust = E;
+            b.fontStyle = "normal";
+            b.fontStretch = "normal";
+            b.fontVariant = "normal";
+            b.fontWeight = "normal";
+            b.lineHeight = "1em";
+            b.textAlign = "center";
+            b.textDecoration = E
         }
-        function n() {
+
+        function k() {
             J && u();
-            Ra = (new Date).getTime();
-            c.setTimeout(function () {
-                Ra > Na && l(g.getString("Messages.Loading"))
+            la = (new Date).getTime();
+            b.setTimeout(function () {
+                la > ua && t(j.getString("Messages.Loading"))
             }, 2E3);
-            return Ra
+            return la
         }
-        function d(b, e, g) {
-            Na = (new Date).getTime();
-            b < Ra ? (q.log("Ignoring out-of-date open."), ha.trigger("ignore", B)) : e ? (E.innerHTML = w, qa = i.getElementSize(a), 0 === qa.x || 0 === qa.y ? c.setTimeout(function () {
-                d(b, e, g)
-            }, K) : (J = e, C = new jb(qa, J.dimensions), ka = new ab(J, C, E), W = new s, B.source = J, B.viewport = C, B.drawer = ka, B.profiler = W, ta = k, Sa = m, r(D), ha.trigger("open", B))) : (l(g), ha.trigger("error", B))
+
+        function B(a, e, j) {
+            ua = (new Date).getTime();
+            a < la ? (y.log("Ignoring out-of-date open."), I.trigger("ignore", U)) : e ? (L.innerHTML = z, X = c.getElementSize(g), 0 === X.x || 0 === X.y ? b.setTimeout(function () {
+                B(a, e, j)
+            }, f) : (J = e, F = new pa(X, J.dimensions), N = new r(J, F, L), ya = new qa, U.source = J, U.viewport = F, U.drawer = N, U.profiler = ya, Da = n, La = m, x(s), I.trigger("open", U))) : (t(j), I.trigger("error", U))
         }
+
         function u() {
-            B.source = J = p;
-            B.viewport = C = p;
-            B.drawer = ka = p;
-            B.profiler = W = p;
-            E.innerHTML = w
+            U.source = J = h;
+            U.viewport = F = h;
+            U.drawer = N = h;
+            U.profiler = ya = h;
+            L.innerHTML = z
         }
-        function r(a, b) {
-            if (ta) return c.setTimeout(a, 1);
-            var d = (new Date).getTime(),
-                d = h.max(1, (b ? b : d) + 1E3 / 60 - d);
-            return c.setTimeout(a, d)
+
+        function x(a, c) {
+            if (Da) return b.setTimeout(a, 1);
+            var e =
+                (new Date).getTime(),
+                e = d.max(1, (c ? c : e) + 1E3 / 60 - e);
+            return b.setTimeout(a, e)
         }
-        function t() {
+
+        function p() {
             if (J) {
-                W.beginUpdate();
-                var b = i.getElementSize(a);
-                !b.equals(qa) && (0 < b.x && 0 < b.y) && (C.resize(b, m), qa = b, ha.trigger("resize", B));
-                b = C.update();
-                !ta && b && (ha.trigger("animationstart", B), T());
-                b ? (ka.update(), ha.trigger("animation", B)) : Sa || ka.needsUpdate() ? (ka.update(), Sa = k) : ka.idle();
-                ta && !b && (ha.trigger("animationfinish", B), !Ta && A());
-                ta = b;
-                W.endUpdate()
+                ya.beginUpdate();
+                var a = c.getElementSize(g);
+                !a.equals(X) && (0 < a.x && 0 < a.y) && (F.resize(a, m), X = a, I.trigger("resize", U));
+                a = F.update();
+                !Da && a && (I.trigger("animationstart", U), O());
+                a ? (N.update(), I.trigger("animation", U)) : La || N.needsUpdate() ? (N.update(), La = n) : N.idle();
+                Da && !a && (I.trigger("animationfinish", U), !Ma && v());
+                Da = a;
+                ya.endUpdate()
             }
         }
-        function D() {
+
+        function s() {
             if (J) {
                 var a = (new Date).getTime();
-                t();
-                r(arguments.callee, a)
+                p();
+                x(arguments.callee, a)
             }
         }
-        function y(a) {
-            for (var b = ea.length -
-                1; 0 <= b; b--) if (ea[b].elmt == a) return b;
+
+        function K(a) {
+            for (var c =
+                Q.length - 1; 0 <= c; c--)
+                if (Q[c].elmt == a) return c;
             return -1
         }
-        function v() {
-            c.setTimeout(O, 20)
+
+        function q() {
+            b.setTimeout(A, 20)
         }
-        function O() {
-            if (ga) {
-                for (var a = 1 - ((new Date).getTime() - na) / Ja, a = h.min(1, a), a = h.max(0, a), b = ea.length - 1; 0 <= b; b--) ea[b].setOpacity(a);
-                0 < a && v()
+
+        function A() {
+            if (W) {
+                for (var a = 1 - ((new Date).getTime() - T) / ga, a = d.min(1, a), a = d.max(0, a), c = Q.length - 1; 0 <= c; c--) Q[c].setOpacity(a);
+                0 < a && q()
             }
         }
-        function T() {
-            ga = k;
-            for (var a = ea.length - 1; 0 <= a; a--) ea[a].setOpacity(1)
+
+        function O() {
+            W = n;
+            for (var a = Q.length - 1; 0 <= a; a--) Q[a].setOpacity(1)
         }
-        function A() {
-            b.autoHideControls && (ga = m, na = (new Date).getTime() + Da, c.setTimeout(v, Da))
+
+        function v() {
+            e.autoHideControls && (W = m, T = (new Date).getTime() + ca, b.setTimeout(q, ca))
         }
-        function F() {
-            Ta = m;
-            T()
+
+        function D() {
+            Ma = m;
+            O()
         }
-        function z(a, b, c) {
-            c || (Ta = k, !ta && A())
+
+        function G(a, c, b) {
+            b || (Ma = n, !Da && v())
         }
-        function U(a) {
-            a = i.getEvent(a);
-            27 === a.keyCode && B.setFullPage(k)
+
+        function C(a) {
+            a = c.getEvent(a);
+            27 === a.keyCode && U.setFullPage(n)
         }
-        var B =
-            this,
-            H = i.getElement(a),
-            a = i.makeNeutralElement("div"),
-            E = i.makeNeutralElement("div"),
-            P = i.makeNeutralElement("div"),
-            V = i.makeNeutralElement("div"),
-            ba = i.makeNeutralElement("div"),
-            ia = i.makeNeutralElement("div"),
-            J = p,
-            ka = p,
-            C = p,
-            W = p,
-            ha = new gb,
-            Q = new Ca(E),
-            da = new Ca(a),
-            ea = [],
-            ga = m,
-            na = p,
-            oa = p,
-            Da = 1E3,
-            Ja = 2E3,
-            na = p,
-            ga = k,
-            Ha = e.body.style.width,
-            I = e.body.style.height,
-            La = e.body.style.overflow,
-            Ma = e.documentElement.style.overflow,
-            Fa = new j(1, 1),
-            qa = p,
-            Ra = 0,
-            Na = 0,
-            Oa = p,
-            za = p,
-            ta = k,
-            Sa = k,
-            Ta = k;
-        this.container = H;
-        this.elmt = a;
-        this.profiler =
-            this.viewport = this.drawer = this.source = p;
-        this.tracker = Q;
+        var U = this,
+            V = c.getElement(g),
+            g = c.makeNeutralElement("div"),
+            L = c.makeNeutralElement("div"),
+            ja = c.makeNeutralElement("div"),
+            H = c.makeNeutralElement("div"),
+            da = c.makeNeutralElement("div"),
+            ka = c.makeNeutralElement("div"),
+            J = h,
+            N = h,
+            F = h,
+            ya = h,
+            I = new fa,
+            aa = new R(L),
+            ma = new R(g),
+            Q = [],
+            W = m,
+            T = h,
+            Z = h,
+            ca = 1E3,
+            ga = 2E3,
+            T = h,
+            W = n,
+            ea = a.body.style.width,
+            ha = a.body.style.height,
+            ia = a.body.style.overflow,
+            Ba = a.documentElement.style.overflow,
+            Ca = new l(1, 1),
+            X = h,
+            la = 0,
+            ua = 0,
+            va = h,
+            Aa = h,
+            Da = n,
+            La = n,
+            Ma = n;
+        this.container = V;
+        this.elmt = g;
+        this.profiler = this.viewport =
+            this.drawer = this.source = h;
+        this.tracker = aa;
         this.isOpen = function () {
             return !!J
         };
         this.openDzi = function (a, b) {
-            var c = n(),
-                c = i.createCallback(p, d, c);
+            var e = k(),
+                e = c.createCallback(h, B, e);
             switch (typeof a) {
             case "string":
-                pa.createFromXml(a, b, c);
+                S.createFromXml(a, b, e);
                 break;
             default:
-                pa.createFromJson(a, c)
+                S.createFromJson(a, e)
             }
         };
         this.openTileSource = function (a) {
-            var b = n();
-            c.setTimeout(function () {
-                d(b, a)
+            var c = k();
+            b.setTimeout(function () {
+                B(c, a)
             }, 1)
         };
         this.close = function () {
             J && u()
         };
-        this.addControl = function (b, c) {
-            b = i.getElement(b);
-            if (!(0 <= y(b))) {
-                var d = p;
-                switch (c) {
-                case va.TOP_RIGHT:
-                    d = V;
-                    b.style.position = "relative";
+        this.addControl = function (a, b) {
+            a = c.getElement(a);
+            if (!(0 <= K(a))) {
+                var e = h;
+                switch (b) {
+                case ta.TOP_RIGHT:
+                    e = H;
+                    a.style.position = "relative";
                     break;
-                case va.BOTTOM_RIGHT:
-                    d =
-                        ba;
-                    b.style.position = "relative";
+                case ta.BOTTOM_RIGHT:
+                    e = da;
+                    a.style.position = "relative";
                     break;
-                case va.BOTTOM_LEFT:
-                    d = ia;
-                    b.style.position = "relative";
+                case ta.BOTTOM_LEFT:
+                    e = ka;
+                    a.style.position = "relative";
                     break;
-                case va.TOP_LEFT:
-                    d = P;
-                    b.style.position = "relative";
+                case ta.TOP_LEFT:
+                    e = ja;
+                    a.style.position = "relative";
                     break;
                 default:
-                    d = a, b.style.position = "absolute"
+                    e = g, a.style.position = "absolute"
                 }
-                ea.push(new Ka(b, c, d))
+                Q.push(new Ja(a, b, e))
             }
         };
         this.removeControl = function (a) {
-            a = i.getElement(a);
-            a = y(a);
-            0 <= a && (ea[a].destroy(), ea.splice(a, 1))
+            a = c.getElement(a);
+            a = K(a);
+            0 <= a && (Q[a].destroy(), Q.splice(a, 1))
         };
         this.clearControls = function () {
-            for (; 0 < ea.length;) ea.pop().destroy()
+            for (; 0 < Q.length;) Q.pop().destroy()
         };
         this.getNavControl = function () {
-            return oa
+            return Z
         };
         this.isDashboardEnabled = function () {
-            for (var a = ea.length - 1; 0 <= a; a--) if (ea[a].isVisible()) return m;
-            return k
+            for (var a = Q.length - 1; 0 <= a; a--)
+                if (Q[a].isVisible()) return m;
+            return n
         };
         this.isFullPage = function () {
-            return a.parentNode == e.body
+            return g.parentNode == a.body
         };
         this.isMouseNavEnabled = function () {
-            return Q.isTracking()
+            return aa.isTracking()
         };
         this.isVisible = function () {
-            return a.style.visibility != S
+            return g.style.visibility != P
         };
         this.setDashboardEnabled = function (a) {
-            for (var b = ea.length - 1; 0 <= b; b--) ea[b].setVisible(a)
+            for (var c = Q.length - 1; 0 <= c; c--) Q[c].setVisible(a)
         };
         this.setFullPage = function (b) {
-            if (b != B.isFullPage()) {
-                var c = e.body,
-                    d = c.style,
-                    g = e.documentElement.style,
-                    k = a.style,
-                    l = E.style;
-                b ? (La = d.overflow, Ma = g.overflow, d.overflow = S, g.overflow = S, Ha = d.width, I = d.height, d.width = "100%", d.height = "100%", l.backgroundColor =
-                    "black", l.color = "white", k.position = "fixed", k.zIndex = "99999999", c.appendChild(a), qa = i.getWindowSize(), i.addEvent(e, "keydown", U), F()) : (d.overflow = La, g.overflow = Ma, d.width = Ha, d.height = I, l.backgroundColor = w, l.color = w, k.position = "relative", k.zIndex = w, H.appendChild(a), qa = i.getElementSize(H), i.removeEvent(e, "keydown", U), z());
-                C && (c = C.getBounds(), C.resize(qa), d = C.getBounds(), b ? Fa = new j(d.width / c.width, d.height / c.height) : (C.update(), C.zoomBy(h.max(Fa.x, Fa.y), p, m)), Sa = m, ha.trigger("resize", B), t())
+            if (b != U.isFullPage()) {
+                var e = a.body,
+                    f = e.style,
+                    j = a.documentElement.style,
+                    t = g.style,
+                    B = L.style;
+                b ? (ia = f.overflow, Ba = j.overflow, f.overflow = P, j.overflow = P, ea = f.width, ha = f.height, f.width = "100%", f.height = "100%", B.backgroundColor =
+                    "black", B.color = "white", t.position = "fixed", t.zIndex = "99999999", e.appendChild(g), X = c.getWindowSize(), c.addEvent(a, "keydown", C), D()) : (f.overflow = ia, j.overflow = Ba, f.width = ea, f.height = ha, B.backgroundColor = z, B.color = z, t.position = "relative", t.zIndex = z, V.appendChild(g), X = c.getElementSize(V), c.removeEvent(a, "keydown", C), G());
+                F && (e = F.getBounds(), F.resize(X), f = F.getBounds(), b ? Ca = new l(f.width / e.width, f.height / e.height) : (F.update(), F.zoomBy(d.max(Ca.x, Ca.y), h, m)), La = m, I.trigger("resize", U), p())
             }
         };
-        this.setMouseNavEnabled = function (a) {
-            Q.setTracking(a)
+        this.setMouseNavEnabled =
+            function (a) {
+                aa.setTracking(a)
         };
-        this.setVisible = function (b) {
-            a.style.visibility = b ? w : S
+        this.setVisible = function (a) {
+            g.style.visibility = a ? z : P
         };
-        this.showMessage = function (a, b) {
-            b ? c.setTimeout(function () {
-                !B.isOpen() && l(a)
-            }, b) : l(a)
+        this.showMessage = function (a, c) {
+            c ? b.setTimeout(function () {
+                !U.isOpen() && t(a)
+            }, c) : t(a)
         };
-        this.addEventListener = function (a, b) {
-            ha.addListener(a, b)
+        this.addEventListener = function (a, c) {
+            I.addListener(a, c)
         };
-        this.removeEventListener = function (a, b) {
-            ha.removeListener(a, b)
+        this.removeEventListener = function (a, c) {
+            I.removeListener(a, c)
         };
-        var N = E.style,
-            ca = a.style,
-            X = P.style,
-            Ea = V.style,
-            Ga = ba.style,
-            ya = ia.style;
-        ca.width = "100%";
-        ca.height = "100%";
-        ca.position = "relative";
-        ca.left = "0px";
-        ca.top = "0px";
-        ca.textAlign = "left";
-        N.width = "100%";
-        N.height = "100%";
-        N.overflow =
-            S;
-        N.position = "absolute";
-        N.top = "0px";
-        N.left = "0px";
-        X.position = Ea.position = Ga.position = ya.position = "absolute";
-        X.top = Ea.top = "0px";
-        X.left = ya.left = "0px";
-        Ea.right = Ga.right = "0px";
-        ya.bottom = Ga.bottom = "0px";
-        Q.clickHandler = function (a, c, d, e) {
-            C && d && (a = b.zoomPerClick, C.zoomBy(e ? 1 / a : a, C.pointFromPixel(c, m)), C.applyConstraints())
+        var na = L.style,
+            Ga = g.style,
+            Na = ja.style,
+            Oa = H.style,
+            Pa = da.style,
+            Qa = ka.style;
+        Ga.width = "100%";
+        Ga.height = "100%";
+        Ga.position = "relative";
+        Ga.left = "0px";
+        Ga.top = "0px";
+        Ga.textAlign = "left";
+        na.width = "100%";
+        na.height = "100%";
+        na.overflow =
+            P;
+        na.position = "absolute";
+        na.top = "0px";
+        na.left = "0px";
+        Na.position = Oa.position = Pa.position = Qa.position = "absolute";
+        Na.top = Oa.top = "0px";
+        Na.left = Qa.left = "0px";
+        Oa.right = Pa.right = "0px";
+        Qa.bottom = Pa.bottom = "0px";
+        aa.clickHandler = function (a, c, b, f) {
+            F && b && (a = e.zoomPerClick, F.zoomBy(f ? 1 / a : a, F.pointFromPixel(c, m)), F.applyConstraints())
         };
-        Q.pressHandler = function (a, b) {
-            C && (Oa = b, za = C.getCenter())
+        aa.pressHandler = function (a, c) {
+            F && (va = c, Aa = F.getCenter())
         };
-        Q.dragHandler = function (a, c, d) {
-            C && (b.constrainDuringPan ? (a = c.minus(Oa), a = C.deltaPointsFromPixels(a.negate(), m), C.panTo(za.plus(a)),
-                C.applyConstraints()) : C.panBy(C.deltaPointsFromPixels(d.negate(), m)))
+        aa.dragHandler = function (a, c, b) {
+            F && (e.constrainDuringPan ? (a = c.minus(va), a = F.deltaPointsFromPixels(a.negate(), m), F.panTo(Aa.plus(a)),
+                F.applyConstraints()) : F.panBy(F.deltaPointsFromPixels(b.negate(), m)))
         };
-        Q.releaseHandler = function (a, b, c) {
-            c && C && C.applyConstraints()
+        aa.releaseHandler = function (a, c, b) {
+            b && F && F.applyConstraints()
         };
-        Q.scrollHandler = function (a, c, d) {
-            C && (a = h.pow(b.zoomPerScroll, d), C.zoomBy(a, C.pointFromPixel(c, m)), C.applyConstraints())
+        aa.scrollHandler = function (a, c, b) {
+            F && (a = d.pow(e.zoomPerScroll, b), F.zoomBy(a, F.pointFromPixel(c, m)), F.applyConstraints())
         };
-        Q.setTracking(m);
-        var R = B,
-            N = function () {
-                Y = (new Date).getTime();
-                ua = b.zoomPerSecond;
-                ma = m;
-                c.setTimeout(Ia, K)
-            }, ca = function () {
-                Y = (new Date).getTime();
-                ua = 1 / b.zoomPerSecond;
-                ma = m;
-                c.setTimeout(Ia, K)
-            }, X = function () {
-                ma = k
-            }, Ia = function () {
-                if (ma && R.viewport) {
-                    var a = (new Date).getTime(),
-                        b = h.pow(ua, (a - Y) / 1E3);
-                    R.viewport.zoomBy(b);
-                    R.viewport.applyConstraints();
-                    Y = a;
-                    c.setTimeout(Ia, K)
-                }
-            }, la = p,
-            ma = k,
-            ua = p,
-            Y = p,
-            N = new sa(g.getString("Tooltips.ZoomIn"), b.imagePath + "zoomin_rest.png", b.imagePath + "zoomin_grouphover.png", b.imagePath + "zoomin_hover.png", b.imagePath + "zoomin_pressed.png", N, X, function () {
-                R.viewport && (ma = k, R.viewport.zoomBy(b.zoomPerClick / 1), R.viewport.applyConstraints())
-            }, N, X),
-            ca = new sa(g.getString("Tooltips.ZoomOut"), b.imagePath + "zoomout_rest.png", b.imagePath + "zoomout_grouphover.png",
-                b.imagePath + "zoomout_hover.png", b.imagePath + "zoomout_pressed.png", ca, X, function () {
-                R.viewport && (ma = k, R.viewport.zoomBy(1 / b.zoomPerClick), R.viewport.applyConstraints())
-            }, ca, X),
-            X = new sa(g.getString("Tooltips.Home"), b.imagePath + "home_rest.png", b.imagePath + "home_grouphover.png", b.imagePath + "home_hover.png", b.imagePath + "home_pressed.png", p, function () {
-                R.viewport && R.viewport.goHome()
-            }, p, p, p),
-            Ea = new sa(g.getString("Tooltips.FullPage"), b.imagePath + "fullpage_rest.png", b.imagePath + "fullpage_grouphover.png", b.imagePath +
-                "fullpage_hover.png", b.imagePath + "fullpage_pressed.png", p, function () {
-                R.setFullPage(!R.isFullPage());
-                la.emulateExit();
-                R.viewport && R.viewport.applyConstraints()
-            }, p, p, p),
-            la = new Ya([N, ca, X, Ea]);
-        la.elmt["----seadragon----"] = m;
-        R.addEventListener("open", function () {
-            la.emulateEnter();
-            la.emulateExit()
-        });
-        oa = la.elmt;
-        oa.style.marginRight = "4px";
-        oa.style.marginBottom = "4px";
-        B.addControl(oa, va.BOTTOM_RIGHT);
-        da.enterHandler = F;
-        da.exitHandler = z;
-        da.releaseHandler = function (a, b, c, d) {
-            d || (Ta = k, !ta && A())
+        aa.setTracking(m);
+        ma.enterHandler = D;
+        ma.exitHandler = G;
+        ma.releaseHandler = function (a, c, b, e) {
+            e || (Ma = n, !Da && v())
         };
-        da.setTracking(m);
-        c.setTimeout(A, 1);
-        a.appendChild(E);
-        a.appendChild(P);
-        a.appendChild(V);
-        a.appendChild(ba);
-        a.appendChild(ia);
-        H.innerHTML = w;
-        H.appendChild(a)
+        ma.setTracking(m);
+        b.setTimeout(v, 1);
+        g.appendChild(L);
+        g.appendChild(ja);
+        g.appendChild(H);
+        g.appendChild(da);
+        g.appendChild(ka);
+        V.innerHTML = z;
+        V.appendChild(g)
     }
 })(window, document, Math);
 var org;
@@ -1957,12 +1955,12 @@ if (org.gigapan.utils) {
 } else org.gigapan.utils = {};
 org.gigapan.utils.GigapanTiles = function () {
     return {
-        getTileServerDomainName: function (c) {
-            c = Math.floor(c / 1E3);
-            return "tile" + (10 > c ? "0" : "") + c + ".gigapan.org"
+        getTileServerDomainName: function (b) {
+            b = Math.floor(b / 1E3);
+            return "tile" + (10 > b ? "0" : "") + b + ".gigapan.org"
         },
-        getTilesPath: function (c, e) {
-            return org.gigapan.utils.GigapanTiles.getTileServerDomainName(c) + ("/gigapans0/" + c + "/tiles" + (null == e ? "" : "." + e) + "/")
+        getTilesPath: function (b, a) {
+            return org.gigapan.utils.GigapanTiles.getTileServerDomainName(b) + ("/gigapans0/" + b + "/tiles" + (null == a ? "" : "." + a) + "/")
         }
     }
 }();
@@ -1984,253 +1982,25 @@ if (!window.Seadragon) {
     throw Error(noSeadragonMsg);
 }
 (function () {
-    org.gigapan.seadragon.GigapanTileSource = function (c, e, h, a, r) {
-        Seadragon.TileSource.call(this, a, r, 256, 0, 8);
-        var t = "http://" + c + "/gigapans0/" + e + "/tiles",
-            y = ["0", "1", "2", "3"];
-        null != h && 0 < h.length && (t += "." + h);
-        this.getTileUrl = function (a, c, e) {
+    org.gigapan.seadragon.GigapanTileSource = function (b, a, d, q, k) {
+        Seadragon.TileSource.call(this, q, k, 256, 0, 8);
+        var v = "http://" + b + "/gigapans0/" + a + "/tiles",
+            p = ["0", "1", "2", "3"];
+        null != d && 0 < d.length && (v += "." + d);
+        this.getTileUrl = function (a, b, d) {
             8 > a ? a = 0 : 8 <= a && (a -= 8);
-            for (var h = "r", a = 1 << a >> 1; a;) h += y[(c & a ? 1 : 0) + (e & a ? 2 : 0)], a >>= 1;
-            c = t;
-            for (e = 0; e < h.length - 3;) c += "/" + h.substr(e, 3), e += 3;
-            return c + "/" + h + ".jpg"
+            for (var k = "r", a = 1 << a >> 1; a;) k += p[(b & a ? 1 : 0) + (d & a ? 2 : 0)], a >>= 1;
+            b = v;
+            for (d = 0; d < k.length - 3;) b += "/" + k.substr(d, 3), d += 3;
+            return b + "/" + k + ".jpg"
         };
-        this.getTileBounds = function (a, c, e) {
+        this.getTileBounds = function (a, b, d) {
             a = 1 / this.dimensions.times(this.getLevelScale(a)).x;
             return new Seadragon.Rect((0 ===
-                c ? 0 : this.tileSize * c - this.tileOverlap) * a, (0 === e ? 0 : this.tileSize * e - this.tileOverlap) * a, (this.tileSize + (0 === c ? 1 : 2) * this.tileOverlap) * a, (this.tileSize + (0 === e ? 1 : 2) * this.tileOverlap) * a)
+                b ? 0 : this.tileSize * b - this.tileOverlap) * a, (0 === d ? 0 : this.tileSize * d - this.tileOverlap) * a, (this.tileSize + (0 === b ? 1 : 2) * this.tileOverlap) * a, (this.tileSize + (0 === d ? 1 : 2) * this.tileOverlap) * a)
         };
         org.gigapan.seadragon.GigapanTileSource.prototype = new Seadragon.TileSource;
         org.gigapan.seadragon.GigapanTileSource.prototype.constructor = org.gigapan.seadragon.GigapanTileSource
-    }
-})();
-if (org) {
-    if ("object" != typeof org) throw orgExistsMessage = "Error: failed to create org namespace: org already exists and is not an object", alert(orgExistsMessage), Error(orgExistsMessage);
-} else org = {}; if (org.gigapan) {
-    if ("object" != typeof org.gigapan) throw orgGigapanExistsMessage = "Error: failed to create org.gigapan namespace: org.gigapan already exists and is not an object", alert(orgGigapanExistsMessage), Error(orgGigapanExistsMessage);
-} else org.gigapan = {};
-if (org.gigapan.viewers) {
-    if ("object" != typeof org.gigapan.viewers) {
-        var orgGigapanViewersExistsMessage = "Error: failed to create org.gigapan namespace: org.gigapan already exists and is not an object";
-        alert(orgGigapanViewersExistsMessage);
-        throw Error(orgGigapanViewersExistsMessage);
-    }
-} else org.gigapan.viewers = {}; if (!window.Seadragon) throw noSeadragonMsg = "The Seadragon library is required by org.gigapan.seadragon.SeadragonUtils.js", alert(noSeadragonMsg), Error(noSeadragonMsg);
-if (!org.gigapan.utils.GigapanTiles) {
-    var noGigapanTilesMsg = "The org.gigapan.urils.GigapanTiles library is required by org.gigapan.viewers.AS3Viewer.js";
-    alert(noGigapanTilesMsg);
-    throw Error(noGigapanTilesMsg);
-}
-(function () {
-    org.gigapan.viewers.SeadragonViewer = function (c, e, h) {
-        function a() {
-            q = (new Date).getTime();
-            g = Seadragon.Config.zoomPerSecond;
-            b = !0;
-            window.setTimeout(O, 10)
-        }
-
-        function r() {
-            q = (new Date).getTime();
-            g = 1 / Seadragon.Config.zoomPerSecond;
-            b = !0;
-            window.setTimeout(O, 10)
-        }
-        function t() {
-            b = !1
-        }
-
-        function y() {
-            if (!s.sliding) {
-                var a, b = n.viewport.getMaxZoom();
-                n.viewport.getHomeZoom();
-                a = n.viewport.getMinZoom();
-                var c = n.viewport.getZoom();
-                n.viewport.getZoom(!0);
-                n.viewport.getBounds().getSize();
-                n.viewport.getContainerSize();
-                a = (Math.log(c) - Math.log(a)) / (Math.log(b) - Math.log(a));
-                var c = document.getElementById("slider-track"),
-                    b = document.getElementById("slider-handle"),
-                    e = c.offsetTop;
-                a = e + Math.ceil((1 - a) * (e + c.clientHeight - b.clientHeight - e));
-                b.style.top = a + "px"
-            }
-        }
-
-        function O() {
-            if (b && n.viewport) {
-                var a = (new Date).getTime(),
-                    c = Math.pow(g, (a - q) / 1E3);
-                n.viewport.zoomBy(c);
-                n.viewport.applyConstraints();
-                q = a;
-                window.setTimeout(O, 10)
-            }
-        }
-
-        function K() {
-            n.viewport && (b = !1, n.viewport.zoomBy(Seadragon.Config.zoomPerClick / 1), n.viewport.applyConstraints())
-        }
-
-        function S() {
-            n.viewport && (b = !1, n.viewport.zoomBy(1 / Seadragon.Config.zoomPerClick), n.viewport.applyConstraints())
-        }
-        var n = null,
-            A = !1,
-            x = new org.gigapan.multitouch.TouchManager,
-            w = org.gigapan.seadragon.SeadragonUtils,
-            p = null,
-            c = -1 != navigator.userAgent.indexOf("iPhone") || -1 != navigator.userAgent.indexOf("iPod") || -1 != navigator.userAgent.indexOf("iPad") || -1 != navigator.userAgent.indexOf("Android"),
-            m = !0;
-        "undefined" != typeof e.navigation && "undefined" != typeof e.navigation.hideControls && (m = e.navigation.hideControls ? !1 : !0);
-        var P = c && !0,
-            k = !c && !0,
-            l = {}, b = !1,
-            g = null,
-            q = null,
-            s = {
-                sliding: !1,
-                track: void 0,
-                handle: void 0,
-                zoomSliderMax: void 0,
-                zoomSliderMin: void 0,
-                initialMouseY: void 0,
-                startY: void 0,
-                init: function (a, b) {
-                    s.track = document.getElementById(a);
-                    s.handle = document.getElementById(b);
-                    s.zoomSliderMax = s.track.offsetTop;
-                    s.zoomSliderMin = s.track.offsetTop + s.track.clientHeight - s.handle.clientHeight
-                },
-                startSliderZoom: function (a) {
-                    s.initialMouseY = a.clientY;
-                    s.startY = s.handle.offsetTop;
-                    s.sliding = !0;
-                    l.GigapanNavigationControl.addEventListener("slider-handle-mousemove",
-                        s.doSliderZoom);
-                    l.GigapanNavigationControl.addEventListener("slider-handle-mouseup", s.endSliderZooming);
-                    return !1
-                },
-                endSliderZooming: function () {
-                    s.sliding = !1;
-                    l.GigapanNavigationControl.removeEventListener("slider-handle-mousemove", s.doSliderZoom);
-                    l.GigapanNavigationControl.removeEventListener("slider-handle-mouseup", s.endSliderZooming)
-                },
-                doSliderZoom: function (a) {
-                    s.sliding && s.setSliderPosition(a.clientY - s.initialMouseY);
-                    return !1
-                },
-                setSliderPosition: function (a) {
-                    a = s.startY + a;
-                    a = Math.max(a, s.zoomSliderMax);
-                    a = Math.min(a, s.zoomSliderMin);
-                    s.handle.style.top = a + "px";
-                    a = (a - s.zoomSliderMin) / (s.zoomSliderMax - s.zoomSliderMin) * (Math.log(n.viewport.getMaxZoom()) - Math.log(n.viewport.getMinZoom()));
-                    a = Math.exp(a + Math.log(n.viewport.getMinZoom()));
-                    n.viewport.zoomTo(a)
-                }
-            };
-        this.setViewBounds = function (a, b, c, g, h) {
-            b = org.gigapan.seadragon.SeadragonUtils.convertGigapanRectToSeadragonRect(b, c, g, h, e.width);
-            n.viewport.fitBounds(b);
-            if ("undefined" != typeof window[a]) return window[a]()
-        };
-        this.showNavigationControls = function () {
-            n.addControl(l.GigapanNavigationControl.getElement(),
-                l.GigapanNavigationControl.getSeadragonControlAnchor())
-        };
-        this.hideNavigationControls = function () {
-            n.removeControl(l.GigapanNavigationControl.getElement())
-        };
-        this.isOpen = function () {
-            return n.isOpen();
-        };
-        this.showSnapInclusion = function (a, b, c, g, h) {
-            var i = document.createElement("div"),
-                b = new org.gigapan.seadragon.SeadragonUtils.convertGigapanRectToSeadragonRect(b, c, g, h, e.width);
-            i.id = "overlay_" + a;
-            i.className = "overlay";
-            n.drawer.addOverlay(i, b)
-        };
-        this.hideSnapInclusion = function (a) {
-            a = document.getElementById("overlay_" + a);
-            n.drawer.removeOverlay(a)
-        };
-        this.getViewBounds = function (a) {
-            var b = n.viewport.getBounds(),
-                b = new org.gigapan.seadragon.SeadragonUtils.convertSeadragonRectToGigapanRect(b.x, b.y, b.x + b.width, b.y + b.height, e.width);
-            return window[a](b.xmin, b.ymin, b.xmax, b.ymax)
-        };
-        this.getActualCoords = function (x, y) {
-            var a = new Seadragon.Point(x, y);
-            var b = new org.gigapan.seadragon.SeadragonUtils.convertPageCoordsToSeadragonViewerCoords(a, n);
-            var c = new org.gigapan.seadragon.SeadragonUtils.convertSeadragonPointToGigapanPoint(b, e.width);
-        };
-        x.addEventListener("tap", function (a) {
-            if (n.isOpen() && n.viewport) {
-                var b = Seadragon.Utils.getElementPosition(n.elmt),
-                    a = a.minus(b);
-                w.convertPageCoordsToSeadragonCoords(a, n)
-            }
-        });
-        x.addEventListener("pan", function (a) {
-            n.isOpen() && n.viewport && (a = n.viewport.deltaPointsFromPixels(a), n.viewport.panBy(a))
-        });
-        x.addEventListener("pinch", function (a, b, c, e) {
-            n.isOpen() && n.viewport && (b = w.convertPageCoordsToSeadragonCoords(e, n), n.viewport.zoomBy(a, b))
-        });
-        "undefined" != typeof e.viewport && (p = new org.gigapan.seadragon.SeadragonUtils.convertGigapanRectToSeadragonRect(e.viewport.xmin,
-            e.viewport.ymin, e.viewport.xmax, e.viewport.ymax, e.width));
-        c = org.gigapan.utils.GigapanTiles.getTileServerDomainName(e.id);
-        c = new org.gigapan.seadragon.GigapanTileSource(c, e.id, e.auth_key, e.width, e.height);
-        Seadragon.Config.visibilityRatio = 0.5;
-        Seadragon.Config.minZoomImageRatio = 0.5;
-        Seadragon.Config.autoHideControls = !1;
-        Seadragon.Config.imagePath = "gigapan.large/images/controls/";		// <jps>	was:  "/images/controls/";
-        n = new Seadragon.Viewer("gigapan-viewer");
-        n.addEventListener("open", function () {
-            var b = n.drawer.elmt;
-            if (!A && (A = !0, -1 != navigator.userAgent.indexOf("Chrome") && -1 != navigator.userAgent.indexOf("Android") ? (Seadragon.Utils.addEvent(b, "touchstart", x.onTouchStartChrome), Seadragon.Utils.addEvent(b, "touchmove", x.onTouchMoveChrome), Seadragon.Utils.addEvent(b, "touchend", x.onTouchEnd), Seadragon.Utils.addEvent(b, "touchcancel", x.onTouchEnd)) : (Seadragon.Utils.addEvent(b, "MozTouchDown", x.onTouchStartMozilla), Seadragon.Utils.addEvent(b, "MozTouchMove", x.onTouchMoveMozilla), Seadragon.Utils.addEvent(b, "MozTouchUp", x.onTouchEndMozilla), Seadragon.Utils.addEvent(b, "touchstart",
-                x.onTouchStart), Seadragon.Utils.addEvent(b, "touchmove", x.onTouchMove), Seadragon.Utils.addEvent(b, "touchend", x.onTouchEnd), Seadragon.Utils.addEvent(b, "touchcancel", x.onTouchCancel), Seadragon.Utils.addEvent(b, "gesturestart", x.onGestureStart), Seadragon.Utils.addEvent(b, "gesturechange", x.onGestureChange), Seadragon.Utils.addEvent(b, "gestureend", x.onGestureEnd)), null != p && n.viewport.fitBounds(p, !0), m && (P && (
-                l.GigapanMobileNavigationControl.addEventListener("zoom-plus-click", K),
-                l.GigapanMobileNavigationControl.addEventListener("zoom-plus-mousedown", a),
-                l.GigapanMobileNavigationControl.addEventListener("zoom-plus-mouseup", t),
-                l.GigapanMobileNavigationControl.addEventListener("zoom-plus-mouseout", t),
-                l.GigapanMobileNavigationControl.addEventListener("zoom-minus-click", S),
-                l.GigapanMobileNavigationControl.addEventListener("zoom-minus-mousedown", r),
-                l.GigapanMobileNavigationControl.addEventListener("zoom-minus-mouseup", t),
-                l.GigapanMobileNavigationControl.addEventListener("zoom-minus-mouseout", t),
-            	//l.GigapanMobileNavigationControl.addEventListener("buy-print-click",function(){window.open("/prints/new?gigapan_id="+SDViewer.gigapan.id)}),
-            l.GigapanMobileNavigationControl.addEventListener("full-screen-click", function () {
-                n.isFullPage() ? n.setFullPage(!1) : n.setFullPage(!0)
-            })),
-                k && (l.GigapanNavigationControl.addEventListener("zoom-plus-click", K),
-                l.GigapanNavigationControl.addEventListener("zoom-plus-mousedown", a),
-                l.GigapanNavigationControl.addEventListener("zoom-plus-mouseup", t),
-                l.GigapanNavigationControl.addEventListener("zoom-plus-mouseout", t),
-                l.GigapanNavigationControl.addEventListener("zoom-minus-click", S),
-                l.GigapanNavigationControl.addEventListener("zoom-minus-mousedown", r),
-                l.GigapanNavigationControl.addEventListener("zoom-minus-mouseup", t),
-                l.GigapanNavigationControl.addEventListener("zoom-minus-mouseout", t),
-                l.GigapanNavigationControl.addEventListener("slider-handle-mousedown", s.startSliderZoom),
-                l.GigapanNavigationControl.addEventListener("view-all-click", function () {
-                n.viewport.goHome()
-            }),
-                l.GigapanNavigationControl.addEventListener("full-screen-click", function () {
-                n.isFullPage() ? n.setFullPage(!1) : n.setFullPage(!0)
-            }),
-                y(), s.init("slider-track", "slider-handle"))), "undefined" != window[h])) return window[h]()
-        });
-        n.setDashboardEnabled(!1);
-        n.openTileSource(c);
-        "undefined" != typeof e.events && "undefined" != typeof e.events.animation && n.addEventListener("animation", e.events.animation);
-        n.addEventListener("animation",
-            y);
-        m && (k && (l.GigapanNavigationControl = new org.gigapan.viewer.GigapanNavigationControl), P && (l.GigapanMobileNavigationControl = new org.gigapan.viewer.GigapanMobileNavigationControl)); /*l.GigapanWatermarkControl=new org.gigapan.viewer.GigapanWatermarkControl;*/
-        for (key in l) n.addControl(l[key].getElement(), l[key].getSeadragonControlAnchor());
-        for (key in l) l[key].initialize()
     }
 })();
 if (org) {
@@ -2243,32 +2013,37 @@ if (org.gigapan.seadragon) {
 } else org.gigapan.seadragon = {}; if (!window.Seadragon) throw noSeadragonMsg = "The Seadragon library is required by org.gigapan.seadragon.SeadragonUtils.js", alert(noSeadragonMsg), Error(noSeadragonMsg);
 (function () {
     org.gigapan.seadragon.SeadragonUtils = function () {};
-    org.gigapan.seadragon.SeadragonUtils.convertGigapanRectToSeadragonRect = function (c, e, h, a, r) {
-        c /= r;
-        e /= r;
-        return new Seadragon.Rect(c, e, h / r - c, a / r - e)
+    org.gigapan.seadragon.SeadragonUtils.convertGigapanRectToSeadragonRect = function (b, a, d, q, k) {
+        b /= k;
+        a /= k;
+        return new Seadragon.Rect(b, a, d / k - b, q / k - a)
     };
-    org.gigapan.seadragon.SeadragonUtils.convertSeadragonRectToGigapanRect = function (c, e, h, a, r) {
+    org.gigapan.seadragon.SeadragonUtils.convertSeadragonRectToGigapanRect = function (b, a, d, q, k) {
         return {
-            xmin: c * r,
-            ymin: e * r,
-            xmax: h * r,
-            ymax: a * r
+            xmin: b * k,
+            ymin: a * k,
+            xmax: d * k,
+            ymax: q * k
         }
     };
-    org.gigapan.seadragon.SeadragonUtils.convertSeadragonPointToGigapanPoint = function (c, e) {
-        return new Seadragon.Point(c.x * e, c.y * e)
+    org.gigapan.seadragon.SeadragonUtils.convertSeadragonPointToGigapanPoint = function (b, a) {
+        return new Seadragon.Point(b.x * a, b.y * a)
     };
-    org.gigapan.seadragon.SeadragonUtils.convertSeadragonViewerCoordsToSeadragonCoords = function (c, e) {
-        return e.viewport.pointFromPixel(c)
+    org.gigapan.seadragon.SeadragonUtils.convertGigapanPointToSeadragonPoint =
+        function (b, a, d) {
+            return new Seadragon.Point(b / d, a / d)
     };
-    org.gigapan.seadragon.SeadragonUtils.convertPageCoordsToSeadragonViewerCoords = function (c, e) {
-        var h = Seadragon.Utils.getElementPosition(e.elmt);
-        return c.minus(h)
+    org.gigapan.seadragon.SeadragonUtils.convertSeadragonViewerCoordsToSeadragonCoords = function (b, a) {
+        return a.viewport.pointFromPixel(b)
     };
-    org.gigapan.seadragon.SeadragonUtils.convertPageCoordsToSeadragonCoords = function (c, e) {
-        var h = this.convertPageCoordsToSeadragonViewerCoords(c, e);
-        return this.convertSeadragonViewerCoordsToSeadragonCoords(h, e)
+    org.gigapan.seadragon.SeadragonUtils.convertPageCoordsToSeadragonViewerCoords = function (b, a) {
+        var d = Seadragon.Utils.getElementPosition(a.elmt);
+        return b.minus(d)
+    };
+    org.gigapan.seadragon.SeadragonUtils.convertPageCoordsToSeadragonCoords = function (b, a) {
+        var d = this.convertPageCoordsToSeadragonViewerCoords(b, a);
+        return this.convertSeadragonViewerCoordsToSeadragonCoords(d,
+            a)
     }
 })();
 if (org) {
@@ -2285,32 +2060,34 @@ if (org.gigapan.events) {
 } else org.gigapan.events = {};
 (function () {
     org.gigapan.events.EventManager = function () {
-        var c = {};
-        this.addEventListener = function (e, h) {
-            e && (h && "function" == typeof h) && (c[e] || (c[e] = []), c[e].push(h))
+        var b = {};
+        this.addEventListener = function (a, d) {
+            a && (d && "function" == typeof d) && (b[a] || (b[a] = []), b[a].push(d))
         };
-        this.removeEventListener = function (e, h) {
-            if (e && c[e] && h && "function" == typeof h) for (var a = 0; a < c[e].length; a++) if (h == c[e][a]) {
-                        c[e].splice(a, 1);
+        this.removeEventListener = function (a, d) {
+            if (a && b[a] && d && "function" == typeof d)
+                for (var q = 0; q < b[a].length; q++)
+                    if (d == b[a][q]) {
+                        b[a].splice(q, 1);
                         break
                     }
         };
-        this.publishEvent = function (e, h) {
-            if (e) {
-                var a = c[e];
-                if (a) for (var r = 0; r < a.length; r++) try {
-                            if ("function" === typeof h) h(a[r]);
-                            else if ("undefined" === typeof h) a[r]();
-                            else console.log("EVENTS_MANAGER.publishEvent(): unexpected argument [" +
-                                    h + "]")
-                } catch (t) {
-                    console.log(t.name + " while publishing event '" + e + "': " + t.message, t)
-                }
+        this.publishEvent = function (a, d) {
+            if (a) {
+                var q = b[a];
+                if (q)
+                    for (var k = 0; k < q.length; k++) try {
+                        if ("function" === typeof d) d(q[k]);
+                        else if ("undefined" === typeof d) q[k]();
+                        else console.log("EVENTS_MANAGER.publishEvent(): unexpected argument [" +
+                            d + "]")
+                    } catch (v) {
+                        console.log(v.name + " while publishing event '" + a + "': " + v.message, v)
+                    }
             }
         }
     }
-})();
-if (org) {
+})(); if (org) {
     if ("object" != typeof org) throw orgExistsMessage = "Error: failed to create org namespace: org already exists and is not an object", alert(orgExistsMessage), Error(orgExistsMessage);
 } else org = {}; if (org.gigapan) {
     if ("object" != typeof org.gigapan) throw orgGigapanExistsMessage = "Error: failed to create org.gigapan namespace: org.gigapan already exists and is not an object", alert(orgGigapanExistsMessage), Error(orgGigapanExistsMessage);
@@ -2324,38 +2101,39 @@ if (org.gigapan.multitouch) {
 } else org.gigapan.multitouch = {};
 if (!window.Seadragon) throw noSeadragonMsg = "The Seadragon library is required by org.gigapan.multitouch.Touch.js", alert(noSeadragonMsg), Error(noSeadragonMsg);
 (function () {
-    org.gigapan.multitouch.Touch = function (c) {
-        var e = (new Date).getTime(),
-            h = c.identifier,
-            a = new Seadragon.Point(c.pageX, c.pageY),
-            r = new Seadragon.Point(c.pageX, c.pageY),
-            t = !0;
-        this.update = function (c) {
-            a.x = r.x;
-            a.y = r.y;
-            r.x = c.pageX;
-            r.y = c.pageY
+    org.gigapan.multitouch.Touch = function (b) {
+        var a = (new Date).getTime(),
+            d = b.identifier,
+            q = new Seadragon.Point(b.pageX, b.pageY),
+            k = new Seadragon.Point(b.pageX, b.pageY),
+            v = !0;
+        this.update = function (a) {
+            q.x = k.x;
+            q.y = k.y;
+            k.x = a.pageX;
+            k.y = a.pageY
         };
         this.getIdentifier = function () {
-            return h
+            return d
         };
         this.getCurrentPoint = function () {
-            return r
+            return k
         };
         this.getPreviousPoint = function () {
-            return a
+            return q
         };
         this.getDeltaFromPrevious = function () {
-            return a.minus(r)
+            return q.minus(k)
         };
         this.getStartingTimestamp = function () {
-            return e
+            return a
         };
-        this.flagThisTouchAsNotBeingTheOnlyOne = function () {
-            t = !1
+        this.flagThisTouchAsNotBeingTheOnlyOne =
+            function () {
+                v = !1
         };
         this.isThisTheOnlyTouch = function () {
-            return t
+            return v
         }
     }
 })();
@@ -2379,180 +2157,605 @@ if (!org.gigapan.events.EventManager) {
 }
 (function () {
     org.gigapan.multitouch.TouchManager = function () {
-        var c = new org.gigapan.events.EventManager,
-            e = 0,
-            h = [],
-            a = [],
-            r = 1,
-            t = null,
-            y = !1,
-            O = function (a) {
-                var c = a.getIdentifier();
-                h["t" + c] = a;
-                e++;
-                if (1 < e) for (var k in h)(a = h[k]) && a.flagThisTouchAsNotBeingTheOnlyOne();
-                y = !y && 1 == e
-            }, K = function (b) {
-                if (b) {
-                    console.log("registerTouch(" + b.identifier + ")");
-                    var c = h["t" + b.identifier];
-                    if (c) c.update(b);
+        var b = new org.gigapan.events.EventManager,
+            a = 0,
+            d = [],
+            q = [],
+            k = 1,
+            v = null,
+            p = !1,
+            x = function (b) {
+                var f = b.getIdentifier();
+                d["t" + f] = b;
+                a++;
+                if (1 < a)
+                    for (var h in d)(b = d[h]) && b.flagThisTouchAsNotBeingTheOnlyOne();
+                p = !p && 1 == a
+            }, f = function (a) {
+                if (a) {
+                    console.log("registerTouch(" + a.identifier + ")");
+                    var b = d["t" + a.identifier];
+                    if (b) b.update(a);
                     else {
-                        var e = "t" + b.identifier;
-                        (c = a[e]) ? (delete a[e], O(c), y = !1) : O(new org.gigapan.multitouch.Touch(b))
+                        var f = "t" + a.identifier;
+                        (b = q[f]) ? (delete q[f], x(b), p = !1) : x(new org.gigapan.multitouch.Touch(a))
                     }
                 }
-            }, S = function (a) {
-                y = !1;
+            }, P = function (a) {
+                p = !1;
                 if (a) {
-                    var c =
-                        h["t" + a.identifier];
-                    c ? c.update(a) : O(new org.gigapan.multitouch.Touch(a))
+                    var b =
+                        d["t" + a.identifier];
+                    b ? b.update(a) : x(new org.gigapan.multitouch.Touch(a))
                 }
-            }, n = function (b, g) {
-                if (b) {
-                    var k = h["t" + b.identifier];
-                    if (k) {
-                        var l = "t" + b.identifier;
-                        g && (a[l] = h[l]);
-                        delete h[l];
-                        e--;
-                        console.log("unregisterTouch(" + k.getIdentifier() + "): size=[" + e + "]");
-                        if (0 == e && y && k.isThisTheOnlyTouch()) {
-                            var j = (new Date).getTime() - k.getStartingTimestamp(),
-                                k = k.getCurrentPoint(),
-                                m = new Seadragon.Point(k.x, k.y);
-                            c.publishEvent("tap", function (a) {
-                                a(m, j)
+            }, s = function (e, f) {
+                if (e) {
+                    var h = d["t" + e.identifier];
+                    if (h) {
+                        var m = "t" + e.identifier;
+                        f && (q[m] = d[m]);
+                        delete d[m];
+                        a--;
+                        console.log("unregisterTouch(" + h.getIdentifier() + "): size=[" + a + "]");
+                        if (0 == a && p && h.isThisTheOnlyTouch()) {
+                            var l = (new Date).getTime() - h.getStartingTimestamp(),
+                                h = h.getCurrentPoint(),
+                                k = new Seadragon.Point(h.x, h.y);
+                            b.publishEvent("tap", function (a) {
+                                a(k, l)
                             })
                         }
                     }
                 }
-                y = !1
+                p = !1
             }, A = function () {
                 var a = [],
-                    c;
-                for (c in h) a[a.length] = h[c];
+                    b;
+                for (b in d) a[a.length] = d[b];
                 return a
             },
-            x = function (a) {
+            E = function (a) {
                 if (a) {
                     console.log("_onTouchStart(" + a + ")");
                     a.preventDefault();
-                    for (var a = a.changedTouches, c = 0; c < a.length; c++) K(a.item(c))
+                    for (var a = a.changedTouches, b = 0; b < a.length; b++) f(a.item(b))
                 }
             };
-        this.onTouchStart = x;
+        this.onTouchStart = E;
         this.onTouchStartMozilla = function (a) {
-            a && (P(a), a.preventDefault(), K(a), w())
+            a && (J(a), a.preventDefault(), f(a), z())
         };
-        this.onTouchStartChrome = function (a) {
-            a && (x(a), console.log("onTouchStartChrome(" + a + ") size=" + e), w())
+        this.onTouchStartChrome = function (b) {
+            b && (E(b), console.log("onTouchStartChrome(" + b + ") size=" + a), z())
         };
-        var w = function () {
-            if (2 == e) {
-                r = 1;
-                t = null;
-                var a = A();
-                if (a[0] && a[1]) {
-                    var c = a[0].getCurrentPoint().distanceTo(a[1].getCurrentPoint());
-                    a[0].distance = c;
-                    a[1].distance = c;
-                    a[0].scale =
+        var z = function () {
+            if (2 == a) {
+                k = 1;
+                v = null;
+                var b = A();
+                if (b[0] && b[1]) {
+                    var f = b[0].getCurrentPoint().distanceTo(b[1].getCurrentPoint());
+                    b[0].distance = f;
+                    b[1].distance = f;
+                    b[0].scale =
                         1;
-                    a[1].scale = 1
+                    b[1].scale = 1
                 }
             }
         };
-        this.onTouchMove = function (a) {
-            if (a) {
-                a.preventDefault();
-                y = !1;
-                for (var a = a.changedTouches, c = 0; c < a.length; c++) S(a.item(c));
-                1 == e && p(a.item(0).identifier)
+        this.onTouchMove = function (b) {
+            if (b) {
+                b.preventDefault();
+                p = !1;
+                for (var b = b.changedTouches, f = 0; f < b.length; f++) P(b.item(f));
+                1 == a && h(b.item(0).identifier)
             }
         };
-        this.onTouchMoveMozilla = function (a) {
-            if (a) {
-                P(a);
-                var c = h["t" + a.identifier];
-                if ("undefined" !== typeof c && null != c && (c.getCurrentPoint().x != a.pageX || c.getCurrentPoint().y != a.pageY)) a.preventDefault(), y = !1, a.pageX = a.layerX, a.pageY = a.layerY, a.identifier = a.streamId, S(a), 1 == e ? p(a.identifier) : 2 == e && m()
+        this.onTouchMoveMozilla = function (b) {
+            if (b) {
+                J(b);
+                var f = d["t" + b.identifier];
+                if ("undefined" !== typeof f && null != f && (f.getCurrentPoint().x != b.pageX || f.getCurrentPoint().y != b.pageY)) b.preventDefault(), p = !1, b.pageX = b.layerX, b.pageY = b.layerY, b.identifier = b.streamId, P(b), 1 == a ? h(b.identifier) : 2 == a && m()
             }
         };
-        this.onTouchMoveChrome = function (a) {
-            if (a) {
-                a.preventDefault();
-                y = !1;
-                for (var a = a.changedTouches, c = 0; c < a.length; c++) S(a.item(c));
-                1 == e ? p(a.item(0).identifier) : 2 == e ? m() : console.log("!!!!!!!!!!!!!!!onTouchMoveChrome(): size = " + e)
+        this.onTouchMoveChrome = function (b) {
+            if (b) {
+                b.preventDefault();
+                p = !1;
+                for (var b = b.changedTouches, f = 0; f < b.length; f++) P(b.item(f));
+                1 == a ? h(b.item(0).identifier) : 2 == a ? m() : console.log("!!!!!!!!!!!!!!!onTouchMoveChrome(): size = " + a)
             }
         };
-        var p = function (a) {
-            if (1 == e && (a = h["t" + a])) {
-                var g = a.getDeltaFromPrevious();
-                c.publishEvent("pan", function (a) {
-                    a(g)
+        var h = function (e) {
+            if (1 == a && (e = d["t" + e])) {
+                var f = e.getDeltaFromPrevious();
+                b.publishEvent("pan", function (a) {
+                    a(f)
                 })
             }
         }, m = function () {
-                if (2 == e) {
-                    var a = A();
-                    if (a[0] && a[1]) {
-                        var c = a[0].distance,
-                            h = a[0].getCurrentPoint().distanceTo(a[1].getCurrentPoint());
-                        console.log("prev [" + c + "] new [" + h + "]");
-                        c = h / c;
-                        a[0].scale = c;
-                        a[1].scale = c;
-                        l(c)
+                if (2 == a) {
+                    var b = A();
+                    if (b[0] && b[1]) {
+                        var f = b[0].distance,
+                            d = b[0].getCurrentPoint().distanceTo(b[1].getCurrentPoint());
+                        console.log("prev [" + f + "] new [" + d + "]");
+                        f = d / f;
+                        b[0].scale = f;
+                        b[1].scale = f;
+                        C(f)
                     } else console.log("AAAHHHH!!! theTouches.length=[" +
-                            a.length + "]")
+                        b.length + "]")
                 }
-            }, P = function (a) {
+            }, J = function (a) {
                 a && (a.pageX = a.layerX, a.pageY = a.layerY, a.identifier = a.streamId)
-            }, k = function (a) {
+            }, n = function (a) {
                 if (a) {
                     var a = a.changedTouches,
-                        c = 1 < a.length;
-                    c && (y = !1);
-                    for (var e = 0; e < a.length; e++) n(a.item(e), c)
+                        b = 1 < a.length;
+                    b && (p = !1);
+                    for (var f = 0; f < a.length; f++) s(a.item(f), b)
                 }
             };
         this.onTouchEndMozilla = function (a) {
-            a && (P(a), n(a, !1))
+            a && (J(a), s(a, !1))
         };
         this.onTouchEnd = function (a) {
-            k(a)
+            n(a)
         };
         this.onTouchCancel = function (a) {
-            k(a)
+            n(a)
         };
-        this.onGestureStart = function (a) {
-            a && (y = !1, a.preventDefault(), 2 == e && (r = 1, t = null))
+        this.onGestureStart = function (b) {
+            b && (p = !1, b.preventDefault(), 2 == a && (k = 1, v = null))
         };
         this.onGestureChange = function (a) {
-            a && (y = !1, a.preventDefault(), l(a.scale))
+            a && (p = !1, a.preventDefault(), C(a.scale))
         };
-        var l = function (a) {
+        var C = function (f) {
             if (2 ==
-                e) {
-                var g = A();
-                if (g[0] && g[1]) {
-                    var h = Math.max(0.8, Math.min(1.2, 1 + a - r));
-                    null == t && (t = g[0].getCurrentPoint().plus(g[1].getCurrentPoint()).divide(2));
-                    c.publishEvent("pinch", function (a) {
-                        a(h, g[0], g[1], t)
+                a) {
+                var d = A();
+                if (d[0] && d[1]) {
+                    var h = Math.max(0.8, Math.min(1.2, 1 + f - k));
+                    null == v && (v = d[0].getCurrentPoint().plus(d[1].getCurrentPoint()).divide(2));
+                    b.publishEvent("pinch", function (a) {
+                        a(h, d[0], d[1], v)
                     })
                 }
-                r = a
+                k = f
             }
         };
-        this.onGestureEnd = function (a) {
-            a && (y = !1, 2 == e && (r = 1, t = null))
+        this.onGestureEnd = function (b) {
+            b && (p = !1, 2 == a && (k = 1, v = null))
         };
-        this.addEventListener = c.addEventListener;
-        this.removeEventListener = c.removeEventListener;
-        this.publishEvent = c.publishEvent
+        this.addEventListener = b.addEventListener;
+        this.removeEventListener = b.removeEventListener;
+        this.publishEvent = b.publishEvent
+    }
+})();
+if (org) {
+    if ("object" != typeof org) throw orgExistsMessage = "Error: failed to create org namespace: org already exists and is not an object", alert(orgExistsMessage), Error(orgExistsMessage);
+} else org = {}; if (org.gigapan) {
+    if ("object" != typeof org.gigapan) throw orgGigapanExistsMessage = "Error: failed to create org.gigapan namespace: org.gigapan already exists and is not an object", alert(orgGigapanExistsMessage), Error(orgGigapanExistsMessage);
+} else org.gigapan = {};
+if (org.gigapan.viewers) {
+    if ("object" != typeof org.gigapan.viewers) {
+        var orgGigapanViewersExistsMessage = "Error: failed to create org.gigapan namespace: org.gigapan already exists and is not an object";
+        alert(orgGigapanViewersExistsMessage);
+        throw Error(orgGigapanViewersExistsMessage);
+    }
+} else org.gigapan.viewers = {}; if (!window.Seadragon) throw noSeadragonMsg = "The Seadragon library is required by org.gigapan.seadragon.SeadragonUtils.js", alert(noSeadragonMsg), Error(noSeadragonMsg);
+if (!org.gigapan.utils.GigapanTiles) {
+    var noGigapanTilesMsg = "The org.gigapan.urils.GigapanTiles library is required by org.gigapan.viewers.AS3Viewer.js";
+    alert(noGigapanTilesMsg);
+    throw Error(noGigapanTilesMsg);
+}
+(function () {
+    org.gigapan.viewers.SeadragonViewer = function (b, a, d) {
+        function q() {
+            la = (new Date).getTime();
+            ua = Seadragon.Config.zoomPerSecond;
+            T = !0;
+            window.setTimeout(p, 10)
+        }
+
+        function k() {
+            la = (new Date).getTime();
+            ua = 1 / Seadragon.Config.zoomPerSecond;
+            T = !0;
+            window.setTimeout(p, 10)
+        }
+
+        function v() {
+            T = !1
+        }
+
+        function p() {
+            if (T && c.viewport) {
+                var a = (new Date).getTime(),
+                    b = Math.pow(ua, (a - la) / 1E3);
+                c.viewport.zoomBy(b);
+                c.viewport.applyConstraints();
+                la = a;
+                window.setTimeout(p, 10)
+            }
+        }
+
+        function x() {
+            c.viewport && (T = !1, c.viewport.zoomBy(Seadragon.Config.zoomPerClick /
+                1), c.viewport.applyConstraints())
+        }
+
+        function f() {
+            c.viewport && (T = !1, c.viewport.zoomBy(1 / Seadragon.Config.zoomPerClick), c.viewport.applyConstraints())
+        }
+
+        function P() {
+            r.FooterControl.updateSize();
+            O && r.SnapshotBrowser.updateSize()
+        }
+
+        function s() {
+            var a = c.viewport.getCenter();
+            fullScreenApi.supportsFullScreen && !isMobileDeviceUserAgent ? fullScreenApi.isFullScreen() ? (Z && !ha && A(!1), document.getElementById(b).style.height = K, document.getElementById(b).style.width = u, fullScreenApi.cancelFullScreen(document.getElementById(b),
+                origWidth, origHeight), $("#take-snapshot-button").show()) : (origWidth = document.getElementById(b).style.width, origHeight = document.getElementById(b).style.height, fullScreenApi.requestFullScreen(document.getElementById(b)), $("#take-snapshot-button").hide(), Z && !ha && A(!0)) : c.isFullPage() ? (A(!1), c.setFullPage(!1), $("#take-snapshot-button").show()) : (c.setFullPage(!0), Z && !ha && (A(!0), $("#take-snapshot-button").hide()));
+            window.setTimeout(function () {
+                c.viewport.panTo(a)
+            }, 1500)
+        }
+
+        function A(a) {
+            a ? (r.GigapanWatermarkControl =
+                new org.gigapan.viewer.GigapanWatermarkControl, c.addControl(r.GigapanWatermarkControl.getElement(), r.GigapanWatermarkControl.getSeadragonControlAnchor()), r.GigapanWatermarkControl.initialize()) : !ha && Z ? c.removeControl(r.GigapanWatermarkControl.getElement()) : ""
+        }
+
+        function E() {
+            FB.ui({
+                method: "feed",
+                link: "http://www.gigapan.com/gigapans/" + pa,
+                display: "popup"
+            }, function () {})
+        }
+
+        function z() {
+            window.open("http://twitter.com/intent/tweet?source=webclient&text=" + encodeURIComponent("http://www.gigapan.com/gigapans/" +
+                pa), "Twitter", "height=400,width=500")
+        }
+
+        function h() {
+            window.open("http://www.linkedin.com/cws/share?summary=" + gigapan.name + "&url=" + encodeURIComponent("http://www.gigapan.com/gigapans/" + pa) + "&title=" + gigapan.name, "LinkedIn", "height=400,width=500")
+        }
+
+        function m() {
+            window.open("http://pinterest.com/pin/create/button/?url=" + encodeURIComponent("http://www.gigapan.com/gigapans/" + pa) + "&media=" + encodeURIComponent("http://api.gigapan.org/beta/gigapans/" + pa + "-600x400.jpg") + "&description=" + gigapan.name, "Pinterest",
+                "height=400,width=500")
+        }
+
+        function J() {
+            window.open("https://plus.google.com/share?url=" + encodeURIComponent("http://www.gigapan.com/gigapans/" + pa), "Google+", "menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=500,width=500")
+        }
+
+        function n() {
+            var c = window.location.hostname; - 1 != c.indexOf("localhost") || -1 != c.indexOf(".gigapan.") ? window.location = "/gigapans/" + a.id + "/prints/new" : window.open("http://www.gigapan.com/gigapans/" + a.id + "/prints/new")
+        }
+
+        function C() {
+            S && r.GigapanRelatedControl.isVisible() && r.GigapanRelatedControl.toggleVisibility();
+            D && D.isVisible() && D.setVisible(!1);
+            r.SnapshotBrowser.toggleVisibility()
+        }
+
+        function e() {
+            O && r.SnapshotBrowser.isVisible() && r.SnapshotBrowser.toggleVisibility();
+            D && D.isVisible() && D.setVisible(!1);
+            r.GigapanRelatedControl.toggleVisibility()
+        }
+
+        function j() {
+            user && null != user && (!1 != user.logged_in || user.login && 0 < user.login.length) ? ($(".save-snapshot").unbind("click"), $(".cancel-snapshot").unbind("click"), $("#close-snapshot").unbind("click"), va || (D.setGigapanDimensions(a.width, a.height), O && r.SnapshotBrowser.isVisible() &&
+                r.SnapshotBrowser.toggleVisibility()), y(), va = !va) : showLoginWindow("takeSnapshot")
+        }
+
+        function y() {
+            D.setVisible(!D.isVisible());
+            D.isVisible() ? (jQuery("#close-snapshot").unbind("click"), jQuery("#close-snapshot").click(function () {
+                G()
+            }), $("#snapshot_tool_dialog_window .save-snapshot").click(qa), $("#snapshot_tool_dialog_window .cancel-snapshot").click(G), O && r.SnapshotBrowser.isVisible() && r.SnapshotBrowser.toggleVisibility(), S && r.GigapanRelatedControl.isVisible() && r.GigapanRelatedControl.toggleVisibility()) :
+                jQuery("#close-snapshot").unbind("click")
+        }
+
+        function qa() {
+            var c = $("#snapshot_tool_dialog_window .snapshot_tool_dialog_form_field_name").val(),
+                b = $("#snapshot_tool_dialog_window .snapshot_tool_dialog_form_field_description").val();
+            if ("" != c && "" != b) {
+                $("#saving_snapshot_spinner").css("display", "block");
+                $("#snapshot_tool_dialog_window .snapshot_tool_dialog_form_field_name").val("");
+                $("#snapshot_tool_dialog_window .snapshot_tool_dialog_form_field_description").val("");
+                var f = D.getToolBoundsInGigapanCoords(),
+                    e = f.getTopLeft(),
+                    f = f.getBottomRight();
+                $.ajax({
+                    url: "/snapshots",
+                    data: {
+                        "snapshot[user_id]": user.id,
+                        "snapshot[gigapan_id]": null == a.auth_key ? a.id : a.auth_key,
+                        "snapshot[name]": c,
+                        "snapshot[description]": b,
+                        "snapshot[xmin]": e.x,
+                        "snapshot[ymin]": e.y,
+                        "snapshot[xmax]": f.x,
+                        "snapshot[ymax]": f.y
+                    },
+                    type: "POST",
+                    dataType: "json",
+                    timeout: 15E3
+                }).success(function () {
+                    $(".save-snapshot").unbind("click");
+                    $(".cancel-snapshot").unbind("click");
+                    $("#close-snapshot").unbind("click")
+                }).error(function () {
+                    alert("Error creating snapshot")
+                }).always(function () {
+                    $("#loading_spinner").css("display",
+                        "none");
+                    y();
+                    window.setTimeout(function () {
+                        l();
+                        C()
+                    }, 100)
+                })
+            } else alert("Please add a Name and description for your snapshot.")
+        }
+
+        function l() {
+            c.removeControl(r.SnapshotBrowser.getElement());
+            r.SnapshotBrowser = new org.gigapan.viewer.SnapshotBrowser(b);
+            c.addControl(r.SnapshotBrowser.getElement(), r.SnapshotBrowser.getSeadragonControlAnchor());
+            r.SnapshotBrowser.initialize();
+            r.SnapshotBrowser.addSnapshots(a.id, a.auth_key);
+            r.SnapshotBrowser.addEventListener("take-snapshot-button-click", j)
+        }
+
+        function G() {
+            $(".save-snapshot").unbind("click");
+            $(".cancel-snapshot").unbind("click");
+            $("#close-snapshot").unbind("click");
+            y();
+            va = !va
+        }
+        var u = "100%",
+            K = "400",
+            L, c = null,
+            R = !1,
+            H = new org.gigapan.multitouch.TouchManager,
+            W = org.gigapan.seadragon.SeadragonUtils,
+            ea = null,
+            I = null,
+            ca = isMobileDeviceUserAgent && !0,
+            ga = !isMobileDeviceUserAgent && !0,
+            ha = !0,
+            Z = !1,
+            ia = !1,
+            fa = !0,
+            t = !1,
+            O = !1,
+            V = !1,
+            ja = !0,
+            ka = !0,
+            S = !0,
+            N = !0,
+            aa = !0,
+            Q = !1,
+            da = !1,
+            D = null,
+            pa = "";
+        "undefined" != typeof a.printable && (da = a.printable);
+        "undefined" != typeof a.snapshottable && (ja = a.snapshottable);
+        "undefined" != typeof a.related &&
+            (related = a.related);
+        pa = null == a.auth_key ? a.id : a.auth_key;
+        "undefined" != typeof a.options && ("undefined" != typeof a.options.showGigapanWatermarkOnFullscreen && (Z = a.options.showGigapanWatermarkOnFullscreen ? !0 : !1), "undefined" != typeof a.options.showGigapanWatermarkByDefault && (ha = a.options.showGigapanWatermarkByDefault ? !0 : !1), "undefined" != typeof a.options.showPrintButton && (ia = a.options.showPrintButton ? !0 : !1), "undefined" != typeof a.options.showResetButton && (fa = a.options.showResetButton ? !0 : !1), "undefined" != typeof a.options.showFullScreenButton &&
+            (t = a.options.showFullScreenButton ? !0 : !1), "undefined" != typeof a.options.showSnapshotBrowser && (O = a.options.showSnapshotBrowser ? !0 : !1), "undefined" != typeof a.options.showSnapshotByDefault && (V = a.options.showSnapshotByDefault ? !0 : !1), "undefined" != typeof a.options.showRelatedGigapans && (S = a.options.showRelatedGigapans ? !0 : !1), "undefined" != typeof a.options.showThumbnailNavigation && (aa = a.options.showThumbnailNavigation ? !0 : !1), "undefined" != typeof a.options.showNavigationControl && (N = a.options.showNavigationControl ? !0 : !1), "undefined" != typeof a.options.showSocialSharing && (Q = a.options.showSocialSharing ? !0 : !1), "undefined" != typeof a.options.canCommentOnSnapshots && (ka = a.options.canCommentOnSnapshots ? !0 : !1));
+        var r = {}, T = !1,
+            ua = null,
+            la = null,
+            X;
+        $(window).resize(function () {
+            clearTimeout(X);
+            X = setTimeout(P, 100)
+        });
+        document.onkeydown = function (a) {
+            a = a || window.event;
+            if (!$("#comment_comment").is(":focus")) switch (a.keyCode) {
+            case 107:
+            case 187:
+                x();
+                break;
+            case 109:
+            case 189:
+                f();
+                break;
+            case 37:
+                c.viewport && (c.viewport.panBy(new Seadragon.Point(-0.025,
+                    0)), c.viewport.applyConstraints());
+                break;
+            case 38:
+                c.viewport && (c.viewport.panBy(new Seadragon.Point(0, -0.025)), c.viewport.applyConstraints());
+                break;
+            case 39:
+                c.viewport && (c.viewport.panBy(new Seadragon.Point(0.025, 0)), c.viewport.applyConstraints());
+                break;
+            case 40:
+                c.viewport && (c.viewport.panBy(new Seadragon.Point(0, 0.025)), c.viewport.applyConstraints())
+            }
+        };
+        this.setViewBounds = function (b, f, e, d, h) {
+            var j = c.viewport.getBounds(),
+                l = c.viewport.getHomeBounds(),
+                t = org.gigapan.seadragon.SeadragonUtils.convertGigapanRectToSeadragonRect(f,
+                    e, d, h, a.width),
+                f = !1;
+            j.x < t.x && (j.y < t.y && j.x + j.width > t.x + t.width && j.y + j.height > t.y + t.height) && (f = !0);
+            j.equals(l) || j.equals(t) || f ? c.viewport.fitBounds(t) : (c.viewport.fitBounds(l, !1), window.setTimeout(function () {
+                c.viewport.fitBounds(t)
+            }, 1E3 * Seadragon.Config.animationTime));
+            if ("undefined" != typeof window[b]) return window[b]()
+        };
+        this.showNavigationControls = function () {
+            c.addControl(r.GigapanNavigationControl.getElement(), r.GigapanNavigationControl.getSeadragonControlAnchor())
+        };
+        this.hideNavigationControls = function () {
+            c.removeControl(r.GigapanNavigationControl.getElement())
+        };
+        this.addHotspot = function (b, f, e, d) {
+            var h = document.createElement("div"),
+                e = new org.gigapan.seadragon.SeadragonUtils.convertGigapanRectToSeadragonRect(e.xmin, e.ymin, e.xmax, e.ymax, a.width);
+            h.id = b;
+            h.className = f;
+            "undefined" != typeof d && (h.onclick = d.click, h.onmousedown = d.mousedown, h.ontouchstart = d.touchstart);
+            c.drawer.addOverlay(h, e)
+        };
+        this.showSnapInclusion = function (b, f, e, d, h) {
+            var j = document.createElement("div"),
+                f = new org.gigapan.seadragon.SeadragonUtils.convertGigapanRectToSeadragonRect(f, e, d, h, a.width);
+            j.id = "overlay_" + b;
+            j.className = "overlay";
+            c.drawer.addOverlay(j, f)
+        };
+        this.hideSnapInclusion = function (a) {
+            a = document.getElementById("overlay_" + a);
+            c.drawer.removeOverlay(a)
+        };
+        var va = !1;
+        this.takeSnapshotFromLogin = function () {
+            j()
+        };
+        this.deleteSnapshot = function (a) {
+            $.ajax({
+                url: "/snapshots/" + a,
+                data: {
+                    id: a
+                },
+                type: "DELETE",
+                dataType: "json",
+                timeout: 15E3
+            }).success(function () {
+                alert("Snapshot successfully deleted.")
+            }).error(function () {
+                alert("Error deleting snapshot")
+            }).always(function () {
+                l();
+                C()
+            })
+        };
+        this.getViewBounds = function (b) {
+            var f =
+                c.viewport.getBounds(),
+                f = new org.gigapan.seadragon.SeadragonUtils.convertSeadragonRectToGigapanRect(f.x, f.y, f.x + f.width, f.y + f.height, a.width);
+            return window[b](f.xmin, f.ymin, f.xmax, f.ymax)
+        };
+        this.zoomToFillContainer = function () {
+            var b = W.convertGigapanRectToSeadragonRect(0, 0, a.width, a.height, a.width),
+                f = c.viewport.pixelFromPoint(b.getTopLeft()),
+                e = c.viewport.pixelFromPoint(b.getBottomRight()),
+                b = new Seadragon.Rect(0, 0),
+                d = c.viewport.getContainerSize(),
+                b = new Seadragon.Point(Math.max(f.x, b.x), Math.max(f.y, b.y)),
+                e = new Seadragon.Point(Math.min(e.x, d.x), Math.min(e.y, d.y)),
+                d = f = null;
+            e.x > b.x && e.y > b.y && (b = new Seadragon.Rect(b.x, b.y, e.x - b.x, e.y - b.y), f = b.getCenter(), b.width > b.height ? (b = 0.8 * b.height, d = new Seadragon.Point(1.5 * b, b)) : (b = 0.8 * b.width, d = new Seadragon.Point(b, 2 / 3 * b)));
+            b = c.viewport.deltaPointsFromPixels(d);
+            e = b.divide(2);
+            f = c.viewport.pointFromPixel(f).minus(e);
+            f = new Seadragon.Rect(f.x, f.y, b.x, b.y);
+            c.viewport.fitBounds(f, !1)
+        };
+        H.addEventListener("tap", function (a) {
+            if (c.isOpen() && c.viewport) {
+                var b = Seadragon.Utils.getElementPosition(c.elmt),
+                    a = a.minus(b);
+                W.convertPageCoordsToSeadragonCoords(a, c)
+            }
+        });
+        H.addEventListener("pan", function (a) {
+            c.isOpen() && c.viewport && (a = c.viewport.deltaPointsFromPixels(a), c.viewport.panBy(a), c.viewport.applyConstraints())
+        });
+        H.addEventListener("pinch", function (a, b, f, e) {
+            c.isOpen() && c.viewport && (b = W.convertPageCoordsToSeadragonCoords(e, c), c.viewport.zoomBy(a, b), c.viewport.applyConstraints())
+        });
+        "undefined" != typeof a.viewport && (ea = new org.gigapan.seadragon.SeadragonUtils.convertGigapanRectToSeadragonRect(a.viewport.xmin,
+            a.viewport.ymin, a.viewport.xmax, a.viewport.ymax, a.width));
+        "undefined" != typeof a.embed && ("undefined" != typeof a.embed.width && (u = a.embed.width), "undefined" != typeof a.embed.height && (K = a.embed.height));
+        L = org.gigapan.utils.GigapanTiles.getTileServerDomainName(a.id);
+        L = new org.gigapan.seadragon.GigapanTileSource(L, a.id, a.auth_key, a.width, a.height);
+        Seadragon.Config.visibilityRatio = 0.5;
+        Seadragon.Config.minZoomImageRatio = 0.5;
+        Seadragon.Config.autoHideControls = !1;
+        Seadragon.Config.imagePath = "/embed_api/img/";
+        Seadragon.Config.zoomPerScroll =
+            1.075;
+        Seadragon.Config.animationTime = 2;
+        c = new Seadragon.Viewer(b);
+        c.addEventListener("open", function () {
+            var a = c.drawer.elmt;
+            if (!R && (I = c.viewport.getCenter(), R = !0, -1 != navigator.userAgent.indexOf("Chrome") && -1 != navigator.userAgent.indexOf("Android") ? (Seadragon.Utils.addEvent(a, "touchstart", H.onTouchStartChrome), Seadragon.Utils.addEvent(a, "touchmove", H.onTouchMoveChrome), Seadragon.Utils.addEvent(a, "touchend", H.onTouchEnd), Seadragon.Utils.addEvent(a, "touchcancel", H.onTouchEnd)) : (Seadragon.Utils.addEvent(a,
+                    "MozTouchDown", H.onTouchStartMozilla), Seadragon.Utils.addEvent(a, "MozTouchMove", H.onTouchMoveMozilla), Seadragon.Utils.addEvent(a, "MozTouchUp", H.onTouchEndMozilla), Seadragon.Utils.addEvent(a, "touchstart", H.onTouchStart), Seadragon.Utils.addEvent(a, "touchmove", H.onTouchMove), Seadragon.Utils.addEvent(a, "touchend", H.onTouchEnd), Seadragon.Utils.addEvent(a, "touchcancel", H.onTouchCancel), Seadragon.Utils.addEvent(a, "gesturestart", H.onGestureStart), Seadragon.Utils.addEvent(a, "gesturechange", H.onGestureChange),
+                Seadragon.Utils.addEvent(a, "gestureend", H.onGestureEnd)), null != ea && c.viewport.fitBounds(ea, !0), ia && da && r.FooterControl.addEventListener("buy-print-click", n), Q && (r.FooterControl.addEventListener("show-share-button-click", r.FooterControl.toggleSocial), r.FooterControl.addEventListener("post-to-facebook-click", E), r.FooterControl.addEventListener("post-to-twitter-click", z), r.FooterControl.addEventListener("post-to-linkedin-click", h), r.FooterControl.addEventListener("post-to-pinterest-click", m), r.FooterControl.addEventListener("post-to-gplus-click",
+                J)), O && (r.FooterControl.addEventListener("show-snapshots-button-click", C), ja ? r.SnapshotBrowser.addEventListener("take-snapshot-button-click", j) : $("#take-snapshot-button").remove()), S && r.FooterControl.addEventListener("show-explore-button-click", e), N && (ca && (r.GigapanMobileNavigationControl.addEventListener("zoom-plus-click", x), r.GigapanMobileNavigationControl.addEventListener("zoom-plus-mousedown", q), r.GigapanMobileNavigationControl.addEventListener("zoom-plus-mouseup", v), r.GigapanMobileNavigationControl.addEventListener("zoom-plus-mouseout",
+                v), r.GigapanMobileNavigationControl.addEventListener("zoom-minus-click", f), r.GigapanMobileNavigationControl.addEventListener("zoom-minus-mousedown", k), r.GigapanMobileNavigationControl.addEventListener("zoom-minus-mouseup", v), r.GigapanMobileNavigationControl.addEventListener("zoom-minus-mouseout", v), fa && r.GigapanMobileNavigationControl.addEventListener("view-all-click", function () {
+                c.viewport.goHome()
+            }), t && r.GigapanMobileNavigationControl.addEventListener("full-screen-click", s)), ga && (r.GigapanNavigationControl.addEventListener("zoom-plus-click",
+                x), r.GigapanNavigationControl.addEventListener("zoom-plus-mousedown", q), r.GigapanNavigationControl.addEventListener("zoom-plus-mouseup", v), r.GigapanNavigationControl.addEventListener("zoom-plus-mouseout", v), r.GigapanNavigationControl.addEventListener("zoom-minus-click", f), r.GigapanNavigationControl.addEventListener("zoom-minus-mousedown", k), r.GigapanNavigationControl.addEventListener("zoom-minus-mouseup", v), r.GigapanNavigationControl.addEventListener("zoom-minus-mouseout", v), fa && r.GigapanNavigationControl.addEventListener("view-all-click",
+                function () {
+                    c.viewport.goHome()
+                }), t && r.GigapanNavigationControl.addEventListener("full-screen-click", s))), V && ja && (C(), window.setTimeout(C, 2E3)), "undefined" != window[d])) return window[d]()
+        });
+        c.addEventListener("resize", function () {
+            if (isMobileDeviceUserAgent) {
+                var b = c.viewport.getBounds();
+                new org.gigapan.seadragon.SeadragonUtils.convertSeadragonRectToGigapanRect(b.x, b.y, b.x + b.width, b.y + b.height, a.width);
+                c.viewport.panTo(I)
+            }
+            fullScreenApi.supportsFullScreen && (!isMobileDeviceUserAgent && !fullScreenApi.isFullScreen()) &&
+                (Z && !ha) && (A(!1), $("#take-snapshot-button").show())
+        });
+        c.addEventListener("animationfinish", function () {
+            I = c.viewport.getCenter()
+        });
+        c.addEventListener("animation", function () {
+            if (c && c.viewport && c.isOpen() && aa) {
+                var a = c.viewport.getBounds(!0);
+                r.ThumbnailNavigationControl.updateCurrentViewOutline(a)
+            }
+        });
+        c.setDashboardEnabled(!1);
+        c.openTileSource(L);
+        "undefined" != typeof a.events && "undefined" != typeof a.events.animation && c.addEventListener("animation", a.events.animation);
+        r.FooterControl = new org.gigapan.viewer.FooterControl({
+            showPrintButton: ia && da,
+            showSnapshotsButton: O,
+            showShareButton: Q,
+            autoExpandSocial: !1,
+            showExploreButton: S
+        });
+        O && (r.SnapshotBrowser = new org.gigapan.viewer.SnapshotBrowser(b, ka), r.SnapshotBrowser.addSnapshots(a.id, a.auth_key), D = new org.gigapan.viewer.SnapshotTool("snapshot_tool_dialog_window_template", "dialog_title_bar", c, 1.5));
+        N && (ka = {
+            showViewAllButton: fa,
+            showFullScreenButton: t
+        }, ga && (r.GigapanNavigationControl = new org.gigapan.viewer.GigapanNavigationControl(ka)), ca && (r.GigapanMobileNavigationControl = new org.gigapan.viewer.GigapanMobileNavigationControl(ka)));
+        ha && (r.GigapanWatermarkControl = new org.gigapan.viewer.GigapanWatermarkControl({
+            id: null == a.auth_key ? a.id : a.auth_key
+        }));
+//        S && (r.GigapanRelatedControl = new org.gigapan.viewer.GigapanRelatedControl(related));
+        aa && (r.ThumbnailNavigationControl = new org.gigapan.viewer.ThumbnailNavigationControl({
+            id: a.id,
+            width: a.width,
+            height: a.height
+        }));
+        for (key in r) c.addControl(r[key].getElement(), r[key].getSeadragonControlAnchor());
+        for (key in r) r[key].initialize();
+        setTimeout(this.zoomToFillContainer, 10)
     }
 })();
 if (org) {
@@ -2561,104 +2764,1139 @@ if (org) {
     if ("object" != typeof org.gigapan) throw orgGigapanExistsMessage = "Error: failed to create org.gigapan namespace: org.gigapan already exists and is not an object", alert(orgGigapanExistsMessage), Error(orgGigapanExistsMessage);
 } else org.gigapan = {};
 if (org.gigapan.viewer) {
+    if ("object" != typeof org.gigapan.viewer) {
+        var orgGigapanViewerExistsMessage = "Error: failed to create org.gigapan.viewer namespace: org.gigapan.viewer already exists and is not an object";
+        alert(orgGigapanViewerExistsMessage);
+        throw Error(orgGigapanViewerExistsMessage);
+    }
+} else org.gigapan.viewer = {};
+(function () {
+    org.gigapan.viewer.GigapanWatermarkControl = function (b) {
+        var a = Seadragon.ControlAnchor.BOTTOM_RIGHT,
+            d = "http://www.gigapan.com",
+            q = document.createElement("div");
+        q.id = "gigapan-watermark";
+        this.getSeadragonControlAnchor = function () {
+            return a
+        };
+        this.getElement = function () {
+            return q
+        };
+        this.initialize = function () {
+//			b && ("undefined" != typeof b.baseUrl && (d = b.baseUrl), "undefined" == typeof b.auth_key && "undefined" != b.id && (d += "/gigapans/" + b.id));
+//			q.innerHTML = '<a href="' + d + '" target="_blank"><img alt="GigaPan - See More" title="GigaPan - See More" src="/images/viewer/GigaPanLogo.png"></a>'
+			b && ("undefined" != typeof b.baseUrl && (d = b.baseUrl), "undefined" == typeof b.auth_key && "undefined" != b.id && (d += "/gigapans/" + b.id));
+			q.innerHTML = ''
+      }
+    }
+})(); if (org) {
+    if ("object" != typeof org) throw orgExistsMessage = "Error: failed to create org namespace: org already exists and is not an object", alert(orgExistsMessage), Error(orgExistsMessage);
+} else org = {}; if (org.gigapan) {
+    if ("object" != typeof org.gigapan) throw orgGigapanExistsMessage = "Error: failed to create org.gigapan namespace: org.gigapan already exists and is not an object", alert(orgGigapanExistsMessage), Error(orgGigapanExistsMessage);
+} else org.gigapan = {};
+if (org.gigapan.viewer) {
     if ("object" != typeof org.gigapan.viewer) throw orgGigapanViewerExistsMessage = "Error: failed to create org.gigapan.viewer namespace: org.gigapan.viewer already exists and is not an object", alert(orgGigapanViewerExistsMessage), Error(orgGigapanViewerExistsMessage);
 } else org.gigapan.viewer = {};
 (function () {
-    org.gigapan.viewer.GigapanNavigationControl = function () {
-        var c = new org.gigapan.events.EventManager,
-            e = Seadragon.ControlAnchor.NONE,
-            h = document.createElement("div");
-        h.id = "gigapan-navigation";
+    org.gigapan.viewer.GigapanNavigationControl = function (b) {
+        function a(a, b) {
+            a = a || window.event;
+            "function" === typeof a.preventDefault ? (a.preventDefault(), a.stopPropagation()) : (a.returnValue = !1, a.cancelBubble = !0);
+            d.publishEvent(b)
+        }
+        var d = new org.gigapan.events.EventManager,
+            q = !0,
+            k = !0,
+            v = Seadragon.ControlAnchor.NONE,
+            p = document.createElement("div");
+        p.id = "gigapan-navigation";
+        b && ("undefined" != typeof b.showViewAllButton && (q = b.showViewAllButton ? !0 : !1), "undefined" != typeof b.showFullScreenButton && (k = b.showFullScreenButton ? !0 : !1));
         this.getSeadragonControlAnchor = function () {
-            return e
+            return v
         };
         this.getElement = function () {
-            return h
+            return p
         };
         this.initialize = function () {
-            h.innerHTML = '<div class="motion-circle"></div><div id="zoom-plus-button" class="zoom-plus-button"></div><div id="zoom-minus-button" class="zoom-minus-button"></div><div id="slider-track" class="slider-track"></div><div id="slider-handle" class="slider-handle"></div><div id="view-all-button" class="view-all-button"></div><div id="full-screen-button" class="full-screen-button"></div>';
-            document.getElementById("zoom-plus-button").onclick = function (a) {
-                a = a || window.event;
-                "function" === typeof a.preventDefault ? (a.preventDefault(), a.stopPropagation()) : (a.returnValue = !1, a.cancelBubble = !0);
-                c.publishEvent("zoom-plus-click")
+            p.innerHTML = '<div id="zoom-plus-button" class="zoom-plus-button navigation-element"></div><div id="zoom-minus-button" class="zoom-minus-button navigation-element"></div>';
+            q ? p.innerHTML += '<div id="view-all-button" class="view-all-button navigation-element"></div>' : "";
+            k ? p.innerHTML += '<div id="full-screen-button" class="full-screen-button navigation-element"></div>' : "";
+            document.getElementById("zoom-plus-button").onclick =
+                function (b) {
+                    a(b, "zoom-plus-click")
             };
-            document.getElementById("zoom-plus-button").onmousedown = function (a) {
-                a = a || window.event;
-                "function" === typeof a.preventDefault ? (a.preventDefault(), a.stopPropagation()) : (a.returnValue = !1, a.cancelBubble = !0);
-                c.publishEvent("zoom-plus-mousedown")
+            document.getElementById("zoom-plus-button").onmousedown = function (b) {
+                a(b, "zoom-plus-mousedown")
             };
-            document.getElementById("zoom-plus-button").onmouseout = function (a) {
-                a = a || window.event;
-                "function" === typeof a.preventDefault ? (a.preventDefault(), a.stopPropagation()) : (a.returnValue = !1, a.cancelBubble = !0);
-                c.publishEvent("zoom-plus-mouseout")
+            document.getElementById("zoom-plus-button").onmouseout = function (b) {
+                a(b, "zoom-plus-mouseout")
             };
-            document.getElementById("zoom-plus-button").onmouseup = function (a) {
-                a = a || window.event;
-                "function" === typeof a.preventDefault ? (a.preventDefault(), a.stopPropagation()) : (a.returnValue = !1, a.cancelBubble = !0);
-                c.publishEvent("zoom-plus-mouseup")
+            document.getElementById("zoom-plus-button").onmouseup = function (b) {
+                a(b, "zoom-plus-mouseup")
             };
-            document.getElementById("zoom-minus-button").onclick = function (a) {
-                a = a || window.event;
-                "function" === typeof a.preventDefault ? (a.preventDefault(), a.stopPropagation()) : (a.returnValue = !1, a.cancelBubble = !0);
-                c.publishEvent("zoom-minus-click")
+            document.getElementById("zoom-minus-button").onclick = function (b) {
+                a(b, "zoom-minus-click")
             };
-            document.getElementById("zoom-minus-button").onmousedown = function (a) {
-                a = a || window.event;
-                "function" === typeof a.preventDefault ? (a.preventDefault(), a.stopPropagation()) : (a.returnValue = !1, a.cancelBubble = !0);
-                c.publishEvent("zoom-minus-mousedown")
+            document.getElementById("zoom-minus-button").onmousedown = function (b) {
+                a(b, "zoom-minus-mousedown")
             };
-            document.getElementById("zoom-minus-button").onmouseup = function (a) {
-                a = a || window.event;
-                "function" === typeof a.preventDefault ?
-                    (a.preventDefault(), a.stopPropagation()) : (a.returnValue = !1, a.cancelBubble = !0);
-                c.publishEvent("zoom-minus-mouseup")
+            document.getElementById("zoom-minus-button").onmouseup = function (b) {
+                a(b, "zoom-minus-mouseup")
             };
-            document.getElementById("zoom-minus-button").onmouseout = function (a) {
-                a = a || window.event;
-                "function" === typeof a.preventDefault ? (a.preventDefault(), a.stopPropagation()) : (a.returnValue = !1, a.cancelBubble = !0);
-                c.publishEvent("zoom-minus-mouseout")
-            };
-            document.getElementById("slider-handle").onmousedown = function (a) {
-                a = a || window.event;
-                "function" === typeof a.preventDefault ? (a.preventDefault(), a.stopPropagation()) :
-                    (a.returnValue = !1, a.cancelBubble = !0);
-                c.publishEvent("slider-handle-mousedown", function (c) {
-                    c(a)
-                })
+            document.getElementById("zoom-minus-button").onmouseout = function (b) {
+                a(b, "zoom-minus-mouseout")
             };
             document.onmousemove = function (a) {
                 a = a || window.event;
                 "function" === typeof a.preventDefault ? (a.preventDefault(), a.stopPropagation()) : (a.returnValue = !1, a.cancelBubble = !0);
-                c.publishEvent("slider-handle-mousemove", function (c) {
-                    c(a)
+                d.publishEvent("slider-handle-mousemove", function (b) {
+                    b(a)
                 })
             };
             document.onmouseup = function (a) {
                 a = a || window.event;
-                "function" === typeof a.preventDefault ? (a.preventDefault(), a.stopPropagation()) : (a.returnValue = !1, a.cancelBubble = !0);
-                c.publishEvent("slider-handle-mouseup", function (c) {
-                    c(a)
+                "function" === typeof a.preventDefault ?
+                    (a.preventDefault(), a.stopPropagation()) : (a.returnValue = !1, a.cancelBubble = !0);
+                d.publishEvent("slider-handle-mouseup", function (b) {
+                    b(a)
                 })
             };
-            document.getElementById("view-all-button").onclick = function (a) {
+            q && (document.getElementById("view-all-button").onclick = function (a) {
                 a = a || window.event;
                 "function" === typeof a.preventDefault ? (a.preventDefault(), a.stopPropagation()) : (a.returnValue = !1, a.cancelBubble = !0);
-                c.publishEvent("view-all-click", function (c) {
-                    c(a)
+                d.publishEvent("view-all-click", function (b) {
+                    b(a)
                 })
+            });
+            k && (document.getElementById("full-screen-button").onclick = function (a) {
+                a = a || window.event;
+                "function" === typeof a.preventDefault ?
+                    (a.preventDefault(), a.stopPropagation()) : (a.returnValue = !1, a.cancelBubble = !0);
+                d.publishEvent("full-screen-click", function (b) {
+                    b(a)
+                })
+            });
+            var b = 50;
+            $(".navigation-element").each(function () {
+                b += $(this).height()
+            });
+            jQuery("#gigapan-navigation").css("height", b + "px");
+            k || $("#view-all-button").css("top", parseFloat($("#view-all-button").css("top")) - 25 + "px")
+        };
+        this.addEventListener = d.addEventListener;
+        this.removeEventListener = d.removeEventListener;
+        this.publishEvent = d.publishEvent
+    }
+})(); if (org) {
+    if ("object" != typeof org) throw orgExistsMessage = "Error: failed to create org namespace: org already exists and is not an object", alert(orgExistsMessage), Error(orgExistsMessage);
+} else org = {}; if (org.gigapan) {
+    if ("object" != typeof org.gigapan) throw orgGigapanExistsMessage = "Error: failed to create org.gigapan namespace: org.gigapan already exists and is not an object", alert(orgGigapanExistsMessage), Error(orgGigapanExistsMessage);
+} else org.gigapan = {};
+if (org.gigapan.viewer) {
+    if ("object" != typeof org.gigapan.viewer) throw orgGigapanViewerExistsMessage = "Error: failed to create org.gigapan.viewer namespace: org.gigapan.viewer already exists and is not an object", alert(orgGigapanViewerExistsMessage), Error(orgGigapanViewerExistsMessage);
+} else org.gigapan.viewer = {};
+(function () {
+    org.gigapan.viewer.GigapanMobileNavigationControl = function (b) {
+        function a(a, b) {
+            a = a || window.event;
+            "function" === typeof a.preventDefault ? (a.preventDefault(), a.stopPropagation()) : (a.returnValue = !1, a.cancelBubble = !0);
+            d.publishEvent(b)
+        }
+        var d = new org.gigapan.events.EventManager,
+            q = !0,
+            k = !0,
+            v = Seadragon.ControlAnchor.TOP_RIGHT,
+            p = document.createElement("div");
+        p.id = "gigapan-mobile-navigation";
+        b && ("undefined" != typeof b.showViewAllButton && (q = b.showViewAllButton ? !0 : !1), "undefined" != typeof b.showFullScreenButton &&
+            (k = b.showFullScreenButton ? !0 : !1));
+        this.getSeadragonControlAnchor = function () {
+            return v
+        };
+        this.getElement = function () {
+            return p
+        };
+        this.initialize = function () {
+            p.innerHTML = '<div id="mobile-zoom-plus-button" class="mobile-zoom-plus-button"><span class="clickable-nav-item"></span></div><div id="mobile-zoom-minus-button" class="mobile-zoom-minus-button"><span class="clickable-nav-item"></span></div>';
+            k ? p.innerHTML += '<div id="mobile-full-screen-button" class="mobile-full-screen-button"><span class="clickable-nav-item"></span></div>' :
+                "";
+            q ? p.innerHTML += '<div id="mobile-view-all-button" class="mobile-view-all-button"><span class="clickable-nav-item"></span></div>' : "";
+            document.getElementById("mobile-zoom-plus-button").onclick = function (b) {
+                a(b, "zoom-plus-click")
             };
-            document.getElementById("full-screen-button").onclick = function (a) {
-                a = a || window.event;
-                "function" === typeof a.preventDefault ? (a.preventDefault(), a.stopPropagation()) : (a.returnValue = !1, a.cancelBubble = !0);
-                c.publishEvent("full-screen-click", function (c) {
-                    c(a)
-                })
+            document.getElementById("mobile-zoom-plus-button").onmousedown = function (b) {
+                a(b, "zoom-plus-mousedown")
+            };
+            document.getElementById("mobile-zoom-plus-button").onmouseout = function (b) {
+                a(b, "zoom-plus-mouseout")
+            };
+            document.getElementById("mobile-zoom-plus-button").onmouseup = function (b) {
+                a(b,
+                    "zoom-plus-mouseup")
+            };
+            document.getElementById("mobile-zoom-minus-button").onclick = function (b) {
+                a(b, "zoom-minus-click")
+            };
+            document.getElementById("mobile-zoom-minus-button").onmousedown = function (b) {
+                a(b, "zoom-minus-mousedown")
+            };
+            document.getElementById("mobile-zoom-minus-button").onmouseup = function (b) {
+                a(b, "zoom-minus-mouseup")
+            };
+            document.getElementById("mobile-zoom-minus-button").onmouseout = function (b) {
+                a(b, "zoom-minus-mouseout")
+            };
+            q && (document.getElementById("mobile-view-all-button").onclick = function (b) {
+                a(b,
+                    "view-all-click")
+            });
+            k && (document.getElementById("mobile-full-screen-button").onclick = function (b) {
+                a(b, "full-screen-click")
+            });
+            var b = 0;
+            $("#gigapan-mobile-navigation div").each(function () {
+                b += $(this).height()
+            });
+            jQuery("#gigapan-mobile-navigation").css("height", b + "px");
+            k || $("#view-all-button").css("top", parseFloat($("#view-all-button").css("top")) - 28 + "px")
+        };
+        this.addEventListener = d.addEventListener;
+        this.removeEventListener = d.removeEventListener;
+        this.publishEvent = d.publishEvent
+    }
+})(); if (org) {
+    if ("object" != typeof org) throw orgExistsMessage = "Error: failed to create org namespace: org already exists and is not an object", alert(orgExistsMessage), Error(orgExistsMessage);
+} else org = {}; if (org.gigapan) {
+    if ("object" != typeof org.gigapan) throw orgGigapanExistsMessage = "Error: failed to create org.gigapan namespace: org.gigapan already exists and is not an object", alert(orgGigapanExistsMessage), Error(orgGigapanExistsMessage);
+} else org.gigapan = {};
+if (org.gigapan.viewer) {
+    if ("object" != typeof org.gigapan.viewer) throw orgGigapanViewerExistsMessage = "Error: failed to create org.gigapan.viewer namespace: org.gigapan.viewer already exists and is not an object", alert(orgGigapanViewerExistsMessage), Error(orgGigapanViewerExistsMessage);
+} else org.gigapan.viewer = {}; if (!window.$) {
+    var nojQueryMsg = "The jQuery library is required by org.gigapan.viewer.ControlPanel.js";
+    alert(nojQueryMsg);
+    throw Error(nojQueryMsg);
+}
+(function () {
+    var b = window.$;
+    org.gigapan.viewer.FooterControl = function (a) {
+        function d(a, b) {
+            a = a || window.event;
+            "function" === typeof a.preventDefault ? (a.preventDefault(), a.stopPropagation()) : (a.returnValue = !1, a.cancelBubble = !0);
+            q.publishEvent(b)
+        }
+        var q = new org.gigapan.events.EventManager,
+            k = Seadragon.ControlAnchor.NONE,
+            v = !0,
+            p = !0,
+            x = !0,
+            f = !1,
+            P = !0,
+            s = document.createElement("div");
+        s.id = "footer-panel";
+        s.className = "footer-panel";
+        a && ("undefined" != typeof a.showPrintButton && (v = a.showPrintButton ? !0 : !1), "undefined" != typeof a.showSnapshotsButton &&
+            (p = a.showSnapshotsButton ? !0 : !1), "undefined" != typeof a.showShareButton && (x = a.showShareButton ? !0 : !1), "undefined" != typeof a.showExploreButton && (P = a.showExploreButton ? !0 : !1));
+        var a = '<div id="social-container"><div id="gp-facebook" class="social-button" title="Post to Facebook"></div><div id="gp-twitter" class="social-button" title="Tweet"></div><div id="gp-gplus" class="social-button" title="Share on Google+"></div><div id="gp-linkedin" class="social-button" title="Share on LinkedIn"></div><div id="gp-pinterest" class="social-button" title="Pin it!"></div></div>',
+            A = "";
+        p && (A += '<div id="show-snapshots-button" class="footer-panel-button show-snapshots-button-on" title="Snapshots"></div>');
+        v && (A += '<div id="buy-print-button" class="footer-panel-button buy-print-button-on" title="Buy a Print"></div>');
+        P && (A += '<div id="show-explore-button" class="footer-panel-action-button explore-button" title="Explore More"></div>');
+        x && (A += '<div id="show-share-button" class="footer-panel-button share-button" title="Share this Gigapan"></div>' + a);
+        b(s).html(A);
+        this.getElement = function () {
+            return s
+        };
+        this.getSeadragonControlAnchor = function () {
+            return k
+        };
+        this.initialize = function () {
+            v && (document.getElementById("buy-print-button").onclick = function (a) {
+                d(a, "buy-print-click")
+            });
+            p && (document.getElementById("show-snapshots-button").onclick = function (a) {
+                d(a, "show-snapshots-button-click")
+            });
+            P && (document.getElementById("show-explore-button").onclick = function (a) {
+                d(a, "show-explore-button-click")
+            });
+            x && (document.getElementById("show-share-button").onclick = function (a) {
+                    d(a, "show-share-button-click")
+                }, document.getElementById("gp-facebook").onclick =
+                function (a) {
+                    d(a, "post-to-facebook-click")
+                }, document.getElementById("gp-twitter").onclick = function (a) {
+                    d(a, "post-to-twitter-click")
+                }, document.getElementById("gp-linkedin").onclick = function (a) {
+                    d(a, "post-to-linkedin-click")
+                }, document.getElementById("gp-pinterest").onclick = function (a) {
+                    d(a, "post-to-pinterest-click")
+                }, document.getElementById("gp-gplus").onclick = function (a) {
+                    d(a, "post-to-gplus-click")
+                }, z());
+            E();
+            $("#footer-panel").parent().css("height", "0px")
+        };
+        this.isVisible = function () {
+            return !0
+        };
+        this.toggleSocial =
+            function () {
+                f ? $("#social-container").css("display", "none") : $("#social-container").css("display", "block");
+                f = !f;
+                setTimeout(z, 100)
+        };
+        this.toggleVisibility = function () {
+            b(s).animate({
+                bottom: "-44px"
+            }, 500);
+            isControlPanelVisible = !isControlPanelVisible
+        };
+        var E = function () {
+            b(s).width(b(window).width() - 5);
+            z()
+        }, z = function () {
+                if (x) {
+                    var a = 0;
+                    $(".footer-panel-button").each(function () {
+                        a += $(this).width()
+                    });
+                    $(".footer-panel-action-button").each(function () {
+                        a += $(this).width()
+                    });
+                    b("#social-container").css("left", a + "px");
+                    b("#gplus div").css({
+                        "padding-left": "13px",
+                        "padding-top": "17px"
+                    })
+                }
+            };
+        this.handleOrientationChange = function () {
+            E();
+            z()
+        };
+        this.updateSize = function () {
+            E()
+        };
+        this.addEventListener = q.addEventListener;
+        this.removeEventListener = q.removeEventListener;
+        this.publishEvent = q.publishEvent
+    }
+})();
+if (org) {
+    if ("object" != typeof org) throw orgExistsMessage = "Error: failed to create org namespace: org already exists and is not an object", alert(orgExistsMessage), Error(orgExistsMessage);
+} else org = {}; if (org.gigapan) {
+    if ("object" != typeof org.gigapan) throw orgGigapanExistsMessage = "Error: failed to create org.gigapan namespace: org.gigapan already exists and is not an object", alert(orgGigapanExistsMessage), Error(orgGigapanExistsMessage);
+} else org.gigapan = {};
+if (org.gigapan.viewer) {
+    if ("object" != typeof org.gigapan.viewer) throw orgGigapanViewerExistsMessage = "Error: failed to create org.gigapan.viewer namespace: org.gigapan.viewer already exists and is not an object", alert(orgGigapanViewerExistsMessage), Error(orgGigapanViewerExistsMessage);
+} else org.gigapan.viewer = {}; if (!window.$) throw nojQueryMsg = "The jQuery library is required by org.gigapan.viewer.SnapshotBrowser.js", alert(nojQueryMsg), Error(nojQueryMsg);
+(function () {
+    var b = window.$;
+    b.ajaxSetup({
+        type: "GET",
+        dataType: "jsonp",
+        timeout: 3E4,
+        cache: !1,
+        global: !1
+    });
+    /Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone OS/i.test(navigator.userAgent);
+    var a = 102,
+        d = 5,
+        q = !1,
+        k = 0;
+    org.gigapan.viewer.SnapshotBrowser = function (v, p) {
+        function x(a) {
+            return a.replace(/(\b(https?):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig, function (a) {
+                return '<a href="' + a + '" target="_blank" class="snapshot_comment_link">' + a + "</a>"
+            })
+        }
+
+        function f(a) {
+            a = a || window.event;
+            "function" === typeof a.preventDefault ?
+                (a.preventDefault(), a.stopPropagation()) : (a.returnValue = !1, a.cancelBubble = !0);
+            var c = a.currentTarget ? a.currentTarget : a.srcElement;
+            null == a || null == c ? K = selectedSnapshot : (c = c.id, c = c.slice(c.lastIndexOf("_") + 1, c.length), K = l[c]);
+            "touchstart" == a.type && (ga = window.setTimeout(function () {
+                s(K)
+            }, 1E3));
+            "touchend" == a.type && (window.clearTimeout(ga), P(K));
+            "click" == a.type && (P(K), b(".snapshot").each(function () {
+                $(this).removeClass("selected")
+            }), b(a.currentTarget).addClass("selected"));
+            "mouseover" == a.type && s(K);
+            "mouseout" ==
+                a.type && (b(".overlay").each(function () {
+                    var a = $(this).attr("id"),
+                        a = a.slice(a.lastIndexOf("_") + 1, a.length);
+                    SDViewer.viewer.hideSnapInclusion(a)
+                }), u || h());
+            return !1
+        }
+
+        function P(a) {
+            !0 == user.logged_in && null == user.login && (L || (L = !0, $.ajax({
+                url: "/sessions/whoami",
+                type: "GET",
+                async: !0,
+                dataType: "json",
+                timeout: 2E4
+            }).done(function (a) {
+                user = a.user;
+                L = !1
+            })));
+            selectedSnapshot = a;
+            $(".bx-viewport").css("height", "62px");
+            var b = 0.1 * (a.bounds.ymax - a.bounds.ymin);
+            SDViewer.viewer.setViewBounds(null, a.bounds.xmin - b, a.bounds.ymin -
+                b, a.bounds.xmax + b, a.bounds.ymax + b);
+            u ? z(a) : u = !0;
+            b = document.getElementById("snapshot-info-overlay");
+            b || (b = document.createElement("div"), b.id = "snapshot-info-overlay", document.getElementById(R.id).parentNode.appendChild(b), b.style.display = "block");
+            b.innerHTML = "";
+            var e = document.createElement("div");
+            e.className = "close_button";
+            e.onclick = function () {
+                u = !1;
+                h()
+            };
+            var f = document.createElement("div");
+            f.id = "snapshot_comments_container";
+            var d = document.createElement("div");
+            d.id = "snapshots_description";
+            d.className =
+                "snapshots_description";
+            d.innerHTML = x(a.description);
+            f.appendChild(d);
+            if (null != a.comment_set)
+                for (d = 0; d < a.comment_set.available; d++) {
+                    var j = a.comment_set.items[d];
+                    if (j) {
+                        var k = j[0],
+                            n = j[1],
+                            j = document.createElement("div");
+                        j.className = "snap_comment";
+                        j.innerHTML = x(n.message);
+                        var p = "",
+                            p = "<br> by: <a class='white_link' href='/profiles/" + n.user.username + "'>" + n.user.username + "</a>";
+                        j.innerHTML += p;
+                        if (user.id == n.user.id || gigapan.gigapan.user_id == user.id) n = document.createElement("a"), n.id = "delete_snapshot_comment_" +
+                            k, n.className = "delete_snapshot_comments_button", n.innerHTML = "delete", n.onclick = function () {
+                                m(this.id);
+                                return !1
+                        }, j.appendChild(n);
+                        f.appendChild(j)
+                    }
+                } else d = document.createElement("div"), d.className = "no_snapshot_comments", d.id = "no_snapshot_comments", d.innerHTML = "No Comments", f.appendChild(d);
+            b.appendChild(e);
+            b.appendChild(f);
+            c ? (e = document.createElement("div"), e.id = "add_snapshot_comments_container", e.className = "add_snapshot_comments_container", user && null != user && (!1 != user.logged_in || user.login && 0 < user.login.length) ?
+                (f = document.createElement("form"), f.id = "add-snapshot-comment-form", f.className = "add-snapshot-comment-form", f.action = "/comments", d = document.createElement("textarea"), d.id = "comment_comment", d.name = "comment[comment]", k = document.createElement("button"), k.id = "add_snapshot_comments_button", k.className = "add_snapshot_comments_button", k.innerHTML = "", k.onclick = function () {
+                        5 > $("#comment_comment").val().length ? alert("Comments must be at least 5 characters long") : ($("#saving_comment_spinner").css("display", "block"),
+                            $.ajax({
+                                url: "/comments",
+                                data: $("#add-snapshot-comment-form").serialize(),
+                                type: "POST",
+                                dataType: "json",
+                                timeout: 25E3
+                            }).success(function (a) {
+                                var b = [];
+                                b[0] = a.comment.id;
+                                b[1] = {
+                                    id: a.comment.id,
+                                    message: a.comment.comment,
+                                    user: {
+                                        id: a.comment.user_id,
+                                        login: user.login,
+                                        username: user.login
+                                    }
+                                };
+                                l[a.comment.commentable_id].comment_set && l[a.comment.commentable_id].comment_set.items ? (l[a.comment.commentable_id].comment_set.items.unshift(b), l[a.comment.commentable_id].comment_set.available += 1) : (l[a.comment.commentable_id].comment_set = {}, l[a.comment.commentable_id].comment_set.items = [], l[a.comment.commentable_id].comment_set.items.push(b), l[a.comment.commentable_id].comment_set.available = 1, (b = document.getElementById("no_snapshot_comments")) && b.parentNode.removeChild(b), $("#snapshot_" + a.comment.commentable_id).before('<span class="has_comments"></span>'));
+                                b = document.createElement("div");
+                                b.className = "snap_comment";
+                                b.innerHTML = x(a.comment.comment);
+                                var c = "",
+                                    c = "<br> by: <a class='white_link' href='/profiles/" + user.login + "'>" + user.login +
+                                        "</a>";
+                                b.innerHTML += c;
+                                c = document.createElement("a");
+                                c.id = "delete_snapshot_comment_" + a.comment.id;
+                                c.className = "delete_snapshot_comments_button";
+                                c.innerHTML = "delete";
+                                c.onclick = function () {
+                                    m(this.id);
+                                    return !1
+                                };
+                                b.appendChild(c);
+                                document.getElementById("snapshot_comments_container").insertBefore(b, document.getElementById("snapshots_description").nextSibling);
+                                $("#comment_comment").val("")
+                            }).error(function () {
+                                alert("There was an error creating your comment.")
+                            }).always(function (a) {
+                                $("#saving_comment_spinner").css("display",
+                                    "none");
+                                a.redirect && alert("There was an error creating your comment. Please make sure you are signed in and reload the page.")
+                            }));
+                        return !1
+                    }, a = "<input id='comment_commentable_id' name='comment[commentable_id]' type='hidden' value='" + a.id + "'>", a = a + "<input id='comment_commentable_type' name='comment[commentable_type]' type='hidden' value='Snapshot'>" + ("<input id='comment_user_id' name='comment[user_id]' type='hidden' value='" + user.id + "'>"), a += "<input id='auth_key' name='comment[auth_key]' type='hidden' value='" +
+                    $("#authenticity_token").val() + "'>", f.innerHTML = a, f.appendChild(d), f.appendChild(k), $(f).append("<img id='saving_comment_spinner' style='display:none;float:left;width:15px;height:15px;' class='loading' src='/images/spinner_small.gif' />"), e.appendChild(f)) : (a = document.createElement("button"), a.id = "login_to_comment_button", a.className = "login_to_comment_button", a.onclick = function () {
+                    showLoginWindow("commentOnSnapshot")
+                }, e.appendChild(a)), b.appendChild(e)) : $("#snapshot-info-overlay").css("height", "190px")
+        }
+
+        function s(a) {
+            SDViewer.viewer.showSnapInclusion(a.id, a.bounds.xmin, a.bounds.ymin, a.bounds.xmax, a.bounds.ymax);
+            u || z(a)
+        }
+
+        function A(b, c, e) {
+            k = e;
+            b = Math.floor($(".bx-viewport").width() / a);
+            e * d + b > G.getSlideCount() - d && !q && ha(e)
+        }
+
+        function E() {}
+
+        function z(a) {
+            var b = document.createElement("div");
+            b.className = "snapshot_name";
+            b.innerHTML = a.name;
+            var c = document.createElement("div");
+            c.className = "snap_taken_by";
+            var e = "",
+                e = "<a class='white_link' href='/profiles/" + a.owner.username + "'>" + a.owner.username + "</a>";
+            c.innerHTML =
+                "Snapped by: " + e;
+            if (user.id == a.owner.id || gigapan.gigapan.user_id == user.id) e = document.createElement("a"), e.id = "delete_snapshot_" + a.id, e.className = "delete_snapshot_comments_button", e.innerHTML = "delete", e.onclick = function () {
+                var a = this.id,
+                    a = a.slice(a.lastIndexOf("_") + 1, a.length);
+                confirm("Are you sure you want to delete this snapshot") && SDViewer.viewer.deleteSnapshot(a);
+                return !1
+            }, c.appendChild(e);
+            I.innerHTML = "";
+            I.appendChild(b);
+            I.appendChild(c)
+        }
+
+        function h() {
+            var a = document.getElementById("snapshot-info-overlay");
+            !u && a && a.parentNode.removeChild(a);
+            I.innerHTML = "";
+            (a = document.getElementById("view_add_comments")) && a.parentNode.removeChild(a);
+            b(".snapshot").each(function () {
+                $(this).removeClass("selected")
+            })
+        }
+
+        function m(a) {
+            var b = a.slice(a.lastIndexOf("_") + 1, a.length);
+            confirm("Are you sure you want to delete this comment") && ($("#" + a).parent().append('<img style="float:right;padding-right: 10px;" class="loading" src="/images/spinner_small.gif">'), $.ajax({
+                url: "/comments/" + b,
+                data: {
+                    id: b
+                },
+                type: "DELETE",
+                dataType: "json",
+                timeout: 25E3
+            }).success(function () {
+                alert("Comment successfully deleted.");
+                if (l[selectedSnapshot.id].comment_set && l[selectedSnapshot.id].comment_set.items) {
+                    for (i = 0; i < l[selectedSnapshot.id].comment_set.available; i++) l[selectedSnapshot.id].comment_set.items[i][0] == b && (l[selectedSnapshot.id].comment_set.items.splice(i, 1), l[selectedSnapshot.id].comment_set.available -= 1);
+                    0 == l[selectedSnapshot.id].comment_set.available && ($("#snapshot_" + selectedSnapshot.id).siblings(".has_comments").remove(), $("#" + a).parent().parent().append("<div class='no_snapshot_comments' id='no_snapshot_comments'>No Comments</div>"),
+                        l[selectedSnapshot.id].comment_set = null)
+                }
+                $("#" + a).parent().remove()
+            }).error(function () {
+                $("#" + a).parent().remove(".loading");
+                alert("There was an error deleting the comment.")
+            }))
+        }
+        var J = new org.gigapan.events.EventManager,
+            n = !1,
+            C = Seadragon.ControlAnchor.NONE,
+            e = null,
+            j = null,
+            y = 1,
+            qa = 0,
+            l = [],
+            G = null,
+            u = !1,
+            K = null,
+            L = !1,
+            c = "undefined" != p && null != p ? p : !0,
+            R = document.createElement("div");
+        R.id = "snapshot_browser";
+        var H = document.createElement("div");
+        H.id = "snapshot_scroller_container";
+        var W = document.createElement("div");
+        W.id = "take_snapshot_container";
+        var ea = document.createElement("div");
+        ea.id = "take-snapshot-button";
+        ea.className = "take-snapshot-button";
+        var I = document.createElement("div");
+        I.id = "snapshot-details";
+        I.className = "snapshot-details";
+        b(W).append(ea);
+        b(W).append(I);
+        b(R).append(W);
+        b(R).append(H);
+        var ca = function () {
+            j = e = null;
+            y = 1;
+            qa = 0;
+            l = [];
+            K = null;
+            if (G) {
+                G.destroySlider();
+                var a = document.getElementById("bxslider-snapshots");
+                a.parentNode.removeChild(a)
             }
         };
-        this.addEventListener = c.addEventListener;
-        this.removeEventListener = c.removeEventListener;
-        this.publishEvent = c.publishEvent
+        this.getSeadragonControlAnchor = function () {
+            return C
+        };
+        var ga;
+        this.loadInitialSnapshots =
+            function (a, b, c) {
+                ca();
+                e = a;
+                j = b;
+                Z(c, !1, 0)
+        };
+        this.addSnapshots = function (a, b) {
+            ca();
+            e = a;
+            j = b;
+            ha(0)
+        };
+        var ha = function (a) {
+            b.ajax({
+                url: "/beta/gigapans/" + (null != j ? j : e) + "/snapshots/page/" + y + "/per_page/25/most_recent.json",
+                success: function (b) {
+                    0 < b.count ? Z(b, 0 == a ? !1 : !0, a) : q = !0;
+                    b.count < b.per_page && (q = !0)
+                },
+                error: function () {}
+            })
+        }, Z = function (a, c, h) {
+                if (a && a.count && a.items) {
+                    y++;
+                    if (c) var k = document.getElementById("bxslider-snapshots");
+                    else k = document.createElement("ul"), k.className = "bxslider-snapshots", k.id = "bxslider-snapshots",
+                    H.appendChild(k);
+                    for (var m = 0; m < a.count; m++) {
+                        var u = a.items[m];
+                        if (u) {
+                            var n = u[0];
+                            if ((u = u[1]) && n) {
+                                var p = document.createElement("li"),
+                                    s = document.createElement("img");
+                                s.id = "snapshot_" + n;
+                                s.className = "snapshot";
+                                var K = -1 != window.location.hostname.indexOf("staging") ? "staging/" : "";
+                                b(s).attr("src", "http://static.gigapan.org/snapshots0/" + K + e + "/images" + (null != j ? "." + j : "") + "/" + n + "-90x60.jpg");
+                                s.onclick = f;
+                                s.onmouseout = f;
+                                s.onmouseover = f;
+                                s.oncontextmenu = f;
+                                null != u.comment_set && (K = document.createElement("span"), K.className =
+                                    "has_comments", p.appendChild(K));
+                                p.appendChild(s);
+                                k.appendChild(p);
+                                l[n] = u;
+                                qa++
+                            }
+                        }
+                    }
+                }
+                c ? G.reloadSlider({
+                    infiniteLoop: !1,
+                    adaptiveHeight: !1,
+                    captions: !1,
+                    onSlideNext: A,
+                    onSlidePrev: E,
+                    startSlide: h,
+                    hideControlOnEnd: !0,
+                    minSlides: 5,
+                    maxSlides: 20,
+                    slideMargin: 3,
+                    responsive: !1,
+                    slideWidth: 87,
+                    moveSlides: d,
+                    pager: !1
+                }) : G || (G = $("#bxslider-snapshots").bxSlider({
+                    infiniteLoop: !1,
+                    adaptiveHeight: !1,
+                    captions: !1,
+                    onSlideNext: A,
+                    onSlidePrev: E,
+                    startSlide: 0,
+                    hideControlOnEnd: !0,
+                    minSlides: 5,
+                    maxSlides: 20,
+                    slideMargin: 3,
+                    responsive: !1,
+                    slideWidth: 87,
+                    moveSlides: d,
+                    pager: !1
+                }))
+            }, ia = function () {
+                G && G.reloadSlider({
+                    infiniteLoop: !1,
+                    adaptiveHeight: !1,
+                    captions: !1,
+                    onSlideNext: A,
+                    onSlidePrev: E,
+                    startSlide: k,
+                    hideControlOnEnd: !0,
+                    minSlides: 5,
+                    maxSlides: 20,
+                    slideMargin: 3,
+                    responsive: !1,
+                    slideWidth: 87,
+                    moveSlides: d,
+                    pager: !1
+                })
+            };
+        this.isVisible = function () {
+            return n
+        };
+        this.toggleVisibility = function () {
+            n ? (b(R).fadeOut("fast"), u = !1, h()) : (ia(), b(R).fadeIn("slow"));
+            n = !n
+        };
+        var fa = function () {
+            b(R).width(b(window).width());
+            b(H).width(b(window).width() - b(W).width());
+            ia()
+        };
+        this.handleOrientationChange =
+            function () {
+                fa()
+        };
+        this.getElement = function () {
+            return R
+        };
+        this.updateSize = function () {
+            fa()
+        };
+        this.initialize = function () {
+            document.getElementById("take-snapshot-button").onclick = function (a) {
+                a = a || window.event;
+                "function" === typeof a.preventDefault ? (a.preventDefault(), a.stopPropagation()) : (a.returnValue = !1, a.cancelBubble = !0);
+                J.publishEvent("take-snapshot-button-click")
+            };
+            fa();
+            $("#snapshot_browser").parent().css("height", "0px")
+        };
+        this.addEventListener = J.addEventListener;
+        this.removeEventListener = J.removeEventListener;
+        this.publishEvent = J.publishEvent
     }
+})();
+if (org) {
+    if ("object" != typeof org) throw orgExistsMessage = "Error: failed to create org namespace: org already exists and is not an object", alert(orgExistsMessage), Error(orgExistsMessage);
+} else org = {}; if (org.gigapan) {
+    if ("object" != typeof org.gigapan) throw orgGigapanExistsMessage = "Error: failed to create org.gigapan namespace: org.gigapan already exists and is not an object", alert(orgGigapanExistsMessage), Error(orgGigapanExistsMessage);
+} else org.gigapan = {};
+if (org.gigapan.snapshot) {
+    if ("object" != typeof org.gigapan.snapshot) {
+        var orgGigapanSnapshotExistsMessage = "Error: failed to create org.gigapan.snapshot namespace: org.gigapan.snapshot already exists and is not an object";
+        alert(orgGigapanSnapshotExistsMessage);
+        throw Error(orgGigapanSnapshotExistsMessage);
+    }
+} else org.gigapan.snapshot = {}; if (!window.Seadragon) throw noSeadragonMsg = "The Seadragon library is required by org.gigapan.snapshot.SnapshotTool.js", alert(noSeadragonMsg), Error(noSeadragonMsg);
+if (!window.$) throw nojQueryMsg = "The jQuery library is required by org.gigapan.snapshot.SnapshotTool.js", alert(nojQueryMsg), Error(nojQueryMsg);
+if (!window.org.gigapan.seadragon.SeadragonUtils) {
+    var noSeadragonUtilsMsg = "The org.gigapan.seadragon.SeadragonUtils library is required by org.gigapan.snapshot.SnapshotTool.js";
+    alert(noSeadragonUtilsMsg);
+    throw Error(noSeadragonUtilsMsg);
+}
+(function () {
+    function b(a, b, d) {
+        Seadragon.MouseTracker.call(this, b);
+        var p = null;
+        this.pressHandler = function () {
+            p = new Seadragon.Point(k(a).outerWidth(), k(a).outerHeight());
+            d.setMouseNavEnabled(!1)
+        };
+        this.dragHandler = function (b, q, h) {
+            b = k(a).position();
+            h = new Seadragon.Point(b.left + h.x, b.top + h.y);
+            b = d.viewport.getContainerSize().minus(p);
+            0 > h.x ? h.x = 0 : h.x > b.x && (h.x = b.x);
+            0 > h.y ? h.y = 0 : h.y > b.y && (h.y = b.y);
+            k(a).css("left", h.x + "px");
+            k(a).css("top", h.y + "px")
+        };
+        this.releaseHandler = function (a, b, f) {
+            f && d.setMouseNavEnabled(!0)
+        }
+    }
+
+    function a(a, b) {
+        Seadragon.MouseTracker.call(this, a);
+        this.viewer = b;
+        this.theElement = a;
+        this.pointsCoordinatesRangeRect = null;
+        this.getCenterPointInPixelCoords = function (a) {
+            var b = Seadragon.Utils.getElementSize(a).divide(2);
+            return Seadragon.Utils.getElementPosition(a).minus(Seadragon.Utils.getElementPosition(this.viewer.elmt)).plus(b)
+        };
+        this.pressHandler = function () {
+            this.viewer.setMouseNavEnabled(!1);
+            this.elementLocationInPixelCoords = this.getCenterPointInPixelCoords(this.theElement)
+        };
+        this.dragHandler = function (a,
+            b, f) {
+            this.elementLocationInPixelCoords = this.elementLocationInPixelCoords.plus(f);
+            this.viewer.drawer.updateOverlay(this.theElement, this.viewer.viewport.pointFromPixel(this.elementLocationInPixelCoords), Seadragon.OverlayPlacement.CENTER)
+        };
+        this.releaseHandler = function (a, b, f) {
+            f && (this.elementLocationInPixelCoords = null, this.viewer.setMouseNavEnabled(!0))
+        };
+        this.setPointsCoordinatesRangeRect = function (a) {
+            this.pointsCoordinatesRangeRect = a
+        };
+        this.getPointsCoordinatesRangeRect = function () {
+            return this.pointsCoordinatesRangeRect
+        };
+        this.getPixelCoordinatesRangeRect = function () {
+            var a = this.viewer.viewport.pixelFromPoint(this.pointsCoordinatesRangeRect.getTopLeft()),
+                b = this.viewer.viewport.pixelFromPoint(this.pointsCoordinatesRangeRect.getBottomRight());
+            return new Seadragon.Rect(a.x, a.y, b.x - a.x, b.y - a.y)
+        }
+    }
+
+    function d(b, d, k, p) {
+        a.call(this, b, d);
+        this.theElement = b;
+        this.handles = k;
+        this.handlePositionListener = p;
+        this.pressHandlerSuper = this.pressHandler;
+        this.pressHandler = function (a, b) {
+            this.pressHandlerSuper.apply(this, arguments);
+            this.theElement.className =
+                "snapshot_tool_bounds_selector_active"
+        };
+        this.dragHandler = function (a, b, f) {
+            this.elementLocationInPixelCoords = this.elementLocationInPixelCoords.plus(f);
+            f = d.viewport.pointFromPixel(this.elementLocationInPixelCoords);
+            b = Seadragon.Utils.getElementSize(this.theElement);
+            a = d.viewport.deltaPointsFromPixels(b);
+            b = b.divide(2);
+            b = d.viewport.deltaPointsFromPixels(b);
+            f = f.minus(b);
+            if (this.getPointsCoordinatesRangeRect()) {
+                var m = this.getPointsCoordinatesRangeRect().getTopLeft(),
+                    p = this.getPointsCoordinatesRangeRect().getBottomRight();
+                f.x < m.x && (f.x = m.x);
+                f.x + a.x > p.x && (f.x = p.x - a.x);
+                f.y < m.y && (f.y = m.y);
+                f.y + a.y > p.y && (f.y = p.y - a.y)
+            }
+            m = new Seadragon.Rect(f.x, f.y, a.x, a.y);
+            this.viewer.drawer.updateOverlay(this.theElement, m);
+            m = Array(8);
+            m[0] = f;
+            m[1] = f.plus(new Seadragon.Point(b.x, 0));
+            m[2] = f.plus(new Seadragon.Point(a.x, 0));
+            m[3] = f.plus(new Seadragon.Point(a.x, b.y));
+            m[4] = f.plus(a);
+            m[5] = f.plus(new Seadragon.Point(b.x, a.y));
+            m[6] = f.plus(new Seadragon.Point(0, a.y));
+            m[7] = f.plus(new Seadragon.Point(0, b.y));
+            for (a = 0; a < k.length; a++) this.viewer.drawer.updateOverlay(this.handles[a],
+                m[a], Seadragon.OverlayPlacement.CENTER);
+            this.handlePositionListener && this.handlePositionListener(m)
+        };
+        this.releaseHandlerSuper = this.releaseHandler;
+        this.releaseHandler = function (a, b, f, d) {
+            this.releaseHandlerSuper.apply(this, arguments);
+            this.theElement.className = "snapshot_tool_bounds_selector"
+        }
+    }
+
+    function q(b, d, k, q, E, z, h, m) {
+        a.call(this, k[b], q);
+        this.activeHandleIndex = b;
+        this.oppositeHandleIndex = d;
+        this.handleElements = k;
+        this.activeHandleElement = k[b];
+        this.oppositeHandleElement = k[d];
+        this.bounds = E;
+        this.handlePositionListener =
+            z;
+        this.willConstrainSnapshotAspectRatio = h;
+        this.snapshotAspectRatio = m;
+        this.boundRectMinHeightInPixels = this.boundRectMinWidthInPixels = 20;
+        this.cumulativeDelta = null;
+        this.xSign = [-1, 0, 1, 1, 1, 0, -1, -1][b];
+        this.ySign = [-1, -1, -1, 0, 1, 1, 1, 0][b];
+        this.isDraggingTopOrBottomEdge = 0 == this.xSign;
+        this.isDraggingLeftOrRightEdge = 0 == this.ySign;
+        this.willConstrainSnapshotAspectRatio && (1 <= this.snapshotAspectRatio ? this.boundRectMinWidthInPixels = this.snapshotAspectRatio * this.boundRectMinHeightInPixels : this.boundRectMinHeightInPixels /=
+            this.snapshotAspectRatio);
+        this.computeSign = function (a, b) {
+            return 0 > a - b ? -1 : 0 < a - b ? 1 : 0
+        };
+        this.pressHandlerSuper = this.pressHandler;
+        this.pressHandler = function (a, b) {
+            this.pressHandlerSuper.apply(this, arguments);
+            this.activeHandleElement.className = "snapshot_tool_bounds_handle_active";
+            this.activeHandleElementInPixelCoords = this.getCenterPointInPixelCoords(this.activeHandleElement);
+            this.oppositeHandleElementInPixelCoords = this.getCenterPointInPixelCoords(this.oppositeHandleElement);
+            this.cumulativeDelta = new Seadragon.Point(0,
+                0);
+            this.originalActiveHandleElementPositionInPixelCoords = new Seadragon.Point(this.activeHandleElementInPixelCoords.x, this.activeHandleElementInPixelCoords.y);
+            this.mousePositionInPixelCoords = new Seadragon.Point(this.originalActiveHandleElementPositionInPixelCoords.x, this.originalActiveHandleElementPositionInPixelCoords.y)
+        };
+        this.dragHandlerSuper = this.dragHandler;
+        this.dragHandler = function (a, b, f, e) {
+            this.cumulativeDelta = this.cumulativeDelta.plus(f);
+            this.mousePositionInPixelCoords = this.originalActiveHandleElementPositionInPixelCoords.plus(this.cumulativeDelta);
+            var d = v.convertGigapanRectToSeadragonRect(0, 0, p, x, p),
+                k = q.viewport.pixelFromPoint(d.getTopLeft()),
+                m = q.viewport.pixelFromPoint(d.getBottomRight()),
+                l = q.viewport.pixelFromPoint(d.getTopLeft()),
+                d = q.viewport.pixelFromPoint(d.getBottomRight());
+            if (h)
+                if (this.isDraggingTopOrBottomEdge) {
+                    var s = Math.min(this.oppositeHandleElementInPixelCoords.x - l.x, d.x - this.oppositeHandleElementInPixelCoords.x),
+                        s = 2 * (s / this.snapshotAspectRatio);
+                    l.y = Math.max(l.y, this.oppositeHandleElementInPixelCoords.y - s);
+                    d.y = Math.min(d.y, this.oppositeHandleElementInPixelCoords.y +
+                        s)
+                } else this.isDraggingLeftOrRightEdge ? (s = Math.min(this.oppositeHandleElementInPixelCoords.y - l.y, d.y - this.oppositeHandleElementInPixelCoords.y), s = 2 * s * this.snapshotAspectRatio, l.x = Math.max(l.x, this.oppositeHandleElementInPixelCoords.x - s), d.x = Math.min(d.x, this.oppositeHandleElementInPixelCoords.x + s)) : (this.originalActiveHandleElementPositionInPixelCoords.x > this.oppositeHandleElementInPixelCoords.x ? (d.y = Math.min(d.y, this.oppositeHandleElementInPixelCoords.y + (m.x - this.oppositeHandleElementInPixelCoords.x) /
+                        this.snapshotAspectRatio), l.y = Math.max(l.y, this.oppositeHandleElementInPixelCoords.y - (m.x - this.oppositeHandleElementInPixelCoords.x) / this.snapshotAspectRatio)) : (d.y = Math.min(d.y, this.oppositeHandleElementInPixelCoords.y - (k.x - this.oppositeHandleElementInPixelCoords.x) / this.snapshotAspectRatio), l.y = Math.max(l.y, this.oppositeHandleElementInPixelCoords.y + (k.x - this.oppositeHandleElementInPixelCoords.x) / this.snapshotAspectRatio)), this.originalActiveHandleElementPositionInPixelCoords.y > this.oppositeHandleElementInPixelCoords.y ?
+                    (d.x = Math.min(d.x, this.oppositeHandleElementInPixelCoords.x + (m.y - this.oppositeHandleElementInPixelCoords.y) * this.snapshotAspectRatio), l.x = Math.max(l.x, this.oppositeHandleElementInPixelCoords.x - (m.y - this.oppositeHandleElementInPixelCoords.y) * this.snapshotAspectRatio)) : (d.x = Math.min(d.x, this.oppositeHandleElementInPixelCoords.x - (k.y - this.oppositeHandleElementInPixelCoords.y) * this.snapshotAspectRatio), l.x = Math.max(l.x, this.oppositeHandleElementInPixelCoords.x + (k.y - this.oppositeHandleElementInPixelCoords.y) *
+                        this.snapshotAspectRatio)));
+            this.originalActiveHandleElementPositionInPixelCoords.x > this.oppositeHandleElementInPixelCoords.x ? l.x = Math.max(l.x, this.oppositeHandleElementInPixelCoords.x) : d.x = Math.min(d.x, this.oppositeHandleElementInPixelCoords.x);
+            this.originalActiveHandleElementPositionInPixelCoords.y > this.oppositeHandleElementInPixelCoords.y ? l.y = Math.max(l.y, this.oppositeHandleElementInPixelCoords.y) : d.y = Math.min(d.y, this.oppositeHandleElementInPixelCoords.y);
+            l = new Seadragon.Point(Math.min(Math.max(this.mousePositionInPixelCoords.x,
+                l.x), d.x), Math.min(Math.max(this.mousePositionInPixelCoords.y, l.y), d.y));
+            d = Seadragon.Utils.getElementSize(E);
+            l = this.oppositeHandleElementInPixelCoords.minus(l).apply(Math.abs);
+            this.isDraggingTopOrBottomEdge ? l.x = d.x : this.isDraggingLeftOrRightEdge && (l.y = d.y);
+            this.willConstrainSnapshotAspectRatio && (this.isDraggingTopOrBottomEdge ? l.x = l.y * this.snapshotAspectRatio : this.isDraggingLeftOrRightEdge ? l.y = l.x / this.snapshotAspectRatio : (d = new Seadragon.Point(l.x, l.x / this.snapshotAspectRatio), s = new Seadragon.Point(l.y *
+                this.snapshotAspectRatio, l.y), l = d.y >= l.y ? d : s));
+            l.x = Math.max(this.boundRectMinWidthInPixels, l.x);
+            l.y = Math.max(this.boundRectMinHeightInPixels, l.y);
+            s = d = null;
+            this.isDraggingTopOrBottomEdge ? (this.activeHandleElementInPixelCoords.y = this.oppositeHandleElementInPixelCoords.y + this.ySign * l.y, l = l.x / 2, d = new Seadragon.Point(this.oppositeHandleElementInPixelCoords.x - l, Math.min(this.activeHandleElementInPixelCoords.y, this.oppositeHandleElementInPixelCoords.y)), s = new Seadragon.Point(this.oppositeHandleElementInPixelCoords.x +
+                l, Math.max(this.activeHandleElementInPixelCoords.y, this.oppositeHandleElementInPixelCoords.y))) : this.isDraggingLeftOrRightEdge ? (this.activeHandleElementInPixelCoords.x = this.oppositeHandleElementInPixelCoords.x + this.xSign * l.x, l = l.y / 2, d = new Seadragon.Point(Math.min(this.activeHandleElementInPixelCoords.x, this.oppositeHandleElementInPixelCoords.x), this.oppositeHandleElementInPixelCoords.y - l), s = new Seadragon.Point(Math.max(this.activeHandleElementInPixelCoords.x, this.oppositeHandleElementInPixelCoords.x),
+                this.oppositeHandleElementInPixelCoords.y + l)) : (this.activeHandleElementInPixelCoords.x = this.oppositeHandleElementInPixelCoords.x + this.xSign * l.x, this.activeHandleElementInPixelCoords.y = this.oppositeHandleElementInPixelCoords.y + this.ySign * l.y, d = new Seadragon.Point(Math.min(this.activeHandleElementInPixelCoords.x, this.oppositeHandleElementInPixelCoords.x), Math.min(this.activeHandleElementInPixelCoords.y, this.oppositeHandleElementInPixelCoords.y)), s = new Seadragon.Point(Math.max(this.activeHandleElementInPixelCoords.x,
+                this.oppositeHandleElementInPixelCoords.x), Math.max(this.activeHandleElementInPixelCoords.y, this.oppositeHandleElementInPixelCoords.y)));
+            if (!(this.activeHandleElementInPixelCoords.x < k.x || this.activeHandleElementInPixelCoords.y < k.y || this.activeHandleElementInPixelCoords.x > m.x || this.activeHandleElementInPixelCoords.y > m.y)) {
+                this.dragHandlerSuper.apply(this, arguments);
+                k = this.viewer.viewport.pointFromPixel(d);
+                m = q.viewport.deltaPointsFromPixels(s.minus(d));
+                l = new Seadragon.Rect(k.x, k.y, m.x, m.y);
+                this.viewer.drawer.updateOverlay(this.bounds,
+                    l);
+                l = m.divide(2);
+                d = k.plus(l);
+                m = Array(8);
+                m[0] = k;
+                m[1] = d.minus(new Seadragon.Point(0, l.y));
+                m[2] = d.plus(new Seadragon.Point(l.x, -l.y));
+                m[3] = d.plus(new Seadragon.Point(l.x, 0));
+                m[4] = d.plus(l);
+                m[5] = d.plus(new Seadragon.Point(0, l.y));
+                m[6] = d.plus(new Seadragon.Point(-l.x, l.y));
+                m[7] = d.minus(new Seadragon.Point(l.x, 0));
+                for (k = 0; k < this.handleElements.length; k++) this.viewer.drawer.updateOverlay(this.handleElements[k], m[k], Seadragon.OverlayPlacement.CENTER);
+                this.handlePositionListener && this.handlePositionListener(m)
+            }
+        };
+        this.releaseHandlerSuper = this.releaseHandler;
+        this.releaseHandler = function (a, b, d, e) {
+            this.releaseHandlerSuper.apply(this, arguments);
+            this.activeHandleElement.className = "snapshot_tool_bounds_handle";
+            this.cumulativeDelta = new Seadragon.Point(0, 0)
+        }
+    }
+    var k = window.$,
+        v = org.gigapan.seadragon.SeadragonUtils,
+        p = null,
+        x = null;
+    org.gigapan.viewer.SnapshotTool = function (a, P, s, A) {
+        var E = null,
+            z = null,
+            h = Array(8),
+            m = Array(h.length),
+            J = Array(h.length),
+            n = null,
+            C = null,
+            e = !1,
+            j = void 0 !== A,
+            y = j ? Math.abs(A) : 1.5,
+            qa = Seadragon.ControlAnchor.NONE,
+            E = document.createElement("div");
+        E.id = "snapshot_tool_dialog_window";
+        E.className = "snapshot_tool_dialog_window";
+        k("#" + a).contents().clone().appendTo(E);
+        z = document.createElement("div");
+        z.id = "snapshot_tool_bounds_selector";
+        z.className = "snapshot_tool_bounds_selector";
+        k.each(h, function (a) {
+            h[a] = document.createElement("div");
+            h[a].id = "snapshot_tool_bounds_handle_" + a;
+            h[a].className = "snapshot_tool_bounds_handle"
+        });
+        var l = function (a) {
+            if (a)
+                for (var b = 0; b < a.length; b++) m[b] = a[b]
+        };
+        (a = k(E).find("." + P).get()[0]) || (a =
+            E);
+        n = new b(E, a, s);
+        n.setTracking(!0);
+        s.addEventListener("resize", function () {
+            var a = new Seadragon.Point(k(E).outerWidth(), k(E).outerHeight()),
+                b = k(E).position(),
+                b = new Seadragon.Point(b.left, b.top),
+                e = new Seadragon.Point(0, 0),
+                a = s.viewport.getContainerSize().minus(a);
+            b.x < e.x ? b.x = e.x : b.x > a.x && (b.x = a.x);
+            b.y < e.y ? b.y = e.y : b.y > a.y && (b.y = a.y)
+        });
+        C = new d(z, s, h, l);
+        C.setTracking(!0);
+        k.each(h, function (a) {
+            J[a] = new q(a, 8 <= a + 4 ? a - 4 : a + 4, h, s, z, l, j, y);
+            J[a].setTracking(!0)
+        });
+        var G = function (a) {
+            C.setTracking(!a);
+            k.each(h, function (b) {
+                J[b].setTracking(!a)
+            });
+            var b = a ? "snapshot_tool_bounds_handle_disabled" : "snapshot_tool_bounds_handle";
+            z.className = a ? "snapshot_tool_bounds_selector_disabled" : "snapshot_tool_bounds_selector";
+            k.each(h, function (a) {
+                h[a].className = b
+            })
+        };
+        s.addEventListener("animationstart", function () {
+            G(!0)
+        });
+        s.addEventListener("animationfinish", function () {
+            G(!1)
+        });
+        this.initialize = function () {};
+        this.getElement = function () {
+            return E
+        };
+        this.getSeadragonControlAnchor = function () {
+            return qa
+        };
+        this.setGigapanDimensions = function (a, b) {
+            p = a;
+            x = b;
+            var e = new Seadragon.Rect(0,
+                0, 1, b / a);
+            C.setPointsCoordinatesRangeRect(e);
+            k.each(J, function (a) {
+                J[a].setPointsCoordinatesRangeRect(e)
+            })
+        };
+        this.getToolBoundsInGigapanCoords = function () {
+            var a = v.convertSeadragonPointToGigapanPoint(m[0], p),
+                b = v.convertSeadragonPointToGigapanPoint(m[4], p);
+            return new Seadragon.Rect(a.x, a.y, b.x - a.x, b.y - a.y)
+        };
+        this.isVisible = function () {
+            return e
+        };
+        this.setVisible = function (a) {
+            if (a && !e) {
+                var a = v.convertGigapanRectToSeadragonRect(0, 0, p, x, p),
+                    b = s.viewport.pixelFromPoint(a.getTopLeft()),
+                    d = s.viewport.pixelFromPoint(a.getBottomRight()),
+                    c = new Seadragon.Rect(0, 0),
+                    a = s.viewport.getContainerSize(),
+                    c = new Seadragon.Point(Math.max(b.x, c.x), Math.max(b.y, c.y)),
+                    f = new Seadragon.Point(Math.min(d.x, a.x), Math.min(d.y, a.y)),
+                    j = a = null;
+                f.x > c.x && f.y > c.y ? (b = new Seadragon.Rect(c.x, c.y, f.x - c.x, f.y - c.y), a = b.getCenter(), b.width > b.height ? (b = 0.75 * b.height, j = new Seadragon.Point(y * b, b)) : (b = 0.75 * b.width, j = new Seadragon.Point(b, 2 / 3 * b))) : (b = d.minus(b), a = b.divide(2), j = new Seadragon.Point(0.75 * b.x, 0.75 * b.y));
+                d = s.viewport.deltaPointsFromPixels(j);
+                b = d.divide(2);
+                a =
+                    s.viewport.pointFromPixel(a);
+                c = a.minus(b);
+                d = new Seadragon.Rect(c.x, c.y, d.x, d.y);
+                s.drawer.addOverlay(z, d);
+                m[0] = c;
+                m[1] = a.minus(new Seadragon.Point(0, b.y));
+                m[2] = a.plus(new Seadragon.Point(b.x, -b.y));
+                m[3] = a.plus(new Seadragon.Point(b.x, 0));
+                m[4] = a.plus(b);
+                m[5] = a.plus(new Seadragon.Point(0, b.y));
+                m[6] = a.plus(new Seadragon.Point(-b.x, b.y));
+                m[7] = a.minus(new Seadragon.Point(b.x, 0));
+                k.each(h, function (a) {
+                    s.drawer.addOverlay(h[a], m[a], Seadragon.OverlayPlacement.CENTER)
+                });
+                s.addControl(E, Seadragon.ControlAnchor.NONE);
+                e = !0
+            } else !a && e && (s.removeControl(E), s.drawer.removeOverlay(z), k.each(h, function (a) {
+                s.drawer.removeOverlay(h[a])
+            }), e = !1)
+        }
+    };
+    b.prototype = new Seadragon.MouseTracker;
+    b.prototype.constructor = b;
+    a.prototype = new Seadragon.MouseTracker;
+    a.prototype.constructor = a;
+    d.prototype = new a(null, null);
+    d.prototype.constructor = d;
+    q.prototype = new a(null, null);
+    q.prototype.constructor = q
+})();
+(function () {
+    var b = {
+        supportsFullScreen: !1,
+        isFullScreen: function () {
+            return !1
+        },
+        requestFullScreen: function () {},
+        cancelFullScreen: function () {},
+        fullScreenEventName: "",
+        prefix: ""
+    }, a = ["webkit", "moz", "o", "ms", "khtml"];
+    if ("undefined" != typeof document.cancelFullScreen) b.supportsFullScreen = !0;
+    else
+        for (var d = 0, q = a.length; d < q; d++)
+            if (b.prefix = a[d], "undefined" != typeof document[b.prefix + "CancelFullScreen"]) {
+                b.supportsFullScreen = !0;
+                break
+            } b.supportsFullScreen && (b.fullScreenEventName = b.prefix + "fullscreenchange", b.isFullScreen =
+        function () {
+            switch (this.prefix) {
+            case "":
+                return document.fullScreen;
+            case "webkit":
+                return document.webkitIsFullScreen;
+            default:
+                return document[this.prefix + "FullScreen"]
+            }
+        }, b.requestFullScreen = function (a) {
+            a.style.height = "100%";
+            a.style.width = "100%";
+            return "" === this.prefix ? a.requestFullScreen() : a[this.prefix + "RequestFullScreen"]()
+        }, b.cancelFullScreen = function (a, b, d) {
+            a.style.height = d;
+            a.style.width = b;
+            return "" === this.prefix ? document.cancelFullScreen() : document[this.prefix + "CancelFullScreen"]()
+        });
+    "undefined" !=
+        typeof jQuery && (jQuery.fn.requestFullScreen = function () {
+            return this.each(function () {
+                b.supportsFullScreen && b.requestFullScreen(this)
+            })
+        });
+    window.fullScreenApi = b
 })();
 if (org) {
     if ("object" != typeof org) throw orgExistsMessage = "Error: failed to create org namespace: org already exists and is not an object", alert(orgExistsMessage), Error(orgExistsMessage);
@@ -2669,72 +3907,141 @@ if (org.gigapan.viewer) {
     if ("object" != typeof org.gigapan.viewer) throw orgGigapanViewerExistsMessage = "Error: failed to create org.gigapan.viewer namespace: org.gigapan.viewer already exists and is not an object", alert(orgGigapanViewerExistsMessage), Error(orgGigapanViewerExistsMessage);
 } else org.gigapan.viewer = {};
 (function () {
-    org.gigapan.viewer.GigapanMobileNavigationControl = function () {
-        var c = new org.gigapan.events.EventManager,
-            e = Seadragon.ControlAnchor.BOTTOM_LEFT,
-            h = document.createElement("div");
-        h.id = "gigapan-mobile-navigation";
+    org.gigapan.viewer.GigapanRelatedControl = function (b) {
+        function a() {
+            k ? jQuery(v).css({
+                display: "none"
+            }) : jQuery(v).css({
+                display: "block"
+            });
+            k = !k
+        }
+        var d = new org.gigapan.events.EventManager,
+            q = Seadragon.ControlAnchor.NONE,
+            k = !1,
+            v = document.createElement("div");
+        v.id = "related-screen-overlay";
+        v.innerHTML = "<h2>Explore More</h2>";
         this.getSeadragonControlAnchor = function () {
-            return e
+            return q
         };
         this.getElement = function () {
-            return h
+            return v
+        };
+        this.toggleVisibility = function () {
+            a()
+        };
+        this.isVisible = function () {
+            return k
+        };
+        this.initialize =
+            function () {
+                if (b)
+                    for (var d = 8 < b.length ? 8 : b.length, k = 0; k < d; k++) {
+                        var f = b[k],
+                            q = document.createElement("div"),
+                            s = document.createElement("span");
+                        s.className = "related-title";
+                        var A = "",
+                            A = 20 < f.name.length ? f.name.substr(0, 18) + "..." : f.name;
+                        s.innerHTML = A;
+                        q.className = "related-gigapan";
+                        q.id = "gigapan_" + f.id;
+                        A = document.createElement("img");
+                        A.id = "image_" + f.id;
+                        A.className = "related-image";
+                        A.src = f.thumbnail_url;
+                        q.appendChild(A);
+                        q.appendChild(s);
+                        q.onclick = function () {
+                            var a = this.id,
+                                a = a.substr(a.indexOf("_") + 1, a.length - 1);
+                            window.location = "/gigapans/" + a
+                        };
+                        v.appendChild(q)
+                    }
+                d = document.createElement("div");
+                d.className = "close_button";
+                d.onclick = function () {
+                    a()
+                };
+                v.appendChild(d);
+                $("#related-screen-overlay").parent().css("height", "0px")
+        };
+        this.addEventListener = d.addEventListener;
+        this.removeEventListener = d.removeEventListener;
+        this.publishEvent = d.publishEvent
+    }
+})(); if (org) {
+    if ("object" != typeof org) throw orgExistsMessage = "Error: failed to create org namespace: org already exists and is not an object", alert(orgExistsMessage), Error(orgExistsMessage);
+} else org = {}; if (org.gigapan) {
+    if ("object" != typeof org.gigapan) throw orgGigapanExistsMessage = "Error: failed to create org.gigapan namespace: org.gigapan already exists and is not an object", alert(orgGigapanExistsMessage), Error(orgGigapanExistsMessage);
+} else org.gigapan = {};
+if (org.gigapan.viewer) {
+    if ("object" != typeof org.gigapan.viewer) throw orgGigapanViewerExistsMessage = "Error: failed to create org.gigapan.viewer namespace: org.gigapan.viewer already exists and is not an object", alert(orgGigapanViewerExistsMessage), Error(orgGigapanViewerExistsMessage);
+} else org.gigapan.viewer = {};
+(function () {
+    org.gigapan.viewer.ThumbnailNavigationControl = function (b) {
+        var a = new org.gigapan.events.EventManager,
+            d = document.createElement("div");
+        d.id = "thumbnail-navigation";
+        var q = Seadragon.ControlAnchor.NONE,
+            k = null;
+        this.getSeadragonControlAnchor = function () {
+            return q
+        };
+        this.getElement = function () {
+            return d
         };
         this.initialize = function () {
-            h.innerHTML = '<div id="mobile-zoom-plus-button" class="mobile-zoom-plus-button"></div><div id="mobile-zoom-minus-button" class="mobile-zoom-minus-button"></div><div id="mobile-full-screen-button" class="mobile-full-screen-button"></div><div id="mobile-buy-print-button" class="mobile-buy-print-button"></div>';
-            document.getElementById("mobile-zoom-plus-button").onclick = function (a) {
-                a = a || window.event;
-                "function" === typeof a.preventDefault ? (a.preventDefault(), a.stopPropagation()) : (a.returnValue = !1, a.cancelBubble = !0);
-                c.publishEvent("zoom-plus-click")
+            d = document.getElementById("thumbnail-navigation");
+            d.innerHTML = '<div id="thumbnail-navigation-area"><div id="thumbnail-navigation-area-image"></div><div id="thumbnail-navigation-area-current-view-outline"></div><div id="thumbnail-navigation-area-shadow"></div></div>';
+            var a = b.width / b.height,
+                q = 250,
+                f = Math.floor(1 / a * q);
+            250 < f && (f = 250, q = Math.floor(f * a));
+            k = {
+                width: q,
+                height: f
             };
-            document.getElementById("mobile-zoom-plus-button").onmousedown = function (a) {
-                a = a || window.event;
-                "function" === typeof a.preventDefault ? (a.preventDefault(), a.stopPropagation()) : (a.returnValue = !1, a.cancelBubble = !0);
-                c.publishEvent("zoom-plus-mousedown")
-            };
-            document.getElementById("mobile-zoom-plus-button").onmouseout = function (a) {
-                a = a || window.event;
-                "function" === typeof a.preventDefault ? (a.preventDefault(), a.stopPropagation()) : (a.returnValue = !1, a.cancelBubble = !0);
-                c.publishEvent("zoom-plus-mouseout")
-            };
-            document.getElementById("mobile-zoom-plus-button").onmouseup = function (a) {
-                a = a || window.event;
-                "function" === typeof a.preventDefault ? (a.preventDefault(), a.stopPropagation()) : (a.returnValue = !1, a.cancelBubble = !0);
-                c.publishEvent("zoom-plus-mouseup")
-            };
-            document.getElementById("mobile-zoom-minus-button").onclick = function (a) {
-                a = a || window.event;
-                "function" === typeof a.preventDefault ? (a.preventDefault(), a.stopPropagation()) : (a.returnValue = !1, a.cancelBubble = !0);
-                c.publishEvent("zoom-minus-click")
-            };
-            document.getElementById("mobile-zoom-minus-button").onmousedown = function (a) {
-                a = a || window.event;
-                "function" === typeof a.preventDefault ? (a.preventDefault(), a.stopPropagation()) : (a.returnValue = !1, a.cancelBubble = !0);
-                c.publishEvent("zoom-minus-mousedown")
-            };
-            document.getElementById("mobile-zoom-minus-button").onmouseup = function (a) {
-                a = a || window.event;
-                "function" === typeof a.preventDefault ? (a.preventDefault(), a.stopPropagation()) : (a.returnValue = !1, a.cancelBubble = !0);
-                c.publishEvent("zoom-minus-mouseup")
-            };
-            document.getElementById("mobile-zoom-minus-button").onmouseout = function (a) {
-                a = a || window.event;
-                "function" === typeof a.preventDefault ? (a.preventDefault(), a.stopPropagation()) : (a.returnValue = !1, a.cancelBubble = !0);
-                c.publishEvent("zoom-minus-mouseout")
-            }
-            document.getElementById("mobile-full-screen-button").onclick = function (a) {
-                a = a || window.event;
-                "function" === typeof a.preventDefault ? (a.preventDefault(), a.stopPropagation()) : (a.returnValue = !1, a.cancelBubble = !0);
-                c.publishEvent("full-screen-click")
-            };
-            document.getElementById("mobile-buy-print-button").onclick = function (a) {
-                a = a || window.event;
-                "function" === typeof a.preventDefault ? (a.preventDefault(), a.stopPropagation()) : (a.returnValue = !1, a.cancelBubble = !0);
-                c.publishEvent("buy-print-click")
-            };
+            a = ("undefined" == typeof b.baseThumbnailUrl ? "http://static.gigapan.org" : b.baseThumbnailUrl) + "/gigapans0/" + b.id + "/images/" + b.id + "-" + k.width + "x" + k.height + ".jpg";
+            b && (d = document.getElementById("thumbnail-navigation-area-image"), d.setAttribute("style", "width: " + k.width + "px; height: " + k.height + 'px; background: url("' + a + '") no-repeat;'), d = document.getElementById("thumbnail-navigation-area"), d.setAttribute("style",
+                "width: " + k.width + "px; height: " + k.height + "px;"), d = document.getElementById("thumbnail-navigation-area-current-view-outline"), d.setAttribute("style", "width: " + k.width + "px; height: " + k.height + "px;"), d = document.getElementById("thumbnail-navigation-area-shadow"), d.setAttribute("style", "width: " + (k.width - 2) + "px; height: " + (k.height - 2) + "px;"))
         };
-        this.addEventListener = c.addEventListener;
-        this.removeEventListener = c.removeEventListener;
-        this.publishEvent = c.publishEvent
+        this.isVisible = function () {
+            return panel.is(":visible")
+        };
+        this.toggleVisibility = function () {
+            this.isVisible() ? this.hide() : this.show()
+        };
+        this.show = function () {
+            panel.show()
+        };
+        this.hide = function () {
+            panel.hide()
+        };
+        this.fadeIn = function () {
+            panel.fadeIn(v)
+        };
+        this.fadeOut = function () {
+            panel.fadeOut()
+        };
+        var v = function () {};
+        this.handleOrientationChange = function () {};
+        this.updateSize = function () {};
+        this.updateCurrentViewOutline = function (a) {
+            var b = k.width,
+                d = k.height,
+                q = b / d,
+                s = jQuery("#thumbnail-navigation-area-current-view-outline");
+            s.css("left", Math.round(Math.min(b, b * a.x)) + "px");
+            s.css("top", Math.round(Math.min(d, d * a.y * q)) + "px");
+            s.css("width", Math.round(Math.max(0, b * a.width)) + "px");
+            s.css("height",
+                Math.round(Math.max(0, d * a.height * q)) + "px")
+        };
+        this.addEventListener = a.addEventListener;
+        this.removeEventListener = a.removeEventListener;
+        this.publishEvent = a.publishEvent
     }
 })();

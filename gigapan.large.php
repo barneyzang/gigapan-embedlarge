@@ -31,7 +31,7 @@ include './gigapan.large/parse_gigapan_json.php';
 $imageDetails = array();
 $imageDetails = parse_gigapan_json($id);
 $dateTaken = new DateTime($imageDetails['taken_at']);
-	
+
 ?>
 <!DOCTYPE HTML>
 <html lang="en">
@@ -45,6 +45,7 @@ $dateTaken = new DateTime($imageDetails['taken_at']);
 <link rel="stylesheet" type="text/css" href="gigapan.large/carousel/gigapan.carousel.css" media="all" />
 
 <link rel="stylesheet" type="text/css" href="gigapan.large/gigapan.embedlarge.css">
+<link rel="stylesheet" type="text/css" href="gigapan.large/gigapan.large.mobile.css">
 	
 <script type="text/javascript" src="gigapan.large/jquery.js"></script>
 <script type="text/javascript"> var $j = jQuery.noConflict();</script>
@@ -177,11 +178,12 @@ $tile_id = str_pad($imageDetails['id'], 5, "0", STR_PAD_LEFT);
 $tile_server_path = 'http://tile' . substr($tile_id, 0, -3) . '.gigapan.org/gigapans0/' . $imageDetails['id'] . '/tiles/';
 ?>
 var gigapan = {"gigapan":{"is_game":false,
-				"tile_server_path":"<?php echo $tile_server_path; ?>",
-				"id":<?php print $imageDetails['id']; ?>,
-				"height":<?php print $imageDetails['height']; ?>,
-				"levels":<?php print $imageDetails['levels']; ?>,
-				"width":<?php print $imageDetails['width']; ?>}};
+			"tile_server_path":"<?php echo $tile_server_path; ?>",
+			"id":<?php print $imageDetails['id']; ?>,
+			"height":<?php print $imageDetails['height']; ?>,
+			"levels":<?php print $imageDetails['levels']; ?>,
+			"width":<?php print $imageDetails['width']; ?>}};
+
 var ios_url = "http://www.gigapan.com/mobile/iOS/1.0/?id=<?php print $imageDetails['id']; ?>";
 
 <?php
@@ -190,7 +192,6 @@ var ios_url = "http://www.gigapan.com/mobile/iOS/1.0/?id=<?php print $imageDetai
 	$snapshots_items = utf8_encode($snapshots);
 	$snapshots = json_decode($snapshots_items);
 ?>
-
 var snapshots = {
 	current_page: 1,
 	per_page: 40,
@@ -225,9 +226,9 @@ $("#map_toggle").click(function() {
 
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
 <script type="text/javascript" src="gigapan.large/gigapan.map.js"></script>
-<script type="text/javascript">
+<?php
+print '<script type="text/javascript">';
 
-<?php 
 // Revert to the JSON fov data if the Image Details version isn't available
 if ( !isset($fov_width) )
 	$fov_width = $imageDetails['field_of_view_w'];

@@ -10,7 +10,7 @@ var Gigapan = {
 			hide : 'mouseout',
 			api : {
 				onRender : function() {
-					$j(this.elements.tooltip).css('z-index', 10000);
+					$(this.elements.tooltip).css('z-index', 10000);
 				}
 			},
 			position : {
@@ -39,43 +39,43 @@ var Gigapan = {
 	},
 	Form : {
 		setup : function() {
-			$j("input[placeholder]").each(Placeholder);
-			$j("textarea[placeholder]").each(Placeholder);
-			$j(".button").each(buttonBehavior);
-			$j("input.txt, textarea").each(textFocus);
-//			$j(".custom-select").customDrop();
+			$("input[placeholder]").each(Placeholder);
+			$("textarea[placeholder]").each(Placeholder);
+			$(".button").each(buttonBehavior);
+			$("input.txt, textarea").each(textFocus);
+			$(".custom-select").customDrop();
 		}
 	},
 	Lightbox : {
 		setup : function() {
-			$j("a[name=modal]").bind("click", popupModal);
+			$("a[name=modal]").bind("click", popupModal);
 
 			function popupModal(e) {
 				e.preventDefault();
-				var thisClass = $j(this).parent().attr("class");
+				var thisClass = $(this).parent().attr("class");
 				if(thisClass == "contactForm") {
 					ajax_form_request();
 				}
-				if($j.browser.msie) {
+				if($.browser.msie) {
 					var id = (this.hash);
 				} else {
-					var id = $j(this).attr("href");
+					var id = $(this).attr("href");
 				}
-				var id = $j(id);
+				var id = $(id);
 				if(!id) {
 					return;
 				}
 				id.append(['<a href="#" name="nomodal" class="close-window">Close window</a>', '<span class="tl"></span>', '<span class="tr"></span>', '<span class="t"></span>', '<span class="bl"></span>', '<span class="br"></span>', '<span class="b"></span>', '<span class="r"></span>', '<span class="l"></span>'].join(""));
-				$j.fn.centerInClient = function(options) {
+				$.fn.centerInClient = function(options) {
 					var opt = {
 						forceAbsolute : false,
 						container : window,
 						completeHandler : null
 					};
-					$j.extend(opt, options);
+					$.extend(opt, options);
 					return this.each(function(i) {
-						var el = $j(this);
-						var jWin = $j(opt.container);
+						var el = $(this);
+						var jWin = $(opt.container);
 						var isWin = opt.container == window;
 						if(opt.forceAbsolute) {
 							if(isWin) {
@@ -95,26 +95,26 @@ var Gigapan = {
 						}
 					});
 				};
-				$j(id).centerInClient();
-				var maskHeight = $j(document).height();
-				var maskWidth = $j(window).width();
-				$j("#mask").css({
+				$(id).centerInClient();
+				var maskHeight = $(document).height();
+				var maskWidth = $(window).width();
+				$("#mask").css({
 					width : maskWidth,
 					height : maskHeight
 				});
-				$j("#mask").css("filter", "alpha(opacity=40)");
-				$j("#mask").fadeTo(500, 0.4);
-				$j(id).fadeIn(500);
+				$("#mask").css("filter", "alpha(opacity=40)");
+				$("#mask").fadeTo(500, 0.4);
+				$(id).fadeIn(500);
 			}
 
 			//Close Button
-			$j('a.close-window, #mask, .cancel-this').live('click', function(e) {
+			$('a.close-window, #mask, .cancel-this').live('click', function(e) {
 				//When clicking on the close or mask layer...
-				$j('.window').fadeOut(function() {
-					$j('a.close-window').hide();
-					$j('#mask').hide();
+				$('.window').fadeOut(function() {
+					$('a.close-window').hide();
+					$('#mask').hide();
 					// Clear the forms id when the modal is closed
-					$j('.windows #forms').empty();
+					$('.windows #forms').empty();
 				});
 				e.preventDefault();
 			});
@@ -127,63 +127,60 @@ var Gigapan = {
 			Gigapan.Detail.sharing();
 		},
 		addComment : function() {
-			$j("body.detail .section-about a.add").click(function() {
-				$j("body.detail .section-about form").toggle();
+			$("body.detail .section-about a.add").click(function() {
+				$("body.detail .section-about form").toggle();
 				return false;
 			});
-			$j("body.detail .section-about a.cancel").click(function() {
-				$j("body.detail .section-about form").toggle();
+			$("body.detail .section-about a.cancel").click(function() {
+				$("body.detail .section-about form").toggle();
 				return false;
 			});
 		},
 		sharing : function() {
-			var actions = $j('body.detail .share-action');
-			$j(actions).hide();
-			$j("div#detail-share a").each(function(e) {
-				$j(this).bind('click', function(e) {
-					var id = $j(this).attr("href").replace("#", "");
-					if(id !== "") {
-						$j(actions).each(function(e) {
-							if($j(this).attr("id") !== id) {
-								$j(this).hide();
-							}
-						});
-						if($j(id) !== undefined) {
-							$j("#" + id).toggle();
-							// Exception: prevent default action on all
-							// links except:
-							if($j(this).is(".share-link, .share-email, .share-facebook")) {
+			var actions = $('body.detail .share-action');
+			$(actions).hide();
+			$("div#detail-share a").each(function(e) {
+				$(this).bind('click', function(e) {
+					var $this = $(this);
+					var id =  $this.attr("href").replace("#", "");
+
+					$this.addClass('active').siblings('a').removeClass('active');
+
+					if(id !== "" && $(id) !== undefined) {
+						var thisID = $("#" + id);
+						thisID.show().siblings('div').hide();
+
+						// Prevent default action:
+						if($(this).is(".share-link, .share-facebook")) {
 								return false;
 							} 
 						}
-					}
 				});
 			});
 		},
 		action : function() {
-			var actions = $j("body.detail .detail-action");
-			$j(actions).hide();
-			$j("body.detail #content .nav a").each(function() {
-				$j(this).bind('click', function(e) {
+			var actions = $("body.detail .detail-action");
+			$(actions).hide();
+			$("body.detail #content .nav a").each(function() {
+				$(this).bind('click', function(e) {
 
-					var id = $j(this).attr("href").replace("#", "");
+					var id = $(this).attr("href").replace("#", "");
 
 					if(id !== "") {
-						$j(actions).each(function(e) {
-							if($j(this).attr("id") !== id) {
-								$j(this).hide();
+						$(actions).each(function(e) {
+							if($(this).attr("id") !== id) {
+								$(this).hide();
 							}
 						});
-						if($j(id) !== undefined) {
-							$j("#" + id).toggle();
+						if($(id) !== undefined) {
+							$("#" + id).toggle();
 							// Exception: prevent default action on all
 							// links except google-earth
-							if($j(this).is(".detail-google-earth, a.rss-icon, a.detail-competitions")) {
+							if($(this).is(".detail-google-earth, a.rss-icon, a.detail-competitions")) {
 								return true;
 							} else {
 								e.preventDefault();
 							}
-
 						}
 					}
 				});
@@ -193,30 +190,67 @@ var Gigapan = {
 };
 
 var timerCount = 0;
+var forceShowSDViewer = false;	// <jps>
+var isMobileDeviceUserAgent = /Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone OS/i.test(navigator.userAgent) ;
 
 var SDViewer = {
-
 	gigapan: {
 
 	},
 	initialize: function (gigapan){
 		this.gigapan = gigapan;
+		this.isTakingSnapshot = false;
 	},
 	render: function(viewer){
 		// load the gigapan
 		if (typeof this.gigapan.id != 'undefined') 
 		{
 			var gigapanId = this.gigapan.id;
-			var authKey = (gigapanId == this.gigapanIdOrAuthKey ? null : this.gigapanIdOrAuthKey);
+			var authKey = (!this.gigapan.is_private) ? null : this.gigapan.auth_key;
+				viewer = new org.gigapan.viewers.SeadragonViewer('gigapan-viewer', {
+					id: this.gigapan.id,
+					auth_key: authKey,
+					width: this.gigapan.width,
+					height: this.gigapan.height,
+					levels: this.gigapan.levels,
+					title: this.gigapan.title,
+					printable: this.gigapan.allow_others_to_print,
+					snapshottable: this.gigapan.snapshottable,
+					related: this.gigapan.related_gigapans,
+					embed: {
+						width: "100%",
+						height: "500"
+					},
+					options: {
+						showGigapanWatermarkByDefault: false,
+						showGigapanWatermarkOnFullscreen: true,
+						showNavigationControl: true,
+						showFullScreenButton: true,
+						showResetButton: true,
+						showPrintButton: true,
+						showSnapshotBrowser: false,
+						showSnapshotByDefault: false,
+						showRelatedGigapans: false,
+						showThumbnailNavigation: false
+					}
+				});
 
+
+/*
 			viewer = new org.gigapan.viewers.SeadragonViewer("gigapan-viewer", {
 				id: this.gigapan.id,
 				auth_key: this.gigapan.auth_key,
 				width: this.gigapan.width,
 				height: this.gigapan.height,
 				levels: this.gigapan.levels,
+				embed: {
+					showWatermarkOnFullScreen: true,
+					showPrintButton: true,
+					showResetButton: false,
+					showFullScreenButton: true
+				}
 			});
-
+*/
 			this.viewer = viewer;
 			sdViewerLoaded(viewer);
 		}
@@ -225,22 +259,40 @@ var SDViewer = {
 			alert("Failed to load gigapan " );
 		}
 	},
+	addSnapshot : function(data) {
+		snapshots.push(data);
+		var snapshotScroller = document.getElementById("snapshot-scroller");
+		var firstSnapshot = snapshotScroller.firstChild;
+		var length = snapshots.length;
 
-	takeSnapshot : function() {
-		$('#take-snapshot').bind('click', function() {
-			//document.getElementById("flash_viewer").startTakingSnapshot();
-			alert("Take a snapshot!");
-			$("#noSnapshot").hide();
+		var img = document.createElement('img');
+		img.id = "snapshot_" + (length - 1);
+		img.className = "snapshot";
+		img.src = "http://static.gigapan.org/gigapans0/" + this.gigapan.id + "/images." + this.gigapan.auth_key + "/" + this.gigapan.id + "-90x60-" + Math.floor(data["external_snapshot"]["xmin"]) + "-" + Math.floor(data["external_snapshot"]["xmax"]) + "-" + Math.floor(data["external_snapshot"]["ymin"]) + "-" + Math.floor(data["external_snapshot"]["ymax"]) + ".jpg";
 
-			return false;
-		});
+		img.onclick = snapshotEventHandler;
+		img.onmouseout = snapshotEventHandler;
+		img.onmouseover = snapshotEventHandler;
+		img.ontouchstart = snapshotEventHandler;
+		img.ontouchmove = snapshotEventHandler;
+		img.ontouchend = snapshotEventHandler;
+		img.ontouchcancel = snapshotEventHandler;
+		img.oncontextmenu = snapshotEventHandler;
+		snapshotScroller.insertBefore(img, firstSnapshot);
+		},
+	commentOnSnapshot : function(){
+		$("#snapshot_"+selectedSnapshot.id).trigger("click");
 	},
+	takeSnapshot : function() {
 
+	SDViewer.viewer.takeSnapshotFromLogin();
+
+	},
 	zoomToSnapshot : function() {
-		if((SDViewer.viewer.isOpen() ) || timerCount > 5) {
+		if((SDViewer.viewer ) || timerCount > 5) {
 			clearInterval(timer);
-			onSnapshotClick(currentSnapshot.snapshot.id);
-			scrollToSnapshot(currentSnapshotIndex);
+			window.setTimeout(function(){onSnapshotClick(currentSnapshot.snapshot.id)}, 1000);
+			//scrollToSnapshot(currentSnapshotIndex);
 		} else {
 			timerCount++;
 		}
@@ -259,14 +311,6 @@ function drawSnapshotBoundry(x1,y1,x2,y2){
 	if( (x1<0 || y1<0) && ( x2 > viewerH || y2 > viewerW) ){
 	// We're beyond the edges of the image - make a small boundry
 		//console.log("Outside");
-
-		//var pixel = Seadragon.Utils.getMousePosition(e).minus(Seadragon.Utils.getElementPosition(SDViewer.viewer.elmt));
-		//var point = SDViewer.viewer.viewport.pointFromPixel(pixel);
-		//var sizePoints = SDViewer.viewer.viewport.getBounds().getSize();
-    //var sizePixels = SDViewer.viewer.viewport.getContainerSize();
-    //var other = SDViewer.viewer.viewport.deltaPixelsFromPoints(sizePoints);
-		//Set the height and width to be smaller.
-
 		snapHeight = 200;
 		snapWidth = (snapHeight*3)/2;
 
@@ -291,7 +335,6 @@ function drawSnapshotBoundry(x1,y1,x2,y2){
 }
 
 function getViewBounds(x1,y1,x2,y2){
-	//console.log("x1:" + x1 + ", y1: "+ y1 + ", x2: "+ x2 + ", y2: "+ y2 );
 	return {
 		"xmin": x1,
 		"ymin": y1,
@@ -308,23 +351,9 @@ function setViewerContainerSize(viewer)
 
 function sdViewerLoaded(viewer)
 {
-   setViewerContainerSize(viewer)
-   if (SDViewer.viewer && SDViewer.viewer.isOpen())
-      {
-      // remove the control panel and snapshot browser controls before the viewer gets resized (resizing the seadragon
-      // viewer often goes all wonky if there are controls added to it)
-      if (isControlPanelEnabled)
-         {
-         viewer.removeControl(gigapanControlPanel.getElement());
-         }
-      viewer.removeControl(snapshotBrowser.getElement());
-
-      // resize the viewer
-      viewer.viewport.resize(Seadragon.Utils.getElementSize("gigapan-viewer"), false);
-    }
+  // Do whatever we need to when the viewer is loaded!
+  setViewerContainerSize(viewer);
 }
-
-
 
 var Viewer = {
 	fl_vars : {
@@ -388,7 +417,7 @@ var Viewer = {
 		this.fl_vars.nlevels = this.gigapan.levels;
 		this.fl_vars.cright = this.gigapan.width;
 		this.fl_vars.cbottom = this.gigapan.height;
-		this.fl_vars.gigapanId = this.gigapan.id;
+		this.fl_vars.gigapanId = this.gigapan.is_private ? this.gigapan.auth_key: this.gigapan.id;
 		var params = {
 			allowfullscreen : "true",
 			quality : "high",
@@ -407,9 +436,9 @@ var Viewer = {
 		}
 	},
 	takeSnapshot : function() {
-		$j('#take-snapshot').bind('click', function() {
+		$('#take-snapshot').bind('click', function() {
 			document.getElementById("flash_viewer").startTakingSnapshot();
-			$j("#noSnapshot").hide();
+			$("#noSnapshot").hide();
 			return false;
 		});
 	},
@@ -436,7 +465,7 @@ function embedCallback(e) {
 		img.setAttribute("src", "/images/get_flash_player.gif");
 		a.appendChild(img);
 		div.appendChild(p);
-	    if ( (navigator.userAgent.indexOf('iPhone') != -1) || (navigator.userAgent.indexOf('iPod') != -1) || (navigator.userAgent.indexOf('iPad') != -1) ) {
+		if ( isMobileDeviceUserAgent) {
 		if (typeof(ios_url) != 'undefined') {
   		  if (ios_url) {
 		      h1 = document.createElement("h1");
@@ -453,7 +482,6 @@ function embedCallback(e) {
 		      div.appendChild(h1);
 		  }
 		}
-		
 	    }
 		viewer.appendChild(div);
 	}
@@ -462,7 +490,7 @@ function embedCallback(e) {
 function refreshSnapshots() {
 	var FS = Filmstrip;
 	// Get the most recent JSON
-	$j.ajax({
+	$.ajax({
 		url : snapshots.url,
 		dataType : 'json',
 		data : {
@@ -520,21 +548,20 @@ function testReady() {
 	if((isFlashBrowserLoaded && _loaded) || timerCount > 5) {
 		clearInterval(timer);
 		zoomToSnapshot(currentSnapshot.snapshot);
-		Gigapan.Filmstrip.setupCurrentSnapshot(currentSnapshot);
+		//Gigapan.Filmstrip.setupCurrentSnapshot(currentSnapshot);
 	} else {
 		timerCount++;
 	}
 }
 
-
 var SnapshotHandler ;
 $(window).load(function() {
   Gigapan.setup();
 
-	if ((navigator.userAgent.indexOf('iPhone') != -1) || (navigator.userAgent.indexOf('iPod') != -1) || (navigator.userAgent.indexOf('iPad') != -1)  || (navigator.userAgent.indexOf('Android') != -1) ){
-		viewer = document.getElementById("gigapan-viewer");
+	if (forceShowSDViewer || isMobileDeviceUserAgent){
+		var viewerElmt = document.getElementById("gigapan-viewer");
 		// create and initialize the viewer
-		if (viewer) {
+		if (viewerElmt) {
 			if (typeof (gigapan) != "undefined") {
 				SDViewer.initialize(gigapan.gigapan);
 			}
@@ -542,8 +569,8 @@ $(window).load(function() {
 				SDViewer.snapshot = snapshot.snapshot;
 			}
 
-			SDViewer.render(viewer);
-			SDViewer.takeSnapshot();
+			SDViewer.render(viewerElmt);
+			//SDViewer.takeSnapshot();
 
 			if (typeof (currentSnapshot) != 'undefined') {
 				timer = setInterval(SDViewer.zoomToSnapshot, 1000);
@@ -559,12 +586,13 @@ $(window).load(function() {
 						}, 250); // Trigger the resize event 250 milliseconds after the user has stopped resizing
 				});
 			});
+			
+			// experiments with tryint to force "view-all" at first load <jps>
+			// SDViewer.viewer.setViewBounds('hideSnapInclusion', 0, 0, 0, 0); // (SDViewer.gigapan.width();
 		}
 
 //		if( gigapan.gigapan.allow_others_to_print == false){
 			$("#mobile-buy-print-button").remove();
-//		}else{
-//			setupPrintLink();
 //		}
 		$("#flashholder").remove();
 		$("#actions-button-block").remove();
@@ -586,8 +614,8 @@ $(window).load(function() {
 });
 
 function showDefaultFeedbackForm() {
-	$j("custom_feedback").hide();
-	$j("form_area").show();
+	$("custom_feedback").hide();
+	$("form_area").show();
 }
 
 function cancelEvent(e) {
@@ -627,14 +655,14 @@ Placeholder = function Placeholder() {
 		return;
 	}
 	var c = "placeholder", hasNativeSupport = c in document.createElement("input");
-	if($j.browser.opera && $j.browser.version < "11.50") {
+	if($.browser.opera && $.browser.version < "11.50") {
 		hasNativeSupport = false;
 	}
 	if(!hasNativeSupport) {
-		$j("form").submit(function() {
-			var $this = $j(this);
+		$("form").submit(function() {
+			var $this = $(this);
 			$this.find("input[placeholder], textarea[placeholder]").each(function() {
-				var e = $j(this);
+				var e = $(this);
 				if(e.attr("value") === e.attr("placeholder")) {
 					e.val("");
 				}
@@ -642,7 +670,7 @@ Placeholder = function Placeholder() {
 		});
 	}
 	return this.each(function() {
-		var e = $j(this), d = e.attr("placeholder"), ispassword = e.attr("type") === "password";
+		var e = $(this), d = e.attr("placeholder"), ispassword = e.attr("type") === "password";
 		var placeholderOnFocus = function() {
 			if(e.hasClass(c)) {
 				if(!hasNativeSupport) {
@@ -678,7 +706,7 @@ Placeholder = function Placeholder() {
 			e.bind("focus.placeholder", placeholderOnFocus);
 		} else {
 			var inputCssClass = (e[0].className) ? " " + e[0].className : "", size = (e[0].size) ? "size=" + e[0].size : "";
-			var fakePassw = $j('<input type="text" class="' + c + inputCssClass + '" value="' + d + '"' + size + ' tabindex="-1" />');
+			var fakePassw = $('<input type="text" class="' + c + inputCssClass + '" value="' + d + '"' + size + ' tabindex="-1" />');
 			fakePassw.bind("focus.placeholder", function() {
 				e.trigger("focus.placeholder");
 			});
@@ -691,7 +719,7 @@ Placeholder = function Placeholder() {
 	});
 };
 var ie6 = false;
-if($j.browser.msie && $j.browser.version.substr(0, 1) < 7) {
+if($.browser.msie && $.browser.version.substr(0, 1) < 7) {
 	ie6 = true;
 }
 var methods = {}, lists = [], keyMap = {
@@ -705,9 +733,9 @@ var methods = {}, lists = [], keyMap = {
 	change : false
 }, keysBound = false;
 methods.init = function(settings) {
-	settings = $j.extend({}, defaults, settings);
+	settings = $.extend({}, defaults, settings);
 	return this.each(function() {
-		var $select = $j(this), $original = $select.find(":selected").first(), $options = $select.find("option"), data = $select.data("customDrop") || {}, id = $select.attr("id") || $select.attr("name"), $dk = false, theme;
+		var $select = $(this), $original = $select.find(":selected").first(), $options = $select.find("option"), data = $select.data("customDrop") || {}, id = $select.attr("id") || $select.attr("name"), $dk = false, theme;
 		data.settings = settings;
 		data.id = id;
 		data.$original = $original;
@@ -717,7 +745,7 @@ methods.init = function(settings) {
 		data.options = $options;
 		$dk = _build(dropdownTemplate, data);
 		$select.before($dk);
-		$dk = $j(".custom-select").fadeIn(settings.startSpeed);
+		$dk = $(".custom-select").fadeIn(settings.startSpeed);
 		data.$dk = $dk;
 		$select.data("customDrop", data);
 		$dk.data("customDrop", data);
@@ -842,39 +870,39 @@ function _build(tpl, view) {
 	template = template.replace("{{ label }}", view.label);
 	if(view.options && view.options.length) {
 		for(var i = 0, l = view.options.length; i < l; i++) {
-			var $option = $j(view.options[i]), current = "cd_option_current", oTemplate = optionTemplate;
+			var $option = $(view.options[i]), current = "cd_option_current", oTemplate = optionTemplate;
 			oTemplate = oTemplate.replace("{{ value }}", $option.val());
 			oTemplate = oTemplate.replace("{{ current }}", (_notBlank($option.val()) === view.value) ? current : "");
 			oTemplate = oTemplate.replace("{{ text }}", $option.text());
 			options[options.length] = oTemplate;
 		}
 	}
-	$dk = $j(template);
+	$dk = $(template);
 	$dk.find(".cd_options ul").html(options.join(""));
 	return $dk;
 }
 
 function _notBlank(text) {
-	return ($j.trim(text).length > 0) ? text : false;
+	return ($.trim(text).length > 0) ? text : false;
 }
 
-$j(function() {
-	$j(".current-selected, .custom-select-wrapper").live("click", function(e) {
-		var $dk = $j(this).parents(".custom-select").first();
+$(function() {
+	$(".current-selected, .custom-select-wrapper").live("click", function(e) {
+		var $dk = $(this).parents(".custom-select").first();
 		_openDropdown($dk);
 		e.preventDefault();
 		return false;
 	});
-	$j(".cd_options a").live(($j.browser.msie ? "mousedown" : "click"), function(e) {
-		var $option = $j(this), $dk = $option.parents(".custom-select").first(), data = $dk.data("customDrop");
+	$(".cd_options a").live(($.browser.msie ? "mousedown" : "click"), function(e) {
+		var $option = $(this), $dk = $option.parents(".custom-select").first(), data = $dk.data("customDrop");
 		_closeDropdown($dk);
 		_updateFields($option, $dk);
 		_setCurrent($option.parent(), $dk);
 		e.preventDefault();
 		return false;
 	});
-	$j(document).bind("keydown.cd_nav", function(e) {
-		var $open = $j(".custom-select.open"), $focused = $j(".custom-select.focus"), $dk = null;
+	$(document).bind("keydown.cd_nav", function(e) {
+		var $open = $(".custom-select.open"), $focused = $(".custom-select.focus"), $dk = null;
 		if($open.length) {
 			$dk = $open;
 		} else {
@@ -888,13 +916,13 @@ $j(function() {
 	});
 });
 buttonBehavior = function buttonBehavior() {
-	$j(this).bind("mouseup mousedown", function() {
-		$j(this).toggleClass("mousedown");
+	$(this).bind("mouseup mousedown", function() {
+		$(this).toggleClass("mousedown");
 	});
 };
 textFocus = function textFocus() {
-	$j("input[type=text]").bind("focus blur", function() {
-		$j(this).toggleClass("focus_class");
+	$("input[type=text]").bind("focus blur", function() {
+		$(this).toggleClass("focus_class");
 	});
 };
 function flashBrowserLoaded() {
@@ -931,24 +959,52 @@ var scrollRight = true;
 
 function snapshotsInView() {
 	//Outer Box
-	var viewport = $j('#gigapan-carousel')[0];
+	var viewport = $('#gigapan-carousel')[0];
 	return Math.floor(viewport.clientWidth / snapshotWidth);
+}
+
+/*
+// Zero snapshots? Hide the controls.
+if(snapshots.items.length <= 0) {
+	$("#prev, #next").hide();
+}
+*/
+
+function scrollToSnapshot (index){
+	// Moves the carousel to the selected snapshot.
+	// Only really relevant for the snapshot view page (/gigapans/gigaID/snapshots/snapID )
+	var dl = $('#snapshots')[0];
+	var viewport = $('#gigapan-carousel')[0];
+
+	var l = ((dl.style.left) ? parseInt(dl.style.left) : 0);
+	var target = -Math.floor(index * snapshotWidth) ;
+	if( (snapshotsInView() < index) && (l > target) ){
+		// If the snapshot is not in the initial view
+		var imageSum = snapshots.total_entries;
+		var maxPos = (imageSum * -snapshotWidth);
+		var moveTo = 0;
+		moveTo = -(Math.floor(Math.abs((target/viewport.clientWidth)))*viewport.clientWidth);
+		$(dl).animate({"left" : moveTo}, 1200);
+		if(imageSum > snapshotsInView()) {
+		  dl.style.width = maxPos * -1 + "px";
+		}
+	}
 }
 
 // Filmstrip Scroll
 function snapshotScroll(amount, refresh) {
 	var imageSum = snapshots.total_entries;
 	//Inner Box
-	var dl = $j('#snapshots')[0];
+	var dl = $('#snapshots')[0];
 	//Outer Box
-	var c = $j('#gigapan-carousel')[0];
+	var c = $('#gigapan-carousel')[0];
 
 	var l = ((dl.style.left) ? parseInt(dl.style.left) : 0);
 	var pos = l + parseInt(amount);
 	var pos0 = pos;
 
 	//How many snapshots in view
-	var viewport = $j('#gigapan-carousel')[0];
+	var viewport = $('#gigapan-carousel')[0];
 	var inView = Math.floor(viewport.clientWidth / snapshotWidth);
 	var maxPos = (imageSum * -snapshotWidth);
 	// prevent left side from going too far right
@@ -981,7 +1037,7 @@ function snapshotScroll(amount, refresh) {
  */
 var Filmstrip = {
 	api_url : null,
-	rendering : false,
+	rendering : false,	// <jps>
 	min_page : null,
 	max_page : null,
 	prev : function() {
@@ -1023,7 +1079,7 @@ var Filmstrip = {
 		snapshots.items = items.concat(snapshots.items)
 	},
 	fetch : function(page, per_page) {
-		$j.ajax({
+		$.ajax({
 			type : "GET",
 			url : this.api_url,
 			data : {

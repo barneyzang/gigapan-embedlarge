@@ -5,81 +5,40 @@ h1, h2, h3, h4, h5, h6, pre, code { font-size:100%; }
 html, body { height: 100%; overflow: hidden; }
 
 /* Setup some globals */
-body { 	font-family: Arial, Helvetica, sans-serif;
-		font-size:12px;
+body {
+		font: 13px/1.0 "Helvetica Neue", Arial, "Liberation Sans", FreeSans, sans-serif;
+		font-weight: 200;
 		color: white;
 		background: black;
 }
 a { color:#FF7C18; }
 
-/** block level **/
 ul,
 ol {
 	list-style: none;	/* fixes bullet points being added to snapshots */
 }
 
 
-/* header div */
+/* header */
 .header { position:absolute; top:0; left:0; right:0; height:25px; width:100%; }
-.title { float:left; text-align:left; width:40%; padding:5px; }
-.info { float:right; text-align:right; width:50%; padding:5px; font-size:10px }
+.title { float:left; text-align:left; width:40%; padding:5px; overflow:hidden; }
+.info { float:right; text-align:right; width:50%; padding:5px; font-size:10px; overflow:hidden; }
 
 /* Gigapan view */
-.gigapan-view { position: absolute; top:25px; bottom:110px; left:0; right:0; }
+.gigapan-view { position: absolute; top:25px; bottom:110px; left:0; right:0; background:#000; }
 .gigapan-view #flashholder .user-warning { font-size:150%; color:#FFF; line-height:1.8; }
 .overlay { border:1px solid #fff; }
 
-/* footer div */
+#gigapan-viewer {
+background-color:#000;
+}
+
+
+/* footer */
 .footer { position:absolute; width:100%; bottom:0; left:0; right:0; margin: 0 5px 0 5px; font-size:10px; }
-
-/* snapshots div */
 .snapshots { float:left; width:75%; height:110px; bottom: 0; left:0; right:0; margin: 0 0px 0 0px; overflow:hidden; }
-
-/* details div */
 .details { float:left; width:25%; padding: 10px 0 5px 0; overflow:hidden; }
 
 /* map div */
 .map-full { position: absolute; top:25px; bottom:110px; left:0; right:0; }
 
-
-
-
-/* mobile navigation */
-
-#gigapan-mobile-navigation {
-left:6px;
-}
-
-#gigapan-mobile-navigation div {
-width:50px;
-height:50px;
-background-color:#e4eafa;
-color:#2e4987;
-border:2px solid;
-border-radius:5px;
-margin-bottom:2px;
-opacity:.75;
-}
-
-.mobile-zoom-minus-button,.mobile-zoom-plus-button {
-background:url(images/controls/GigapanMobileNavigation.png) no-repeat;
-}
-
-.mobile-zoom-minus-button {
-background-position:5px -35px;
-width:50px;
-height:50px;
-}
-
-.mobile-zoom-plus-button {
-background-position:5px 6px;
-width:50px;
-height:50px;
-}
-
-.mobile-full-screen-button {
-background:url(images/controls/Gigapan_Mobile_FullScreen.png) no-repeat;
-background-position:5px 5px;
-width:50px;
-height:50px;
-}

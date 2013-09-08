@@ -39,7 +39,7 @@ this.hideSnapInclusion = function(id) {
 
 function onSnapshotMouseOver(id) {
 	snapshot = getSnapshotById(id);
-	if(isMobileDevice){
+    if(forceShowSDViewer || isMobileDevice) {
 		return this.showSnapInclusion(
 			snapshot.id,
 			snapshot.xmin,
@@ -55,7 +55,7 @@ function onSnapshotMouseOver(id) {
 
 
 function onSnapshotMouseOut(id) {
-	if(isMobileDevice){
+    if(forceShowSDViewer || isMobileDevice){
 		return this.hideSnapInclusion(id);
 	}else{
 		if (!isSnapshotDialogVisible) {
@@ -91,7 +91,7 @@ function setViewBounds (callbackFn, xmin, ymin, xmax, ymax) {
 
 function zoomToSnapshot(snapshot) {
 	var bb = (snapshot.ymax - snapshot.ymin) * 0.02;
-	if(isMobileDevice){
+    if(forceShowSDViewer || isMobileDevice){
 		currentSnapshotId = snapshot["id"];
 		hideSnapInclusion(snapshot['id']);
 		return setViewBounds('hideSnapInclusion', snapshot['xmin'] - bb, snapshot['ymin'] - bb, snapshot['xmax'] + bb, snapshot['ymax'] + bb);
