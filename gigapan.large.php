@@ -61,6 +61,8 @@ $dateTaken = new DateTime($imageDetails['taken_at']);
 <script type="text/javascript" src="gigapan.large/gigapan.snapshots.embedlarge.js"></script>
 <script type="text/javascript" src="gigapan.large/gigapan.embedlarge-sd.js"></script>
 
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="width=device-width, maximum-scale=1, user-scalable=no">
 
 <?php
 //include("google.analytics.php");
