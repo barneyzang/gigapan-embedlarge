@@ -5,14 +5,6 @@
 //	This code takes a gigapan ID and builds a webpage with an extra large view 
 //  of the gigapan as well as snapshots and extra details. 
 //  
-//	- First it tries to read the notes from the Gigapan Stitching SW
-//  - For the cases where the image has been uploaded by 3P stitching sw (eg AutoPano),
-// 	and doesn't have the stitching notes, the code looks in the description field
-//  for "--Image Details--" and attempts to parse the text using the same key value pairs
-//  as with stitching notes.  This makes it possible to copy the Stitching notes from
-//  a Gigapan Stitching run into the description field and still have them show up
-//	correctly.
-//
 // =========================================================================
 
 // Turn on error reporting
@@ -38,24 +30,18 @@ $dateTaken = new DateTime($imageDetails['taken_at']);
 <head>
 <meta charset="utf-8">
 <title><?php echo $imageDetails['name']; ?></title>
-	
-<!-- carousel stuff -->
-<link rel="stylesheet" type="text/css" href="gigapan.large/carousel/richardscarrott-jquery-ui-carousel/css/jquery.rs.carousel.css" media="all" />
-<link rel="stylesheet" type="text/css" href="gigapan.large/carousel/richardscarrott-jquery-ui-carousel/css/jquery.rs.carousel-touch.css" media="all" />
-<link rel="stylesheet" type="text/css" href="gigapan.large/carousel/gigapan.carousel.css" media="all" />
 
 <link rel="stylesheet" type="text/css" href="gigapan.large/gigapan.embedlarge.css">
 <link rel="stylesheet" type="text/css" href="gigapan.large/gigapan.large.mobile.css">
+
+<!-- bxslider carousel stuff -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+<script src="gigapan.large/jquery.bxslider/jquery.bxslider.min.js"></script>
+<link href="gigapan.large/jquery.bxslider/jquery.bxslider.css" rel="stylesheet" />
 	
 <script type="text/javascript" src="gigapan.large/jquery.js"></script>
 <script type="text/javascript"> var $j = jQuery.noConflict();</script>
 <script type="text/javascript" src="gigapan.large/swfobject.js"></script>
-
-<!-- carousel stuff -->
-<script type="text/javascript" src="gigapan.large/carousel/richardscarrott-jquery-ui-carousel/js/lib/jquery.js"></script>
-<script type="text/javascript" src="gigapan.large/carousel/richardscarrott-jquery-ui-carousel/js/lib/jquery.ui.widget.js"></script>
-<script type="text/javascript" src="gigapan.large/carousel/richardscarrott-jquery-ui-carousel/js/jquery.rs.carousel.js"></script>
-<script type="text/javascript" src="gigapan.large/carousel/gigapan.carousel.js"></script>
 
 <script type="text/javascript" src="gigapan.large/gigapan.embedlarge.js"></script>
 <script type="text/javascript" src="gigapan.large/gigapan.snapshots.embedlarge.js"></script>
@@ -64,6 +50,7 @@ $dateTaken = new DateTime($imageDetails['taken_at']);
 <meta name="format-detection" content="telephone=no">
 <meta name="viewport" content="width=device-width, maximum-scale=1, user-scalable=no">
 
+
 <?php
 //include("google.analytics.php");
 ?>
@@ -71,9 +58,19 @@ $dateTaken = new DateTime($imageDetails['taken_at']);
 <body>
 
 <script type="text/javascript">
-	$(document).ready(function() {
-	    gigapanCarousel.init($('#container'));
+// Setup the snapshot carousel
+$(document).ready(function() {
+	$('.bxslider').bxSlider({
+		slideWidth: 90,
+		infiniteLoop: false,
+		minSlides: 3,
+		maxSlides: 4,
+		slideMargin: 5
 	});
+});
+	
+// Set this to true to always use the SeaDragon viewer (will use flash viewer on desktop otherwise)
+var forceShowSDViewer = false;
 </script>
 
 
@@ -89,13 +86,13 @@ $dateTaken = new DateTime($imageDetails['taken_at']);
 			print $imageDetails['num_images'] . ' images (' .  $imageDetails['num_columns'] . ' columns by ' .  $imageDetails['num_rows'] . ' rows), ';
 	
 		print $imageDetails['width'] . ' x ' . $imageDetails['height'] . ', ';
-		print round( ($imageDetails['resolution']/(1000*1000*1000)), 2) . ' gigapixels, ';
+		print round( ($imageDetails['resolution']/(1000*1000*1000)), 2) . ' gigapixels';
 
 		// Show the FOV details if available (the api->field_of_view_w numbers don't always appear to be correct
 		// if a 3P stitcher is used
 		if (isset($imageDetails['Field of view']))
 		{
-			print PHP_EOL . "\t\t";
+			print ', ' . PHP_EOL . "\t\t";
 			print '<img src="gigapan.large/fovicon.white.width.png" alt="fov icon" height="12">' . $imageDetails['fov_width'] . '&deg; x ';
 			print PHP_EOL . "\t\t";
 			print '<img src="gigapan.large/fovicon.white.height.png" alt="fov icon" height="12">' . $imageDetails['fov_height'] . '&deg;';
@@ -115,11 +112,7 @@ $dateTaken = new DateTime($imageDetails['taken_at']);
 
 <div class="footer">
 	<div class="snapshots">
-		<div id="container">
-			<div id="rs-carousel" class="rs-carousel module">
-				<ul class="rs-carousel-runner" id="snapshots"></ul>
-			</div>
-		</div>
+		<ul class="bxslider" id="snapshots"></ul>
 	</div>
 
 	<div class="details">

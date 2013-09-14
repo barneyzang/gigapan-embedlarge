@@ -1,7 +1,15 @@
 <?php
 // =========================================================================
 //	Returns an array of parsed json data for a given gigapan id
-//  Is smart about looking in --Image Details--
+//
+//	- First it tries to read the notes from the Gigapan Stitching SW
+//  - For the cases where the image has been uploaded by 3P stitching sw (eg AutoPano),
+// 	and doesn't have the stitching notes, the code looks in the description field
+//  for "--Image Details--" and attempts to parse the text using the same key value pairs
+//  as with stitching notes.  This makes it possible to copy the Stitching notes from
+//  a Gigapan Stitching run into the description field and still have them show up
+//	correctly.
+//
 // =========================================================================
 function parse_gigapan_json($id) {
 

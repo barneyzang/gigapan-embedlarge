@@ -4,7 +4,7 @@ ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, body, html, p, blockquote, fields
 h1, h2, h3, h4, h5, h6, pre, code { font-size:100%; }
 html, body { height: 100%; overflow: hidden; }
 
-/* Setup some globals */
+/* Setup globals */
 body {
 		font: 13px/1.0 "Helvetica Neue", Arial, "Liberation Sans", FreeSans, sans-serif;
 		font-weight: 200;
@@ -13,16 +13,32 @@ body {
 }
 a { color:#FF7C18; }
 
-ul,
-ol {
-	list-style: none;	/* fixes bullet points being added to snapshots */
-}
 
 
 /* header */
-.header { position:absolute; top:0; left:0; right:0; height:25px; width:100%; }
-.title { float:left; text-align:left; width:40%; padding:5px; overflow:hidden; }
-.info { float:right; text-align:right; width:50%; padding:5px; font-size:10px; overflow:hidden; }
+.header { 
+	position:absolute; 
+	top:0; left:0; right:0; 
+	height:25px; 
+	width:100%;
+}
+.title { 
+	float:left; 
+	text-align:left;
+	max-width:100%; 
+	padding:5px; 
+	overflow:hidden;
+	white-space:nowrap;
+}
+.info { 
+	float:right; 
+	text-align:right; 
+	max-width:50%; 
+	padding:5px; 
+	font-size:10px;
+	overflow:hidden;
+	white-space:nowrap;
+}
 
 /* Gigapan view */
 .gigapan-view { position: absolute; top:25px; bottom:110px; left:0; right:0; background:#000; }
@@ -30,14 +46,38 @@ ol {
 .overlay { border:1px solid #fff; }
 
 #gigapan-viewer {
-background-color:#000;
+	background-color:#000;
 }
 
 
 /* footer */
-.footer { position:absolute; width:100%; bottom:0; left:0; right:0; margin: 0 5px 0 5px; font-size:10px; }
-.snapshots { float:left; width:75%; height:110px; bottom: 0; left:0; right:0; margin: 0 0px 0 0px; overflow:hidden; }
-.details { float:left; width:25%; padding: 10px 0 5px 0; overflow:hidden; }
+.footer { position:absolute; width:100%; bottom:0; left:0; right:0; margin: 0 0px 0 0px; font-size:10px; }
+
+.snapshots { 
+	float:left; 
+	width:70%; 
+	height:100px; 
+
+    margin-left: 10px;
+    margin-right: auto;
+}
+
+.details { 
+	float:right; 
+	width:25%; 
+	padding: 0px 0 0px 0; 
+	}
+
+/* hide the footer and expand the gigapan view for screen-sizes < 700px (eg iOS devices) */
+@media screen and (max-width: 700px) {
+	.gigapan-view {
+		bottom:20px;
+	}
+	.snapshots { visibility:hidden; }
+	.details { visibility:hidden; }
+}
+
+
 
 /* map div */
 .map-full { position: absolute; top:25px; bottom:110px; left:0; right:0; }

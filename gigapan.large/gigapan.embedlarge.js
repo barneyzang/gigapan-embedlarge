@@ -190,7 +190,7 @@ var Gigapan = {
 };
 
 var timerCount = 0;
-var forceShowSDViewer = false;	// <jps>
+//var forceShowSDViewer = false;	// <jps>
 var isMobileDeviceUserAgent = /Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone OS/i.test(navigator.userAgent) ;
 
 var SDViewer = {
@@ -1060,11 +1060,25 @@ var Filmstrip = {
 		var content = '';
 		for( i = 0, len = items.length; i < len; i++) {
 			var snapshot = items[i].snapshot;
+
+/*
 			content += '<li id="' + snapshot.id + '_slide" class="rs-carousel-item">' + 
 //						'<a title="View snapshot: ' + snapshot.name + '" id="' + snapshot.id + '_comment" href="#" class="snapshot_title">' + snapshot.truncated_name + '</a>' + 
 						'<a title="View snapshot: ' + snapshot.name + '" id="' + snapshot.id + '_thumbnail" class="photo" href="#"><img src="' + snapshot.thumbnail_uri + '" id="' + snapshot.id + '_img"></a>' + 
 //						'<a title="View Snapshot" id="' + snapshot.id + '_comment_count" href="#" class="comments">' + snapshot.comment_count + '</a>' + 
 						'</li>';
+*/
+
+			content += '<li id="' + snapshot.id + '_slide" class="rs-carousel-item">' + 
+//						'<a title="View snapshot: ' + snapshot.name + '" id="' + snapshot.id + '_comment" href="#" class="snapshot_title">' + snapshot.truncated_name + '</a>' + 
+						'<a title="View snapshot: ' + snapshot.name + '" id="' + snapshot.id + '_thumbnail" class="photo" href="#"><img src="' + snapshot.thumbnail_uri + '" id="' + snapshot.id + '_img"></a>' + 
+//						'<a title="View Snapshot" id="' + snapshot.id + '_comment_count" href="#" class="comments">' + snapshot.comment_count + '</a>' + 
+						'</li>';
+
+
+
+
+
 		}
 		return content;
 	},
