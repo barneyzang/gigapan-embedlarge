@@ -63,14 +63,14 @@ $(document).ready(function() {
 	$('.bxslider').bxSlider({
 		slideWidth: 90,
 		infiniteLoop: false,
-		minSlides: 3,
-		maxSlides: 4,
+		minSlides: 0,
+		maxSlides: 25,
 		slideMargin: 5
 	});
 });
 	
 // Set this to true to always use the SeaDragon viewer (will use flash viewer on desktop otherwise)
-var forceShowSDViewer = false;
+var forceShowSDViewer = true;
 </script>
 
 

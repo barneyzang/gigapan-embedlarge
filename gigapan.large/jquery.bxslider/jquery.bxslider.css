@@ -41,7 +41,7 @@
 .bx-wrapper .bx-pager,
 .bx-wrapper .bx-controls-auto {
 	position: absolute;
-	bottom: -30px;
+	bottom: -28px;				/* vertically centered pagers (dots on bottom) <jps> */
 	width: 100%;
 }
 
@@ -117,7 +117,7 @@
 .bx-wrapper .bx-controls-direction a {
 	position: absolute;
 	top: 50%;
-	margin-top: -16px;
+	margin-top: -11px;			/* vertically centered page direction controls <jps> */
 	outline: 0;
 	width: 32px;
 	height: 32px;
