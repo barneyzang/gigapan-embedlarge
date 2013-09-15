@@ -70,7 +70,7 @@ $(document).ready(function() {
 });
 	
 // Set this to true to always use the SeaDragon viewer (will use flash viewer on desktop otherwise)
-var forceShowSDViewer = true;
+var forceShowSDViewer = false;
 </script>
 
 
