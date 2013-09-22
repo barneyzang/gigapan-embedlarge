@@ -48,7 +48,7 @@ function drawArc(center, initialBearing, finalBearing, radius) {
 }
 
 
-function initialize_map(originLat, originLon, heading, fov)
+function initialize_map(originLat, originLon, heading, fov, id)
 {
 //	log(originLat);
 //	log(originLon);
@@ -67,7 +67,7 @@ function initialize_map(originLat, originLon, heading, fov)
 		panControl: false,
 		streetViewControl: false,
 		};
-	var map = new google.maps.Map(document.getElementById("map-full"), mapOptions);
+	var map = new google.maps.Map(document.getElementById(id), mapOptions);
 		
 	// compute the FOV bounding endpoints; fill in a polyLineCoordinates array to draw on the map
 	var computedLeft	= computeLatLonFromOrigin(origin.lat(), origin.lng(), (heading + fov/2), fovArcRadius);

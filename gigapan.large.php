@@ -52,14 +52,14 @@ $dateTaken = new DateTime($imageDetails['taken_at']);
 
 
 <?php
-//include("google.analytics.php");
+include("google.analytics.php");
 ?>
 </head>
 <body>
 
 <script type="text/javascript">
-// Setup the snapshot carousel
 $(document).ready(function() {
+	// Setup the snapshot carousel
 	$('.bxslider').bxSlider({
 		slideWidth: 90,
 		infiniteLoop: false,
@@ -67,6 +67,9 @@ $(document).ready(function() {
 		maxSlides: 25,
 		slideMargin: 5
 	});
+	
+	// Initialize the map view
+    $('.map-full').hide();
 });
 	
 // Set this to true to always use the SeaDragon viewer (will use flash viewer on desktop otherwise)
@@ -204,18 +207,14 @@ Filmstrip.setup();
 
 
 <script type="text/javascript">
-// Hide the map view until toggled
-$(function() {
-    $('.map-full').hide();
-});
-
 $("#map_toggle").click(function() {
-    $(".gigapan-view").toggle();
-    isSnapshotDialogVisible = !isSnapshotDialogVisible;		// we piggyback on this variable to disable javascript for thumbnails when the map is visible
+    $(".gigapan-view").fadeToggle();
+    $(".map-full").fadeToggle();
 
-    $(".map-full").toggle();
-	google.maps.event.trigger(map, 'resize');
-	map.fitBounds(bounds);
+	if ($("#map-full").is(':visible')) {
+		google.maps.event.trigger(map, 'resize');
+		map.fitBounds(bounds);
+	}
 });
 </script>
 
@@ -235,13 +234,14 @@ else
 	print 'var map = initialize_map(' . $imageDetails['latitude'] . ',' . 
 										$imageDetails['longitude'] . ',' . 
 										$imageDetails['heading'] . ',' .
-										$fov_width . ');';
+										$fov_width . ',' .
+										'"map-full");';
 
 ?>
 </script>
 
 <?php
-//include("statcounter.php");
+include("statcounter.php");
 ?>
 </body>
 </html>
