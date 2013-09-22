@@ -52,7 +52,7 @@ $dateTaken = new DateTime($imageDetails['taken_at']);
 
 
 <?php
-include("google.analytics.php");
+//include("google.analytics.php");
 ?>
 </head>
 <body>
@@ -241,7 +241,7 @@ else
 </script>
 
 <?php
-include("statcounter.php");
+//include("statcounter.php");
 ?>
 </body>
 </html>
