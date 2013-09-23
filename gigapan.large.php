@@ -69,7 +69,7 @@ $(document).ready(function() {
 	});
 	
 	// Initialize the map view
-    $('.map-full').hide();
+	$('.mapView').hide();
 });
 	
 // Set this to true to always use the SeaDragon viewer (will use flash viewer on desktop otherwise)
@@ -105,7 +105,7 @@ var forceShowSDViewer = false;
 	</div>
 </div>
 
-<div class="map-full" id="map-full">
+<div class="mapView" id="mapView">
 </div>
 
 <div class="gigapan-view">
@@ -160,7 +160,7 @@ var forceShowSDViewer = false;
 			if ( isset($imageDetails['Focal length (35mm equiv.)']) && ($imageDetails['Focal length (35mm equiv.)'] != 'unknown') )
 				print "\t\t" . 'Focal Length (35mm equiv.): ' .	$imageDetails['Focal length (35mm equiv.)'] . '<br>' . PHP_EOL;
 ?>
-		<div class="map_toggle"><a href="#" id="map_toggle">toggle map / image</a></div>
+		<div class="mapView_toggle"><a href="#" id="mapView_toggle">toggle map / image</a></div>
 	</div>
 </div>
 
@@ -205,13 +205,12 @@ Filmstrip.setup();
 </script>
 
 
-
 <script type="text/javascript">
-$("#map_toggle").click(function() {
+$("#mapView_toggle").click(function() {
     $(".gigapan-view").fadeToggle();
-    $(".map-full").fadeToggle();
+    $(".mapView").fadeToggle();
 
-	if ($("#map-full").is(':visible')) {
+	if ($("#mapView").is(':visible')) {
 		google.maps.event.trigger(map, 'resize');
 		map.fitBounds(bounds);
 	}
@@ -229,13 +228,13 @@ if ( !isset($fov_width) )
 
 // Disable the map toggle if not all the right data is available
 if ( !isset($imageDetails['latitude']) || !isset($imageDetails['longitude']) || !isset($imageDetails['heading']) || !isset($fov_width) )
-	print '$(".map_toggle").toggle();';
+	print '$(".mapView_toggle").toggle();';
 else
 	print 'var map = initialize_map(' . $imageDetails['latitude'] . ',' . 
 										$imageDetails['longitude'] . ',' . 
 										$imageDetails['heading'] . ',' .
 										$fov_width . ',' .
-										'"map-full");';
+										'"mapView");';
 
 ?>
 </script>

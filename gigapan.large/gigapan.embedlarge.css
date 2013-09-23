@@ -82,5 +82,5 @@ a { color:#FF7C18; }
 
 
 /* map div */
-.map-full { position: absolute; top:25px; bottom:110px; left:0; right:0; }
+.mapView { position: absolute; top:25px; bottom:110px; left:0; right:0; }
 
