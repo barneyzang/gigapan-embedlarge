@@ -182,8 +182,6 @@ var gigapan = {"gigapan":{"is_game":false,
 			"levels":<?php print $imageDetails['levels']; ?>,
 			"width":<?php print $imageDetails['width']; ?>}};
 
-var ios_url = "http://www.gigapan.com/mobile/iOS/1.0/?id=<?php print $imageDetails['id']; ?>";
-
 <?php
 	// Get the snapshot data
 	$snapshots = file_get_contents('http://www.gigapan.com/gigapans/'.$id.'/snapshots.json');
@@ -219,23 +217,17 @@ $("#mapView_toggle").click(function() {
 
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
 <script type="text/javascript" src="gigapan.large/gigapan.map.js"></script>
+<script type="text/javascript">
 <?php
-print '<script type="text/javascript">';
-
-// Revert to the JSON fov data if the Image Details version isn't available
-if ( !isset($fov_width) )
-	$fov_width = $imageDetails['field_of_view_w'];
-
 // Disable the map toggle if not all the right data is available
-if ( !isset($imageDetails['latitude']) || !isset($imageDetails['longitude']) || !isset($imageDetails['heading']) || !isset($fov_width) )
+if ( !isset($imageDetails['latitude']) || !isset($imageDetails['longitude']) || !isset($imageDetails['heading']) || !isset($imageDetails['fov_width']) )
 	print '$(".mapView_toggle").toggle();';
 else
 	print 'var map = initialize_map(' . $imageDetails['latitude'] . ',' . 
 										$imageDetails['longitude'] . ',' . 
 										$imageDetails['heading'] . ',' .
-										$fov_width . ',' .
-										'"mapView");';
-
+										$imageDetails['fov_width'] . ',' .
+										'"mapView");' . PHP_EOL;
 ?>
 </script>
 
