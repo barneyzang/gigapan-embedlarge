@@ -52,8 +52,10 @@ function parse_gigapan_json($id) {
 		}
 	}
 
-	// In the description, assume the first line (up until the first "\n") is the sub_description which can be used
-	// apart from the Image Details
+	// merge the root elements of the json ($gigapan_newAPI) with the parsed elements from the stitcher notes or description fields
+	$imageDetails = array_merge(get_object_vars($gigapan_newAPI), $imageDetails);
+
+	// In the description, assume the first line (up until the first "\n") is the sub_description which can be used apart from the Image Details
 	$temp = explode("\n", $gigapan_newAPI->description);
 	$imageDetails['sub_description'] = $temp[0];
 
@@ -61,11 +63,17 @@ function parse_gigapan_json($id) {
 	if (isset($imageDetails['Input images']))
 		sscanf($imageDetails['Input images'], "%s (%s columns by %s rows)", $imageDetails['num_images'], $imageDetails['num_columns'], $imageDetails['num_rows']);
 
-	// parse the 'Field of view' field for more granular access
+	// field_of_view_w doesn't always appear to be correct when a 3P stitcher is used, so first look at 'Field of view' extracted from the ImageDetails
 	if (isset($imageDetails['Field of view']))
+		// parse the 'Field of view' field for more granular access
 		sscanf($imageDetails['Field of view'], "%f %s %s %s %f", $imageDetails['fov_width'], $d, $d, $d, $imageDetails['fov_height']);
+	else if (isset($imageDetails['field_of_view_w']))
+	{
+		$imageDetails['fov_width'] = $imageDetails['field_of_view_w'];
+		$imageDetails['fov_height'] = $imageDetails['field_of_view_h'];
+	}
 
-	return array_merge(get_object_vars($gigapan_newAPI), $imageDetails);
+	return $imageDetails;
 }
 
 
