@@ -17,6 +17,7 @@ $id='';
 if (isset($_GET['id']))
 	$id=$_GET['id'];
 
+
 include './gigapan.large/parse_gigapan_json.php';
 
 // Populate the imageDetails array
@@ -91,12 +92,16 @@ var forceShowSDViewer = false;
 		print $imageDetails['width'] . ' x ' . $imageDetails['height'] . ', ';
 		print round( ($imageDetails['resolution']/(1000*1000*1000)), 2) . ' gigapixels';
 
-		// Show the FOV details if available (the api->field_of_view_w numbers don't always appear to be correct
-		// if a 3P stitcher is used
-		if (isset($imageDetails['Field of view']))
+		// Show the FOV details if available
+		if (isset($imageDetails['fov_width']))
 		{
 			print ', ' . PHP_EOL . "\t\t";
-			print '<img src="gigapan.large/fovicon.white.width.png" alt="fov icon" height="12">' . $imageDetails['fov_width'] . '&deg; x ';
+			print '<img src="gigapan.large/fovicon.white.width.png" alt="fov icon" height="12">' . $imageDetails['fov_width'] . '&deg;';
+		}
+		if (isset($imageDetails['fov_width']) && (isset($imageDetails['fov_height'])))
+			print ' x ';
+		if (isset($imageDetails['fov_height']))
+		{	
 			print PHP_EOL . "\t\t";
 			print '<img src="gigapan.large/fovicon.white.height.png" alt="fov icon" height="12">' . $imageDetails['fov_height'] . '&deg;';
 		}
