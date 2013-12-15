@@ -24,10 +24,10 @@ function parse_gigapan_json($id) {
 	$contents = json_decode($contents);
 	$gigapan_newAPI = $contents->gigapan;
 
-	// Retrieve a few fields from the stitcher notes if it exists
+	// Retrieve a few fields from the stitcher notes if it exists and is not empty
 	$unparsed_ImageDetails = array();
 	$imageDetails = array();
-	if (isset($gigapan_newAPI->stitcher_notes))
+	if (isset($gigapan_newAPI->stitcher_notes) && !empty($gigapan_newAPI->stitcher_notes))
 	{
 		$unparsed_ImageDetails = explode("\n", $gigapan_newAPI->stitcher_notes);
 	}
@@ -42,7 +42,7 @@ function parse_gigapan_json($id) {
 	}
 
 	// Build the imageDetails key-value array
-	foreach($unparsed_ImageDetails as $imageDetailArrayItem)
+	foreach ($unparsed_ImageDetails as $imageDetailArrayItem)
 	{
 		// Only look at lines with a ":" in them
 		if (strpos($imageDetailArrayItem, ': '))
