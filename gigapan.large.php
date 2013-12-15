@@ -73,8 +73,15 @@ $(document).ready(function() {
 	$('.mapView').hide();
 });
 	
-// Set this to true to always use the SeaDragon viewer (will use flash viewer on desktop otherwise)
-var forceShowSDViewer = false;
+<?php
+// Support for a user passed in parameter that can specify the desired viewer
+// Note: this only works to force use of the sea dragon viewer in cases where flash is also an option.
+// That is, when flash isn't available, the sea dragon viewer will always be used.
+if ( isset($_GET['viewer']) && ($_GET['viewer'] == 'sd') )
+	print 'var forceShowSDViewer = true;' . PHP_EOL;
+else
+	print 'var forceShowSDViewer = false;' . PHP_EOL;
+?>
 </script>
 
 
