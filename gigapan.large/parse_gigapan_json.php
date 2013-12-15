@@ -22,41 +22,28 @@ function parse_gigapan_json($id) {
 
 	$contents = utf8_encode($contents);
 	$contents = json_decode($contents);
-	$gigapan_newAPI = $contents->gigapan;
+	$imageDetails = get_object_vars($contents->gigapan);
 
-	// Retrieve a few fields from the stitcher notes if it exists and is not empty
+	// First, retrieve a few fields from the stitcher notes if it exists and is not empty
 	$unparsed_ImageDetails = array();
-	$imageDetails = array();
-	if (isset($gigapan_newAPI->stitcher_notes) && !empty($gigapan_newAPI->stitcher_notes))
+	if (isset($imageDetails['stitcher_notes']) && !empty($imageDetails['stitcher_notes']))
 	{
-		$unparsed_ImageDetails = explode("\n", $gigapan_newAPI->stitcher_notes);
-	}
-	else
-	{
-		// otherwise, try to parse the description for pasted in information
-		// note we assume that anything after "--Image Details--" is made up of 
-		// the same key-value pairs that are in the Gigapan stiching notes
-		$description = explode("--Image Details--", $gigapan_newAPI->description);
-		if (isset($description[1]))
-			$unparsed_ImageDetails = explode("\n", $description[1]);
+		$unparsed_ImageDetails = explode("\n", $imageDetails['stitcher_notes']);
+		$imageDetails = array_merge($imageDetails, build_imageDetails($unparsed_ImageDetails));
 	}
 
-	// Build the imageDetails key-value array
-	foreach ($unparsed_ImageDetails as $imageDetailArrayItem)
+	// Also, try to parse the description for pasted in information
+	// - Note we assume that anything after "--Image Details--" is made up of the same key-value pairs that are in the Gigapan stiching notes.
+	// - Note that these values will overwrite keys in the stitcher notes
+	$description = explode("--Image Details--", $imageDetails['description']);
+	if (isset($description[1]))
 	{
-		// Only look at lines with a ":" in them
-		if (strpos($imageDetailArrayItem, ': '))
-		{
-			$tempImageDetail = explode(": ", $imageDetailArrayItem);
-			$imageDetails[trim($tempImageDetail[0])] = $tempImageDetail[1];
-		}
+		$unparsed_ImageDetails = explode("\n", $description[1]);
+		$imageDetails = array_merge($imageDetails, build_imageDetails($unparsed_ImageDetails));
 	}
-
-	// merge the root elements of the json ($gigapan_newAPI) with the parsed elements from the stitcher notes or description fields
-	$imageDetails = array_merge(get_object_vars($gigapan_newAPI), $imageDetails);
 
 	// In the description, assume the first line (up until the first "\n") is the sub_description which can be used apart from the Image Details
-	$temp = explode("\n", $gigapan_newAPI->description);
+	$temp = explode("\n", $imageDetails['description']);
 	$imageDetails['sub_description'] = $temp[0];
 
 	// parse the 'Input images' field for more granular access
@@ -73,6 +60,28 @@ function parse_gigapan_json($id) {
 		$imageDetails['fov_height'] = $imageDetails['field_of_view_h'];
 	}
 
+	return $imageDetails;
+}
+
+
+// =========================================================================
+// Parses a string (typically sticher notes or --Image Details-- to build
+// a key-value array
+// =========================================================================
+function build_imageDetails($unparsed_ImageDetails)
+{
+	$imageDetails = array();
+
+	foreach ($unparsed_ImageDetails as $imageDetailArrayItem)
+	{
+		// Only look at lines with a ":" in them
+		if (strpos($imageDetailArrayItem, ': '))
+		{
+			// make everything up to the ":" the key, and everything after the value
+			$tempImageDetail = explode(": ", $imageDetailArrayItem);
+			$imageDetails[trim($tempImageDetail[0])] = $tempImageDetail[1];
+		}
+	}
 	return $imageDetails;
 }
 
