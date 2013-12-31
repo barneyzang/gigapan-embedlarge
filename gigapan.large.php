@@ -158,7 +158,7 @@ else
 			{
 				// make the exposure time more readable
 				$exposureTimeText;
-				if ($imageDetails['Exposure time'] < 1)
+				if (($imageDetails['Exposure time'] > 0) && ($imageDetails['Exposure time'] < 1))
 					$exposureTimeText = '1/' . round((1/$imageDetails['Exposure time']));
 				else
 					$exposureTimeText = $imageDetails['Exposure time'];
