@@ -2755,7 +2755,7 @@ if (!org.gigapan.utils.GigapanTiles) {
         }));
         for (key in r) c.addControl(r[key].getElement(), r[key].getSeadragonControlAnchor());
         for (key in r) r[key].initialize();
-        setTimeout(this.zoomToFillContainer, 10)
+//	    setTimeout(this.zoomToFillContainer, 10)	// removes default zoom behavior when loading the image <jps>
     }
 })();
 if (org) {
