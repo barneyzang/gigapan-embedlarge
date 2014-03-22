@@ -11,12 +11,10 @@
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
 
-
 // grab the passed in "id"
 $id='';
 if (isset($_GET['id']))
 	$id=$_GET['id'];
-
 
 include './gigapan.large/parse_gigapan_json.php';
 
@@ -39,7 +37,7 @@ $dateTaken = new DateTime($imageDetails['taken_at']);
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 <script src="gigapan.large/jquery.bxslider/jquery.bxslider.min.js"></script>
 <link href="gigapan.large/jquery.bxslider/jquery.bxslider.css" rel="stylesheet" />
-	
+
 <script type="text/javascript" src="gigapan.large/jquery.js"></script>
 <script type="text/javascript"> var $j = jQuery.noConflict();</script>
 <script type="text/javascript" src="gigapan.large/swfobject.js"></script>
@@ -51,12 +49,24 @@ $dateTaken = new DateTime($imageDetails['taken_at']);
 <meta name="format-detection" content="telephone=no">
 <meta name="viewport" content="width=device-width, maximum-scale=1, user-scalable=no">
 
-
 <?php
 //include("google.analytics.php");
 ?>
 </head>
-<body>
+
+
+<?php
+// Add Google Map information if posible
+$hasMapInfo = (isset($imageDetails['latitude']) || !isset($imageDetails['longitude']) || !isset($imageDetails['heading']) || !isset($imageDetails['fov_width']));
+if ( $hasMapInfo ) {
+?>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+<script type="text/javascript" src="gigapan.large/gigapan.map.js"></script>
+<script>
+var map;
+var map_isInitialized = false;
+</script>
+<?php } ?>
 
 <script type="text/javascript">
 $(document).ready(function() {
@@ -69,8 +79,10 @@ $(document).ready(function() {
 		slideMargin: 5
 	});
 	
+<?php if ( $hasMapInfo ) { ?>
 	// Initialize the map view
 	$('.mapView').hide();
+<?php } ?>
 });
 	
 <?php
@@ -84,6 +96,9 @@ else
 ?>
 </script>
 
+
+
+<body>
 
 <div class="header">
 	<div class="title"><?php print $imageDetails['name']; ?> - <a href="http://gigapan.com/gigapans/<?php echo $imageDetails['id']; ?>">view on gigapan.com</a></div>
@@ -171,8 +186,10 @@ else
 			
 			if ( isset($imageDetails['Focal length (35mm equiv.)']) && ($imageDetails['Focal length (35mm equiv.)'] != 'unknown') )
 				print "\t\t" . 'Focal Length (35mm equiv.): ' .	$imageDetails['Focal length (35mm equiv.)'] . '<br>' . PHP_EOL;
+
+		if ( $hasMapInfo )
+			print "\t\t" . '<div class="mapView_toggle"><a href="#" id="mapView_toggle">toggle map / image</a></div>' . PHP_EOL;
 ?>
-		<div class="mapView_toggle"><a href="#" id="mapView_toggle">toggle map / image</a></div>
 	</div>
 </div>
 
@@ -214,34 +231,31 @@ Filmstrip.setup();
 
 </script>
 
-
+<?php 
+if ($hasMapInfo) {
+?>
 <script type="text/javascript">
 $("#mapView_toggle").click(function() {
     $(".gigapan-view").fadeToggle();
     $(".mapView").fadeToggle();
 
 	if ($("#mapView").is(':visible')) {
+		if (!map_isInitialized) {
+<?php
+			print "\t\t\t" . 'map = initialize_map(' . $imageDetails['latitude'] . ',' . 
+												$imageDetails['longitude'] . ',' . 
+												$imageDetails['heading'] . ',' .
+												$imageDetails['fov_width'] . ',' .
+												'"mapView");' . PHP_EOL;
+?>
+			map_isInitialized = true;
+		}
+					
 		google.maps.event.trigger(map, 'resize');
-		map.fitBounds(bounds);
 	}
 });
 </script>
-
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
-<script type="text/javascript" src="gigapan.large/gigapan.map.js"></script>
-<script type="text/javascript">
-<?php
-// Disable the map toggle if not all the right data is available
-if ( !isset($imageDetails['latitude']) || !isset($imageDetails['longitude']) || !isset($imageDetails['heading']) || !isset($imageDetails['fov_width']) )
-	print '$(".mapView_toggle").toggle();';
-else
-	print 'var map = initialize_map(' . $imageDetails['latitude'] . ',' . 
-										$imageDetails['longitude'] . ',' . 
-										$imageDetails['heading'] . ',' .
-										$imageDetails['fov_width'] . ',' .
-										'"mapView");' . PHP_EOL;
-?>
-</script>
+<?php } ?>
 
 <?php
 //include("statcounter.php");

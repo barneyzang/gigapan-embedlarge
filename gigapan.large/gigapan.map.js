@@ -24,9 +24,8 @@ function computeLatLonFromOrigin(lat1, lon1, crs12, d12)
 
 // Based on code found at http://www.geocodezip.com/v3_polyline_example_arc.html
 var EarthRadiusMeters = 6378137.0; // meters
-var bounds = new google.maps.LatLngBounds();
 
-function drawArc(center, initialBearing, finalBearing, radius) { 
+function fillArcArray(center, initialBearing, finalBearing, radius) { 
 	var d2r = Math.PI / 180;   // degrees to radians 
 	var r2d = 180 / Math.PI;   // radians to degrees 
 	
@@ -36,13 +35,12 @@ function drawArc(center, initialBearing, finalBearing, radius) {
 	var rlat = (radius / EarthRadiusMeters) * r2d; 
 	var rlng = rlat / Math.cos(center.lat() * d2r); 
 	
-	var extp = new Array();
+	var extp = new google.maps.MVCArray();
 	
 	var deltaBearing = (finalBearing - initialBearing)/points;
 	for (var i=0; (i < points+1); i++) 
 	{ 
 		extp.push(computeLatLonFromOrigin(center.lat(), center.lng(), (initialBearing + i*deltaBearing), radius));
-		bounds.extend(extp[extp.length-1]);
 	} 
 	return extp;
 }
@@ -68,10 +66,15 @@ function initialize_map(originLat, originLon, heading, fov, id)
 		streetViewControl: false,
 		};
 	var map = new google.maps.Map(document.getElementById(id), mapOptions);
+
+	var bounds = new google.maps.LatLngBounds(origin)
 		
 	// compute the FOV bounding endpoints; fill in a polyLineCoordinates array to draw on the map
 	var computedLeft	= computeLatLonFromOrigin(origin.lat(), origin.lng(), (heading + fov/2), fovArcRadius);
 	var computedRight	= computeLatLonFromOrigin(origin.lat(), origin.lng(), (heading - fov/2), fovArcRadius);
+	
+	bounds.extend(computedLeft);
+	bounds.extend(computedRight);
 	
 	var polyLineCoordinates = [
 		new google.maps.LatLng(computedLeft.lat(), computedLeft.lng()),
@@ -87,16 +90,20 @@ function initialize_map(originLat, originLon, heading, fov, id)
 	});
 	fovBoundingLines.setMap(map)
 
+	var arcArray = fillArcArray(origin, (heading + fov/2), (heading - fov/2), (fovArcRadius*.9));
+	for (var i = i; i < arcArray.getLength(); i++) {
+		bounds.extend(arcArray.getAt(i));
+	}
+
 	// Draw the arc connecting the two bounding line, but make the radius a little shorter
 	var arc = new google.maps.Polyline({
-					 path: [drawArc(origin, (heading + fov/2), (heading - fov/2), (fovArcRadius*.9))],
+					 path: arcArray,
 					 strokeColor: "#FF0000",
 					 strokeOpacity: 0.6,
 					 strokeWeight: 2
 		 });
 	arc.setMap(map);
 	
-	bounds.extend(origin);
 	map.fitBounds(bounds);
 	
 	return map;

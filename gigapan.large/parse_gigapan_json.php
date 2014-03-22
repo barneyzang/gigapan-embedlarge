@@ -22,7 +22,11 @@ function parse_gigapan_json($id) {
 
 	$contents = utf8_encode($contents);
 	$contents = json_decode($contents);
-	$imageDetails = get_object_vars($contents->gigapan);
+	
+	$imageDetails = array();
+	if (is_object($contents->gigapan))
+		$imageDetails = get_object_vars($contents->gigapan);
+		
 
 	// First, retrieve a few fields from the stitcher notes if it exists and is not empty
 	$unparsed_ImageDetails = array();
@@ -79,7 +83,7 @@ function build_imageDetails($unparsed_ImageDetails)
 		{
 			// make everything up to the ":" the key, and everything after the value
 			$tempImageDetail = explode(": ", $imageDetailArrayItem);
-			$imageDetails[trim($tempImageDetail[0])] = $tempImageDetail[1];
+			$imageDetails[trim($tempImageDetail[0])] = trim($tempImageDetail[1]);
 		}
 	}
 	return $imageDetails;
