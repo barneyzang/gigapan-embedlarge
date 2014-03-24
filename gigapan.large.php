@@ -21,7 +21,6 @@ include './gigapan.large/parse_gigapan_json.php';
 // Populate the imageDetails array
 $imageDetails = array();
 $imageDetails = parse_gigapan_json($id);
-$dateTaken = new DateTime($imageDetails['taken_at']);
 
 ?>
 <!DOCTYPE HTML>
@@ -54,19 +53,10 @@ $dateTaken = new DateTime($imageDetails['taken_at']);
 ?>
 </head>
 
-
 <?php
-// Add Google Map information if posible
+// Check to see if enough information is associated with the image to draw a meaningful map
 $hasMapInfo = (isset($imageDetails['latitude']) || !isset($imageDetails['longitude']) || !isset($imageDetails['heading']) || !isset($imageDetails['fov_width']));
-if ( $hasMapInfo ) {
 ?>
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
-<script type="text/javascript" src="gigapan.large/gigapan.map.js"></script>
-<script>
-var map;
-var map_isInitialized = false;
-</script>
-<?php } ?>
 
 <script type="text/javascript">
 $(document).ready(function() {
@@ -97,15 +87,14 @@ else
 </script>
 
 
-
 <body>
 
 <div class="header">
 	<div class="title"><?php print $imageDetails['name']; ?> - <a href="http://gigapan.com/gigapans/<?php echo $imageDetails['id']; ?>">view on gigapan.com</a></div>
 	<div class="info">
 <?php 
-		print "\t\t";
-		print 'taken ' . $dateTaken->format('Y.m.d') . ', ';
+		$dateTaken = new DateTime($imageDetails['taken_at']);
+		print "\t\t" . 'taken ' . $dateTaken->format('Y.m.d') . ', ';
 
 		// Show the number of images and columns x rows if available
 		if (isset($imageDetails['Input images']))
@@ -232,12 +221,17 @@ Filmstrip.setup();
 </script>
 
 <?php 
-if ($hasMapInfo) {
+if ( $hasMapInfo ) {
 ?>
-<script type="text/javascript">
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+<script type="text/javascript" src="gigapan.large/gigapan.map.js"></script>
+<script>
+var map;
+var map_isInitialized = false;
+
 $("#mapView_toggle").click(function() {
-    $(".gigapan-view").fadeToggle();
-    $(".mapView").fadeToggle();
+	$(".gigapan-view").fadeToggle();
+	$(".mapView").fadeToggle();
 
 	if ($("#mapView").is(':visible')) {
 		if (!map_isInitialized) {
@@ -250,7 +244,6 @@ $("#mapView_toggle").click(function() {
 ?>
 			map_isInitialized = true;
 		}
-					
 		google.maps.event.trigger(map, 'resize');
 	}
 });
