@@ -57,7 +57,7 @@ $imageDetails = parse_gigapan_json($id);
 // Check to see if enough information is associated with the image to draw a meaningful map
 $hasMapInfo = ( (isset($imageDetails['latitude'])) && 
 				(isset($imageDetails['longitude'])) &&
-				(isset($imageDetails['heading']) && ($imageDetails['heading'] != 0)) &&
+				(isset($imageDetails['heading'])) &&
 				(isset($imageDetails['fov_width']) && ($imageDetails['fov_width'] != 0)) );
 ?>
 
