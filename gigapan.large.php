@@ -55,7 +55,10 @@ $imageDetails = parse_gigapan_json($id);
 
 <?php
 // Check to see if enough information is associated with the image to draw a meaningful map
-$hasMapInfo = (isset($imageDetails['latitude']) || !isset($imageDetails['longitude']) || !isset($imageDetails['heading']) || !isset($imageDetails['fov_width']));
+$hasMapInfo = ( (isset($imageDetails['latitude'])) && 
+				(isset($imageDetails['longitude'])) &&
+				(isset($imageDetails['heading']) && ($imageDetails['heading'] != 0)) &&
+				(isset($imageDetails['fov_width']) && ($imageDetails['fov_width'] != 0)) );
 ?>
 
 <script type="text/javascript">
@@ -104,17 +107,17 @@ else
 		print round( ($imageDetails['resolution']/(1000*1000*1000)), 2) . ' gigapixels';
 
 		// Show the FOV details if available
-		if (isset($imageDetails['fov_width']))
+		if (isset($imageDetails['fov_width']) && ($imageDetails['fov_width'] != 0))
 		{
 			print ', ' . PHP_EOL . "\t\t";
 			print '<img src="gigapan.large/fovicon.white.width.png" alt="fov icon" height="12">' . $imageDetails['fov_width'] . '&deg;';
-		}
-		if (isset($imageDetails['fov_width']) && (isset($imageDetails['fov_height'])))
-			print ' x ';
-		if (isset($imageDetails['fov_height']))
-		{	
-			print PHP_EOL . "\t\t";
-			print '<img src="gigapan.large/fovicon.white.height.png" alt="fov icon" height="12">' . $imageDetails['fov_height'] . '&deg;';
+
+			if (isset($imageDetails['fov_height']) && ($imageDetails['fov_height'] != 0))
+			{
+				print ' x ';
+				print PHP_EOL . "\t\t";
+				print '<img src="gigapan.large/fovicon.white.height.png" alt="fov icon" height="12">' . $imageDetails['fov_height'] . '&deg;';
+			}
 		}
 		print PHP_EOL;
 ?>
@@ -227,14 +230,14 @@ if ( $hasMapInfo ) {
 <script type="text/javascript" src="gigapan.large/gigapan.map.js"></script>
 <script>
 var map;
-var map_isInitialized = false;
 
 $("#mapView_toggle").click(function() {
 	$(".gigapan-view").fadeToggle();
 	$(".mapView").fadeToggle();
 
 	if ($("#mapView").is(':visible')) {
-		if (!map_isInitialized) {
+		// Initialize the map only once
+		if ( typeof map === 'undefined' ) {
 <?php
 			print "\t\t\t" . 'map = initialize_map(' . $imageDetails['latitude'] . ',' . 
 												$imageDetails['longitude'] . ',' . 
@@ -242,7 +245,6 @@ $("#mapView_toggle").click(function() {
 												$imageDetails['fov_width'] . ',' .
 												'"mapView");' . PHP_EOL;
 ?>
-			map_isInitialized = true;
 		}
 		google.maps.event.trigger(map, 'resize');
 	}
