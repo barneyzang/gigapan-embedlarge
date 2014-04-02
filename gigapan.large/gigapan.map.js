@@ -91,7 +91,7 @@ function initialize_map(originLat, originLon, heading, fov, id)
 	fovBoundingLines.setMap(map)
 
 	var arcArray = fillArcArray(origin, (heading + fov/2), (heading - fov/2), (fovArcRadius*.9));
-	for (var i = i; i < arcArray.getLength(); i++) {
+	for (var i = 0; i < arcArray.getLength(); i++) {
 		bounds.extend(arcArray.getAt(i));
 	}
 
