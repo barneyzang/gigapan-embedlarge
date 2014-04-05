@@ -49,7 +49,7 @@ $imageDetails = parse_gigapan_json($id);
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 <script src="gigapan.large/jquery.bxslider/jquery.bxslider.min.js"></script>
 <link href="gigapan.large/jquery.bxslider/jquery.bxslider.css" rel="stylesheet" />
-xcode<?php if ($viewer == 'flash') { ?>
+<?php if ($viewer == 'flash') { ?>
 <!-- flash viewer support -->
 <script type="text/javascript" src="gigapan.large/jquery.js"></script>
 <script type="text/javascript"> var $j = jQuery.noConflict();</script>
