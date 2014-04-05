@@ -12,9 +12,22 @@ error_reporting(E_ALL);
 ini_set('display_errors', '1');
 
 // grab the passed in "id"
-$id='';
 if (isset($_GET['id']))
 	$id=$_GET['id'];
+else
+	trigger_error("no gigapan id passed in -- use gigapan.large.php?id=X where X is a valid gigapan id", E_USER_ERROR);
+
+// Support for a user passed in parameter that can specify the desired viewer
+// Note: this only works to force use of the sea dragon viewer in cases where flash is also an option.
+// That is, when flash isn't available, the sea dragon viewer will always be used.
+$viewer = 'flash';		// Assume that the default viewer is flash
+if ( isset($_GET['viewer']) ) {
+	switch ($_GET['viewer']) {
+		case 'sd':		$viewer = 'sd'; break;
+		case 'flash':	$viewer = 'flash'; break;
+		default: trigger_error("invalid viewer parameter -- use '&viewer=sd' or '&viewer=flash'", E_USER_ERROR);
+	}
+}
 
 include './gigapan.large/parse_gigapan_json.php';
 
@@ -36,11 +49,14 @@ $imageDetails = parse_gigapan_json($id);
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 <script src="gigapan.large/jquery.bxslider/jquery.bxslider.min.js"></script>
 <link href="gigapan.large/jquery.bxslider/jquery.bxslider.css" rel="stylesheet" />
-
+xcode<?php if ($viewer == 'flash') { ?>
+<!-- flash viewer support -->
 <script type="text/javascript" src="gigapan.large/jquery.js"></script>
 <script type="text/javascript"> var $j = jQuery.noConflict();</script>
 <script type="text/javascript" src="gigapan.large/swfobject.js"></script>
+<?php } ?>
 
+<!-- gigapan.large support -->
 <script type="text/javascript" src="gigapan.large/gigapan.embedlarge.js"></script>
 <script type="text/javascript" src="gigapan.large/gigapan.snapshots.embedlarge.js"></script>
 <script type="text/javascript" src="gigapan.large/gigapan.embedlarge-sd.js"></script>
@@ -82,7 +98,7 @@ $(document).ready(function() {
 // Support for a user passed in parameter that can specify the desired viewer
 // Note: this only works to force use of the sea dragon viewer in cases where flash is also an option.
 // That is, when flash isn't available, the sea dragon viewer will always be used.
-if ( isset($_GET['viewer']) && ($_GET['viewer'] == 'sd') )
+if ( $viewer == 'sd' )
 	print 'var forceShowSDViewer = true;' . PHP_EOL;
 else
 	print 'var forceShowSDViewer = false;' . PHP_EOL;
@@ -179,8 +195,8 @@ else
 			if ( isset($imageDetails['Focal length (35mm equiv.)']) && ($imageDetails['Focal length (35mm equiv.)'] != 'unknown') )
 				print "\t\t" . 'Focal Length (35mm equiv.): ' .	$imageDetails['Focal length (35mm equiv.)'] . '<br>' . PHP_EOL;
 
-		if ( $hasMapInfo )
-			print "\t\t" . '<div class="mapView_toggle"><a href="#" id="mapView_toggle">toggle map / image</a></div>' . PHP_EOL;
+			if ( $hasMapInfo )
+				print "\t\t" . '<div class="mapView_toggle"><a href="#" id="mapView_toggle">toggle map / image</a></div>' . PHP_EOL;
 ?>
 	</div>
 </div>
