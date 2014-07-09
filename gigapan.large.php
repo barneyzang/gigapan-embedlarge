@@ -68,7 +68,7 @@ $imageDetails = parse_gigapan_json($id);
 <meta name="viewport" content="width=device-width, maximum-scale=1, user-scalable=no">
 
 <?php
-include("google.analytics.php");
+//include("google.analytics.php");
 ?>
 </head>
 
@@ -281,7 +281,7 @@ $("#mapView_toggle").click(function() {
 <?php } ?>
 
 <?php
-include("statcounter.php");
+//include("statcounter.php");
 ?>
 </body>
 </html>
