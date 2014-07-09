@@ -46,15 +46,27 @@ function fillArcArray(center, initialBearing, finalBearing, radius) {
 }
 
 
-function initialize_map(originLat, originLon, heading, fov, id)
+//function initialize_map(originLat, originLon, heading, fov, id)
+function initialize_map(mapContext)
 {
+	var defaults = {
+		fovArcRadius:  8,	//	default fov radius is 8km
+	}
+	var mapContext = $.extend(defaults, mapContext);
+
+	var originLat	= mapContext.originLat
+	var originLon	= mapContext.originLon
+	var heading		= mapContext.heading
+	var fov			= mapContext.fov
+	var id			= mapContext.id
+
 //	log(originLat);
 //	log(originLon);
 //	log(heading);
 //	log(fov);
 
 	var origin = new google.maps.LatLng(originLat, originLon);
-	var fovArcRadius = 8;	// radius of bounding lines (in km)
+	var fovArcRadius = mapContext.fovArcRadius;	// radius of bounding lines (in km)
 
 	var mapOptions = {
 		center: origin,

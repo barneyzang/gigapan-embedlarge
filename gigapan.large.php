@@ -68,7 +68,7 @@ $imageDetails = parse_gigapan_json($id);
 <meta name="viewport" content="width=device-width, maximum-scale=1, user-scalable=no">
 
 <?php
-//include("google.analytics.php");
+include("google.analytics.php");
 ?>
 </head>
 
@@ -257,13 +257,22 @@ $("#mapView_toggle").click(function() {
 	if ($("#mapView").is(':visible')) {
 		// Initialize the map only once
 		if ( typeof map === 'undefined' ) {
-<?php
-			print "\t\t\t" . 'map = initialize_map(' . $imageDetails['latitude'] . ',' . 
-												$imageDetails['longitude'] . ',' . 
-												$imageDetails['heading'] . ',' .
-												$imageDetails['fov_width'] . ',' .
-												'"mapView");' . PHP_EOL;
+
+			var mapContext = {
+				originLat: <?php print $imageDetails['latitude'] ?>,
+				originLon: <?php print $imageDetails['longitude'] ?>,
+				heading: <?php print $imageDetails['heading'] ?>,
+				fov: <?php print $imageDetails['fov_width'] ?>,
+<?php if (array_key_exists('fovArcRadius', $imageDetails)) 
+{
+	// Allow an override of the map view's field of view arc radius
+	print "\t\t\t\t" . 'fovArcRadius: ' . $imageDetails['fovArcRadius'] . ',' . PHP_EOL;
+}
 ?>
+				id: "mapView",
+			}
+			
+			map = initialize_map(mapContext);
 		}
 		google.maps.event.trigger(map, 'resize');
 	}
@@ -272,7 +281,7 @@ $("#mapView_toggle").click(function() {
 <?php } ?>
 
 <?php
-//include("statcounter.php");
+include("statcounter.php");
 ?>
 </body>
 </html>
