@@ -20,7 +20,7 @@ else
 // Support for a user passed in parameter that can specify the desired viewer
 // Note: this only works to force use of the sea dragon viewer in cases where flash is also an option.
 // That is, when flash isn't available, the sea dragon viewer will always be used.
-$viewer = 'flash';		// Assume that the default viewer is flash
+$viewer = 'sd';		// Assume that the default viewer is SeaDragon / javascript
 if ( isset($_GET['viewer']) ) {
 	switch ($_GET['viewer']) {
 		case 'sd':		$viewer = 'sd'; break;
